@@ -10,11 +10,11 @@ public class ShipAudio : MonoBehaviour
     private float basePitch = 0;
     public AnimationCurve pitchCurve;
 
-    public ShipHover hover;
+    public ShipMovement movement;
     
     private void Start()
     {
-        hover = GetComponent<ShipHover>();
+        movement = GetComponent<ShipMovement>();
         audio = GetComponent<AudioSource>();
         basePitch = audio.pitch;
     }
@@ -22,6 +22,6 @@ public class ShipAudio : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        audio.pitch = basePitch + basePitch * pitchCurve.Evaluate(hover.VelocityPercent);
+        audio.pitch = basePitch + basePitch * pitchCurve.Evaluate(movement.VelocityPercent);
     }
 }

@@ -10,7 +10,7 @@ public static class BarycentricCoordinateInterpolator
  
         if (!meshCollider || !meshCollider.sharedMesh)
         {
-            Debug.LogWarning("No MeshCollider attached to to the mesh!", hit.collider);
+            //Debug.LogWarning("No MeshCollider attached to to the mesh!", hit.collider);
             return Vector3.up;
         }
  
