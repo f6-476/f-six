@@ -7,12 +7,10 @@ using Vector2 = System.Numerics.Vector2;
 public class ShipHover : MonoBehaviour
 {
     private Ship _ship;
-    private Rigidbody _rigidbody;
     [SerializeField]
     private Transform level;
+
     public float hoverHeight = 4;
-    [SerializeField]
-    private float force = 100f;
 
     public bool tunePID = false;
 
@@ -23,7 +21,6 @@ public class ShipHover : MonoBehaviour
     void Start()
     {
         _ship = GetComponent<Ship>();
-        _rigidbody = GetComponent<Rigidbody>();
         _hoverPidController = new PID(p,i,d);
     }
 
@@ -49,14 +46,14 @@ public class ShipHover : MonoBehaviour
            Debug.DrawRay(hit.point, interpolatedNormal);
           Debug.DrawLine(hit.point,hit.point + interpolatedNormal * 3f);
           var direction = (transform.position - hit.point).normalized;
-            _rigidbody.AddForce(-80.8f * direction,ForceMode.Acceleration);
-            _rigidbody.AddForce(interpolatedNormal * _hoverPidController.GetOutput((hoverHeight - hit.distance),Time.fixedDeltaTime));
-            _rigidbody.MoveRotation(Quaternion.FromToRotation(transform.up, interpolatedNormal) * Quaternion.AngleAxis(_ship.RudderValue * 2f,transform.up) * _rigidbody.rotation);
+            _ship.Rigidbody.AddForce(-80.8f * direction,ForceMode.Acceleration);
+            _ship.Rigidbody.AddForce(interpolatedNormal * _hoverPidController.GetOutput((hoverHeight - hit.distance),Time.fixedDeltaTime));
+            _ship.Rigidbody.MoveRotation(Quaternion.FromToRotation(transform.up, interpolatedNormal) * Quaternion.AngleAxis(_ship.RudderValue * 2f,transform.up) * _ship.Rigidbody.rotation);
         }
         else
         {
             var direction = (transform.position - level.position).normalized;
-            _rigidbody.AddForce(-9.8f * direction,ForceMode.Acceleration);
+            _ship.Rigidbody.AddForce(-9.8f * direction,ForceMode.Acceleration);
         }
         
 

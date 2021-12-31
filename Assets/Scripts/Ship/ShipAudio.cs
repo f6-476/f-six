@@ -6,22 +6,21 @@ using UnityEngine;
 [RequireComponent(typeof(Ship))]
 public class ShipAudio : MonoBehaviour
 {
-    public AudioSource audio;
+    public  AudioSource audioSource;
     private float basePitch = 0;
     public AnimationCurve pitchCurve;
-
-    public ShipMovement movement;
+    private Ship _ship;
     
     private void Start()
     {
-        movement = GetComponent<ShipMovement>();
-        audio = GetComponent<AudioSource>();
-        basePitch = audio.pitch;
+        _ship = GetComponent<Ship>();
+        audioSource = GetComponent<AudioSource>();
+        basePitch = audioSource.pitch;
     }
 
     // Update is called once per frame
     void Update()
     {
-        audio.pitch = basePitch + basePitch * pitchCurve.Evaluate(movement.VelocityPercent);
+        audioSource.pitch = basePitch + basePitch * pitchCurve.Evaluate(_ship.Movement.VelocityPercent);
     }
 }
