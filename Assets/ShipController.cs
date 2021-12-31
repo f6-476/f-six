@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Ship))]
 public class ShipController : MonoBehaviour
 {
     // Start is called before the first frame update
