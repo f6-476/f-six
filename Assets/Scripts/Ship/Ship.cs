@@ -15,7 +15,11 @@ public class Ship : MonoBehaviour
     public ShipHover Hover => _hover;
     public ShipAudio Audio => _audio;
     
-    
+    //TODO: Ship stats --> scriptable object to set values (speed, maneuverability, etc...)
+    //TODO: State machine for animation?
+
+
+
     // Properties
     public Rigidbody Rigidbody => _rigidbody;
     public float RudderValue  => _controller.GetRudderValue();
