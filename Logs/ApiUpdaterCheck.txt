@@ -168,3 +168,63 @@ C# parse time         : 192ms
 candidates check time : 38ms
 console write time    : 0ms
 
+[api-updater (non-obsolete-error-filter)] 2022-01-08 2:44:51 AM : Starting /home/alavoie/Unity/Hub/Editor/2020.3.25f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 63.968ms
+moved types parse time: 67ms
+candidates parse time : 2ms
+C# parse time         : 307ms
+candidates check time : 79ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 2022-01-08 2:45:43 AM : Starting /home/alavoie/Unity/Hub/Editor/2020.3.25f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 62.123ms
+moved types parse time: 66ms
+candidates parse time : 2ms
+C# parse time         : 245ms
+candidates check time : 75ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 2022-01-08 2:46:37 AM : Starting /home/alavoie/Unity/Hub/Editor/2020.3.25f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 66.37ms
+moved types parse time: 65ms
+candidates parse time : 2ms
+C# parse time         : 245ms
+candidates check time : 78ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 2022-01-08 2:47:05 AM : Starting /home/alavoie/Unity/Hub/Editor/2020.3.25f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 63.351ms
+moved types parse time: 65ms
+candidates parse time : 2ms
+C# parse time         : 262ms
+candidates check time : 73ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 2022-01-08 2:47:47 AM : Starting /home/alavoie/Unity/Hub/Editor/2020.3.25f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 58.753ms
+moved types parse time: 97ms
+candidates parse time : 2ms
+C# parse time         : 249ms
+candidates check time : 63ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 2022-01-08 2:49:25 AM : Starting /home/alavoie/Unity/Hub/Editor/2020.3.25f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 96.691ms
+moved types parse time: 67ms
+candidates parse time : 2ms
+C# parse time         : 268ms
+candidates check time : 43ms
+console write time    : 0ms
+
