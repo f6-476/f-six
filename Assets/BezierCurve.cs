@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+//TODO: Separate this into 3 classes: curve, spline, and track
 public class BezierCurve : MonoBehaviour
 {
     [SerializeField] private Transform[] controlPoints = new Transform[4];
@@ -30,6 +31,7 @@ public class BezierCurve : MonoBehaviour
         mesh = new Mesh();
         mesh.name = "Segment";
         GetComponent<MeshFilter>().sharedMesh = mesh;
+        GetComponent<MeshCollider>().sharedMesh = mesh;
         vertices = GenerateVertices();
         GenerateMesh();
     }

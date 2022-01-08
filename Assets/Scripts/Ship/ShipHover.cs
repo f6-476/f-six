@@ -7,8 +7,6 @@ using Vector2 = System.Numerics.Vector2;
 public class ShipHover : MonoBehaviour
 {
     private Ship _ship;
-    [SerializeField]
-    private Transform level;
 
     public float hoverHeight = 4;
 
@@ -50,12 +48,7 @@ public class ShipHover : MonoBehaviour
             _ship.Rigidbody.AddForce(interpolatedNormal * _hoverPidController.GetOutput((hoverHeight - hit.distance),Time.fixedDeltaTime));
             _ship.Rigidbody.MoveRotation(Quaternion.FromToRotation(transform.up, interpolatedNormal) * Quaternion.AngleAxis(_ship.RudderValue * 2f,transform.up) * _ship.Rigidbody.rotation);
         }
-        else
-        {
-            var direction = (transform.position - level.position).normalized;
-            _ship.Rigidbody.AddForce(-9.8f * direction,ForceMode.Acceleration);
-        }
-        
+
 
     }
 }

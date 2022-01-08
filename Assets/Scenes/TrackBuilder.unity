@@ -345,6 +345,7 @@ GameObject:
   - component: {fileID: 837175302}
   - component: {fileID: 837175305}
   - component: {fileID: 837175304}
+  - component: {fileID: 837175306}
   m_Layer: 0
   m_Name: Segment
   m_TagString: Untagged
@@ -372,7 +373,7 @@ MonoBehaviour:
   T: 0.396
   resolution: 12
   edgeRingCount: 12
-  thickness: 1
+  thickness: 4.4
   vertices:
   - {x: 1, y: -0, z: 0}
   - {x: 0.8660254, y: -0.5, z: 0}
@@ -452,6 +453,20 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 837175301}
+  m_Mesh: {fileID: 0}
+--- !u!64 &837175306
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837175301}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 0}
 --- !u!1 &1125321705
 GameObject:
