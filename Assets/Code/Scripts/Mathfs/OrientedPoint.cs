@@ -4,7 +4,6 @@ using UnityEngine;
 
 public struct OrientedPoint
 {
-
     public Vector3 position;
 
     public Quaternion rotation;
@@ -14,7 +13,7 @@ public struct OrientedPoint
         this.position = position;
         this.rotation = rotation;
     }
-    
+
     public OrientedPoint(Vector3 position, Vector3 forward)
     {
         this.position = position;
@@ -23,11 +22,11 @@ public struct OrientedPoint
 
     public Vector3 LocalToWorldPosition(Vector3 local)
     {
-        return position + rotation * local; 
+        return position + rotation * local;
     }
-    
+
     public Vector3 LocalToWorldVector(Vector3 local)
     {
-        return rotation * local; 
+        return rotation * local;
     }
 }

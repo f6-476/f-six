@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 [RequireComponent(typeof(Ship))]
 public class ShipAIController : Controller
 {
@@ -11,7 +12,7 @@ public class ShipAIController : Controller
         thrustValue = 1f;
     }
 
-    public void GetBoost(InputAction.CallbackContext ctx)
+    private void GetBoost(InputAction.CallbackContext ctx)
     {
         /*if (ctx.performed)
         {
@@ -24,5 +25,4 @@ public class ShipAIController : Controller
             boost = false;
         }*/
     }
-    
 }

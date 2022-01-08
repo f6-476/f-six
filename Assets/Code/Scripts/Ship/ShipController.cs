@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Ship))]
 public class ShipController : Controller
 {
-    
     public void GetRudder(InputAction.CallbackContext ctx)
     {
         rudderValue = ctx.ReadValue<float>();

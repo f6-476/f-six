@@ -10,7 +10,7 @@ public class Controller : MonoBehaviour
     {
         return rudderValue;
     }
-    
+
     public float GetThrustValue()
     {
         return thrustValue;
