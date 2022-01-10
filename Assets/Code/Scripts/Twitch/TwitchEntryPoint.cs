@@ -74,13 +74,6 @@ public class TwitchEntryPoint : MonoBehaviour
 
 	private void Update()
 	{
-		// Don't call the client send message on every Update,
-		// this is sample on how to call the client,
-		// not an example on how to code.
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			_client.SendMessage(_channelToConnectTo, "I pressed the space key within Unity.");
-		}
 	}
 
     public override bool Equals(object obj)
