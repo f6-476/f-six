@@ -360,6 +360,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b2294138e158c41a206554e354251b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _controller: {fileID: 1848271415}
+  _movement: {fileID: 1848271417}
+  _hover: {fileID: 3317581294562083416}
+  _audio: {fileID: 3317581294562083422}
+  _rigidbody: {fileID: 3317581294562083415}
 --- !u!114 &1848271415
 MonoBehaviour:
   m_ObjectHideFlags: 0
