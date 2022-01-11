@@ -455,6 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410483aec7849234383c2851968dbdad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ship: {fileID: 1848271416}
   speed: 40
   boost: 1.5
 --- !u!114 &3317581294562083422
@@ -469,7 +470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 399e61a19910be54389b642257a5dd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
   pitchCurve:
     serializedVersion: 2
     m_Curve:
@@ -503,6 +503,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _ship: {fileID: 1848271416}
+  _audioSource: {fileID: 3317581294562083423}
 --- !u!114 &3317581294562083416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,6 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222e00e586e155a449c4e25a833c007a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ship: {fileID: 1848271416}
   hoverHeight: 4
   tunePID: 0
   p: 85

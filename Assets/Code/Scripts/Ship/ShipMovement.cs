@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShipMovement : MonoBehaviour
 {
-    private Ship _ship;
+    [SerializeField] private Ship _ship;
 
     public float speed = 20f;
     public float boost = 1.5f;
@@ -12,11 +12,6 @@ public class ShipMovement : MonoBehaviour
     public float Speed => _ship.Boost ? speed * boost : speed;
 
     public float VelocityPercent => _ship.Rigidbody.velocity.magnitude / speed;
-
-    private void Start()
-    {
-        _ship = GetComponent<Ship>();
-    }
 
     private void FixedUpdate()
     {

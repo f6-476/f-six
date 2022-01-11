@@ -6,7 +6,7 @@ using Vector2 = System.Numerics.Vector2;
 [RequireComponent(typeof(Ship))]
 public class ShipHover : MonoBehaviour
 {
-    private Ship _ship;
+    [SerializeField] private Ship _ship;
 
     public float hoverHeight = 4;
 
@@ -19,7 +19,6 @@ public class ShipHover : MonoBehaviour
 
     private void Start()
     {
-        _ship = GetComponent<Ship>();
         _hoverPidController = new PID(p, i, d);
     }
 
