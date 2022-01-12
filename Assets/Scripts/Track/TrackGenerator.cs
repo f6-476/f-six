@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class TrackGenerator : MonoBehaviour
 {
-    [Range(3, 50)] public int resolution = 3;
-    [Range(2, 32)] public int edgeRingCount;
-    [Range(1, 20)] public float thickness;
+    [Range(3, 128)] public int resolution = 10;
+    [Range(2, 64)] public int edgeRingCount = 2;
+    [Range(1, 20)] public float thickness = 3;
     private Mesh mesh;
     public Vector3[] vertices;
-
     public BezierCurve curve;
 
     private void Awake()
