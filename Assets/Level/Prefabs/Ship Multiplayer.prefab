@@ -19357,9 +19357,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2379152826062508370}
     - target: {fileID: 3317581294562083423, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
+      propertyPath: MaxDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3317581294562083423, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: cd2aaf30c6d017db6b1b4383f2a0cfcd, type: 3}
+    - target: {fileID: 3317581294562083423, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
 --- !u!82 &2379152826062508370 stripped

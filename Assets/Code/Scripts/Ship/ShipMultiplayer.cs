@@ -14,23 +14,13 @@ public class ShipMultiplayer : NetworkBehaviour
     {
         if(IsOwner)
         {
-            cameraController = Camera.main.GetComponent<CameraController>();
-            cameraController.AddTarget(transform);
+            NetworkGameManager.Local.AttachShip(ship);
         }
         else
         {
             ship.Movement.enabled = false;
             ship.Hover.enabled = false;
         }
-    }
-
-    public override void OnDestroy() {
-        base.OnDestroy();
-
-        if(IsOwner)
-        {
-            cameraController.RemoveTarget(transform);
-        }    
     }
 
     [ServerRpc]
