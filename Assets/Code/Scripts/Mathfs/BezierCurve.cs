@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEditor;
 using System.Linq;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 //TODO: Separate this into 3 classes: curve, spline, and track
 public class BezierCurve : MonoBehaviour
@@ -41,6 +44,7 @@ public class BezierCurve : MonoBehaviour
 
     public Vector3 GetPos(int i) => controlPoints[i].position;
 
+    #if UNITY_EDITOR
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
@@ -48,8 +52,15 @@ public class BezierCurve : MonoBehaviour
         {
             Gizmos.DrawSphere(point.position, 1f);
         }
-        Handles.DrawBezier(GetPos(0), GetPos(3), GetPos(1), GetPos(2),
-            Color.white, EditorGUIUtility.whiteTexture, 1f);
+        Handles.DrawBezier(
+            GetPos(0), 
+            GetPos(3), 
+            GetPos(1), 
+            GetPos(2),
+            Color.white, 
+            EditorGUIUtility.whiteTexture, 
+            1f
+        );
         Gizmos.DrawLine(GetPos(0), GetPos(1));
         Gizmos.DrawLine(GetPos(2), GetPos(3));
 
@@ -74,6 +85,7 @@ public class BezierCurve : MonoBehaviour
             Gizmos.DrawLine(a, b);
         }
     }
+    #endif
 
     public Vector3[] GenerateVertices()
     {

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
 
 public class CameraController : MonoBehaviour 
 {
@@ -13,25 +12,16 @@ public class CameraController : MonoBehaviour
     private float rotationSpeed = 5.0f;
 
     private void Start()
+    {}
+
+    public void AddTarget(Transform target) 
     {
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+        this.targets.Add(target);
     }
 
-    private void OnClientConnected(ulong clientId) 
+    public void RemoveTarget(Transform target)
     {
-        if(clientId != NetworkManager.Singleton.LocalClientId) return;
-
-        NetworkClient client;
-        if(NetworkManager.Singleton.IsServer) 
-        {
-            client = NetworkManager.Singleton.ConnectedClients[clientId];
-        } 
-        else 
-        {
-            client = NetworkManager.Singleton.LocalClient;
-        }
-
-        targets.Add(client.PlayerObject.transform);
+        this.targets.Remove(target);
     }
 
     private Vector3 AveragePosition() 
