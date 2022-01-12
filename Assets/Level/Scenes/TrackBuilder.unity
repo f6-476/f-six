@@ -323,6 +323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 837175303}
+  - component: {fileID: 837175307}
   - component: {fileID: 837175302}
   - component: {fileID: 837175305}
   - component: {fileID: 837175304}
@@ -346,15 +347,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a7f673dbc48124893a4656e75bc727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlPoints:
-  - {fileID: 1125321706}
-  - {fileID: 1860574146}
-  - {fileID: 1301531321}
-  - {fileID: 1956219982}
+  CirclePoints: []
   T: 0.396
   resolution: 12
   edgeRingCount: 12
   thickness: 4.4
+  segmentCount: 20
+  trackRadius: 250
+  noiseLevel: 50
   vertices:
   - {x: 1, y: -0, z: 0}
   - {x: 0.8660254, y: -0.5, z: 0}
@@ -449,6 +449,59 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &837175307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837175301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5ac92bc18f545cc84cd886ece82b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  editorData:
+    _bezierPath:
+      points:
+      - {x: -2, y: 0, z: 0}
+      - {x: -1, y: 0.5, z: 0}
+      - {x: 1, y: -0.5, z: 0}
+      - {x: 2, y: 0, z: 0}
+      isClosed: 0
+      space: 0
+      controlMode: 0
+      autoControlLength: 0.3
+      boundsUpToDate: 0
+      bounds:
+        m_Center: {x: 0, y: 0, z: 0}
+        m_Extent: {x: 0, y: 0, z: 0}
+      perAnchorNormalsAngle:
+      - 0
+      - 0
+      globalNormalsAngle: 0
+      flipNormals: 0
+    vertexPathUpToDate: 0
+    vertexPathMaxAngleError: 0.3
+    vertexPathMinVertexSpacing: 0.01
+    showTransformTool: 1
+    showPathBounds: 0
+    showPerSegmentBounds: 0
+    displayAnchorPoints: 1
+    displayControlPoints: 1
+    bezierHandleScale: 1
+    globalDisplaySettingsFoldout: 0
+    keepConstantHandleSize: 0
+    showNormalsInVertexMode: 0
+    showBezierPathInVertexMode: 0
+    showDisplayOptions: 0
+    showPathOptions: 1
+    showVertexPathDisplayOptions: 0
+    showVertexPathOptions: 1
+    showNormals: 0
+    showNormalsHelpInfo: 0
+    tabIndex: 0
+  initialized: 1
 --- !u!1 &974580096
 GameObject:
   m_ObjectHideFlags: 0
