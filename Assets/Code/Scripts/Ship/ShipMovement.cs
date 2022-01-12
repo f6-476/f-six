@@ -7,6 +7,8 @@ public class ShipMovement : MonoBehaviour
     [SerializeField] private Ship _ship;
 
     public float speed = 20f;
+    [Range(0.0f, 2.0f)]
+    public float thrustMultiplier = 1.0f;
     public float boost = 1.5f;
 
     public float Speed => _ship.Boost ? speed * boost : speed;
@@ -15,6 +17,6 @@ public class ShipMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _ship.Rigidbody.AddForce(transform.forward * (Speed * _ship.ThrustValue), ForceMode.Acceleration);
+        _ship.Rigidbody.AddForce(transform.forward * (Speed * _ship.ThrustValue * thrustMultiplier), ForceMode.Acceleration);
     }
 }
