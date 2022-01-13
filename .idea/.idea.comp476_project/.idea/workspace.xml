@@ -17,6 +17,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Track/TrackGenerator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Editor/BezierCurveInspector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Editor/BezierSplineInspector.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -68,6 +69,7 @@
       <updated>1641934901416</updated>
       <workItem from="1641934914998" duration="3000" />
       <workItem from="1641935141223" duration="4971000" />
+      <workItem from="1642032880619" duration="568000" />
     </task>
     <servers />
   </component>

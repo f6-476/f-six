@@ -366,29 +366,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a7f673dbc48124893a4656e75bc727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlPoints:
-  - {fileID: 1125321706}
-  - {fileID: 1860574146}
-  - {fileID: 1301531321}
-  - {fileID: 1956219982}
-  points: []
-  T: 0.396
-  resolution: 12
-  edgeRingCount: 12
-  thickness: 4.4
-  vertices:
-  - {x: 1, y: -0, z: 0}
-  - {x: 0.8660254, y: -0.5, z: 0}
-  - {x: 0.49999997, y: -0.86602545, z: 0}
-  - {x: -0.00000004371139, y: -1, z: 0}
-  - {x: -0.50000006, y: -0.8660254, z: 0}
-  - {x: -0.8660254, y: -0.50000006, z: 0}
-  - {x: -1, y: 0.00000008742278, z: 0}
-  - {x: -0.86602527, y: 0.5000002, z: 0}
-  - {x: -0.4999999, y: 0.86602545, z: 0}
-  - {x: 0.000000011924881, y: 1, z: 0}
-  - {x: 0.4999999, y: 0.86602545, z: 0}
-  - {x: 0.86602557, y: 0.49999976, z: 0}
+  points:
+  - {x: 50, y: 0, z: 0}
+  - {x: 25, y: 0, z: -20}
+  - {x: -25, y: 0, z: 20}
+  - {x: -50, y: 0, z: 0}
+  T: 0.5
+  vertices: []
 --- !u!4 &837175303
 Transform:
   m_ObjectHideFlags: 0
@@ -482,13 +466,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a01c0e6279834a29acda247b34a6733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 3
-  edgeRingCount: 0
-  thickness: 0
-  vertices:
-  - {x: 1, y: -0, z: 0}
-  - {x: -0.50000006, y: -0.8660254, z: 0}
-  - {x: -0.4999999, y: 0.86602545, z: 0}
+  resolution: 10
+  edgeRingCount: 2
+  thickness: 3
+  vertices: []
   curve: {fileID: 0}
 --- !u!1 &1125321705
 GameObject:

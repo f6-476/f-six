@@ -35,19 +35,19 @@ public class BezierCurve : MonoBehaviour
 
     private Vector3 GetPos(int i) => transform.TransformPoint(points[i]);//controlPoints[i].position;
     
-    public void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
-        foreach (var point in points)//controlPoints)
-        {
-            Gizmos.DrawSphere(transform.TransformPoint(point),1f);
-        }
-        Handles.DrawBezier(GetPos(0),GetPos(3),GetPos(1),GetPos(2),
-            Color.white, EditorGUIUtility.whiteTexture, 1f);
-        Gizmos.DrawLine(GetPos(0),GetPos(1));
-        Gizmos.DrawLine(GetPos(2),GetPos(3));
-        
-    }
+    // public void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.white;
+    //     foreach (var point in points)//controlPoints)
+    //     {
+    //         Gizmos.DrawSphere(transform.TransformPoint(point),1f);
+    //     }
+    //     Handles.DrawBezier(GetPos(0),GetPos(3),GetPos(1),GetPos(2),
+    //         Color.white, EditorGUIUtility.whiteTexture, 1f);
+    //     Gizmos.DrawLine(GetPos(0),GetPos(1));
+    //     Gizmos.DrawLine(GetPos(2),GetPos(3));
+    //     
+    // }
 
 
     public OrientedPoint GetBezierPoint(float t)
