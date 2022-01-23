@@ -46,10 +46,24 @@ public class CameraController : MonoBehaviour
 
         foreach(Transform target in targets) 
         {
-            average += target.rotation.eulerAngles;
+            average += target.forward;
         }
 
-        return Quaternion.Euler(average / targets.Count);
+        return Quaternion.LookRotation(average, Vector3.up);
+    }
+
+    private Quaternion AverageNormal()
+    {
+        Vector3 average = Vector3.zero;
+
+        if(targets.Count == 0) return Quaternion.Euler(average);
+
+        foreach(Transform target in targets)
+        {
+            average += target.transform.up;
+        }
+
+        return Quaternion.LookRotation(average, Vector3.up);
     }
 
     private void Update() 

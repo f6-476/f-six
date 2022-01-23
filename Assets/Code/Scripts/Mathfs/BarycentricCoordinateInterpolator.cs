@@ -1,27 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class BarycentricCoordinateInterpolator
 {
     public static Vector3 GetInterpolatedNormal(RaycastHit hit)
     {
-        MeshCollider meshCollider = hit.collider as MeshCollider;
- 
-        if (!meshCollider || !meshCollider.sharedMesh)
+        if (hit.transform.TryGetComponent<MeshCollider>(out MeshCollider meshCollider))
         {
-            //Debug.LogWarning("No MeshCollider attached to to the mesh!", hit.collider);
-            return Vector3.up;
+            return CalculateInterpolatedMeshNormal(meshCollider.sharedMesh, hit);
         }
- 
-        Mesh mesh = meshCollider.sharedMesh;
-        Vector3 normal = CalculateInterpolatedNormal(mesh, hit);
-     
-        return normal;
+        else if (hit.transform.TryGetComponent<SphereCollider>(out SphereCollider sphereCollider))
+        {
+            return hit.normal;
+        }
+        else if (hit.transform.TryGetComponent<CapsuleCollider>(out CapsuleCollider capsuleCollider))
+        {
+            return hit.normal;
+        }
+
+        return Vector3.up;
     }
  
-    private static Vector3 CalculateInterpolatedNormal(Mesh mesh, RaycastHit hit)
+    private static Vector3 CalculateInterpolatedMeshNormal(Mesh mesh, RaycastHit hit)
     {
+        if (mesh == null) return Vector3.up;
+
         Vector3[] normals = mesh.normals;
         int[] triangles = mesh.triangles;
  
@@ -41,9 +43,6 @@ public static class BarycentricCoordinateInterpolator
         // Transform local space normals to world space
         Transform hitTransform = hit.collider.transform;
         interpolatedNormal = hitTransform.TransformDirection(interpolatedNormal);
- 
-        // Display with Debug.DrawLine
-        Debug.DrawRay(hit.point, interpolatedNormal);
  
         return interpolatedNormal;
     }
