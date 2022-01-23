@@ -1,12 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEditor;
-using System.Linq;
+
 //TODO: Separate this into 3 classes: curve, spline, and track
-public class BezierCurve : MonoBehaviour
+public class BezierCurve : BezierSegment
 {
     //[SerializeField] private Transform[] controlPoints = new Transform[4];
 
@@ -49,7 +44,7 @@ public class BezierCurve : MonoBehaviour
     // }
 
 
-    public OrientedPoint GetBezierPoint(float t)
+    public override OrientedPoint GetBezierPoint(float t)
     {
         Vector3 p0 = GetPos(0);
         Vector3 p1 = GetPos(1);
@@ -74,7 +69,7 @@ public class BezierCurve : MonoBehaviour
 
     }
 
-    Vector3 GetBezierTangent(float t)
+    public override Vector3 GetBezierTangent(float t)
     {
         Vector3 p0 = GetPos(0);  
         Vector3 p1 = GetPos(1);

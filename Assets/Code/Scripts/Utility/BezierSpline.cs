@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
-using UnityEditor;
 
-public class BezierSpline : MonoBehaviour
+public class BezierSpline : BezierSegment
 {
     //[SerializeField] private Transform[] controlPoints = new Transform[4];
 
@@ -15,7 +14,6 @@ public class BezierSpline : MonoBehaviour
     [Range(0, 1)] public float T = 0.5f;
 
     private Mesh mesh;
-    public Vector3[] vertices;
 
     public int CurveCount {
         get {
@@ -52,7 +50,7 @@ public class BezierSpline : MonoBehaviour
     // }
 
 
-    public OrientedPoint GetBezierPoint(float t)
+    public override OrientedPoint GetBezierPoint(float t)
     {
         Vector3 p0 = GetPos(0);
         Vector3 p1 = GetPos(1);
@@ -77,7 +75,7 @@ public class BezierSpline : MonoBehaviour
 
     }
 
-    public Vector3 GetBezierTangent(float t)
+    public override Vector3 GetBezierTangent(float t)
     {
         Vector3 p0 = GetPos(0);  
         Vector3 p1 = GetPos(1);

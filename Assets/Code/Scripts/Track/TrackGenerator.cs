@@ -10,7 +10,7 @@ public class TrackGenerator : MonoBehaviour
     [Range(1, 20)] public float thickness = 3;
     private Mesh mesh;
     public Vector3[] vertices;
-    public BezierCurve curve;
+    public BezierSegment curve;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class TrackGenerator : MonoBehaviour
         mesh.name = "Segment";
         GetComponent<MeshFilter>().sharedMesh = mesh;
         GetComponent<MeshCollider>().sharedMesh = mesh;
-        curve = GetComponent<BezierCurve>();
+        curve = GetComponent<BezierSegment>();
         vertices = GenerateVertices();
         GenerateMesh();
     }
