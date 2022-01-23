@@ -1,12 +1,9 @@
-
 using UnityEngine;
-using UnityEngine.InputSystem;
-using Vector2 = System.Numerics.Vector2;
 
 [RequireComponent(typeof(Ship))]
 public class ShipHover : MonoBehaviour
 {
-    [SerializeField] private Ship _ship;
+    private Ship _ship;
 
     public float hoverHeight = 4;
 
@@ -17,6 +14,11 @@ public class ShipHover : MonoBehaviour
     [Range(-100f, 100f)]
     private float p, i, d;
     private PID _hoverPidController;
+
+    private void Awake() 
+    {
+        _ship = GetComponent<Ship>();    
+    }
 
     private void Start()
     {

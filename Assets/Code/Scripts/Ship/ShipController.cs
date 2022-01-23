@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,12 +18,10 @@ public class ShipController : Controller
     {
         if (ctx.performed)
         {
-            Debug.Log("boost true");
             boost = true;
         }
-        if (ctx.canceled)
+        else if (ctx.canceled)
         {
-            Debug.Log("boost false");
             boost = false;
         }
     }

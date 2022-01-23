@@ -4,11 +4,16 @@ using UnityEngine;
 [RequireComponent(typeof(Ship))]
 public class ShipMultiplayer : NetworkBehaviour 
 {
-    [SerializeField] private Ship ship;
+    private Ship ship;
     private CameraController cameraController;
 
     private NetworkVariable<Vector3> position;
     private NetworkVariable<Quaternion> rotation;
+
+    private void Awake() 
+    {
+        ship = GetComponent<Ship>();    
+    }
 
     private void Start() 
     {

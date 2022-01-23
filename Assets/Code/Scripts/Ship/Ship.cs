@@ -1,15 +1,27 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[
+    RequireComponent(typeof(ShipMovement)),
+    RequireComponent(typeof(ShipHover)),
+    RequireComponent(typeof(ShipAudio)),
+    RequireComponent(typeof(Rigidbody))
+]
 public class Ship : MonoBehaviour
 {
-    [SerializeField] private Controller _controller;
-    [SerializeField] private ShipMovement _movement;
-    [SerializeField] private ShipHover _hover;
-    [SerializeField] private ShipAudio _audio;
-    [SerializeField] private Rigidbody _rigidbody;
+    private Controller _controller;
+    private ShipMovement _movement;
+    private ShipHover _hover;
+    private ShipAudio _audio;
+    private Rigidbody _rigidbody;
+
+    private void Awake() 
+    {
+        _controller = GetComponent<Controller>();
+        _movement = GetComponent<ShipMovement>();
+        _hover = GetComponent<ShipHover>();
+        _audio = GetComponent<ShipAudio>();
+        _rigidbody = GetComponent<Rigidbody>(); 
+    }
 
     public ShipMovement Movement => _movement;
     public ShipHover Hover => _hover;
