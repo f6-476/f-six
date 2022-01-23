@@ -22,7 +22,6 @@ public class BezierCurveInspector : Editor {
         Handles.color = Color.white;
         Handles.DrawLine(p0, p1);
         Handles.DrawLine(p1, p2);
-        Debug.Log("hi");
     }
 
     private Vector3 ShowPoint (int index) {
