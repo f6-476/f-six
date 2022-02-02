@@ -3,7 +3,7 @@ using UnityEngine;
 // https://catlikecoding.com/unity/tutorials/curves-and-splines/
 public static class Bezier
 {
-
+    
     public static Vector3 GetPoint(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t)
     {
         t = Mathf.Clamp01(t);
@@ -38,4 +38,5 @@ public static class Bezier
             2f * (1f - t) * (p1 - p0) +
             2f * t * (p2 - p1);
     }
+    
 }

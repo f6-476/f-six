@@ -8,7 +8,7 @@ public class TrackGenerator : MonoBehaviour
     [Range(3, 128)] public int resolution = 10;
     [Range(2, 64)] public int edgeRingCount = 2;
     [Range(1, 20)] public float thickness = 3;
-    private Mesh mesh = new Mesh();
+    private Mesh mesh;
     public Vector3[] vertices;
     public BezierSegment curve;
     public bool drawInEditor = true;
@@ -46,7 +46,7 @@ public class TrackGenerator : MonoBehaviour
         {
             float t = ring / (edgeRingCount - 1f);
 
-            OrientedPoint op = curve.GetBezierPoint(t);
+            OrientedPoint op = curve.GetOrientedPoint(t);
             
             for (int i = 0; i < vertices.Length; i++)
             {
