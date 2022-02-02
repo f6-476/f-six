@@ -123,59 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &167493010
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 167493012}
-  - component: {fileID: 167493011}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &167493011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167493010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eec3d72b82db24864a3767ef9f4a82d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  points:
-  - {x: 50, y: 0, z: 0}
-  - {x: 25, y: 0, z: -20}
-  - {x: -28.644764, y: 0, z: 20}
-  - {x: -50, y: -28.621115, z: 42.93256}
-  - {x: -49, y: 27.975645, z: 30.05505}
-  - {x: -3.838891, y: 0, z: 27.96276}
-  - {x: -219.95654, y: 0, z: -5.82642}
-  T: 0.375
-  vertices: []
---- !u!4 &167493012
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167493010}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.486456, y: 11.185396, z: 19.186028}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &311898949
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,6 +227,7 @@ GameObject:
   - component: {fileID: 780579227}
   - component: {fileID: 780579226}
   - component: {fileID: 780579225}
+  - component: {fileID: 780579229}
   - component: {fileID: 780579228}
   m_Layer: 0
   m_Name: Main Camera
@@ -362,11 +310,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 780579224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da78f5a3aa9f3f246bf1a6b28bbf0a45, type: 3}
+  m_Script: {fileID: 11500000, guid: 618b0e3f6c65dd247a4a016150006c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 837175303}
-  offset: 10
+  m_LookSpeedController: 120
+  m_LookSpeedMouse: 4
+  m_MoveSpeed: 10
+  m_MoveSpeedIncrement: 2.5
+  m_Turbo: 10
+--- !u!114 &780579229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780579224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &837175301
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,8 +363,8 @@ GameObject:
   - component: {fileID: 837175305}
   - component: {fileID: 837175304}
   - component: {fileID: 837175306}
-  - component: {fileID: 837175307}
   - component: {fileID: 837175302}
+  - component: {fileID: 837175307}
   m_Layer: 0
   m_Name: Segment
   m_TagString: Untagged
@@ -401,7 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolution: 10
-  edgeRingCount: 2
+  edgeRingCount: 32
   thickness: 3
   vertices:
   - {x: 1, y: -0, z: 0}
@@ -415,6 +399,7 @@ MonoBehaviour:
   - {x: 0.30901712, y: 0.9510565, z: 0}
   - {x: 0.80901724, y: 0.58778495, z: 0}
   curve: {fileID: 0}
+  drawInEditor: 1
 --- !u!4 &837175303
 Transform:
   m_ObjectHideFlags: 0
@@ -501,15 +486,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 837175301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c10f7670e2386db44bde62cee0d78ebd, type: 3}
+  m_Script: {fileID: 11500000, guid: eec3d72b82db24864a3767ef9f4a82d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 50, y: 0, z: 0}
-  - {x: 13.265411, y: 0, z: 9.828532}
-  - {x: -25, y: 0, z: 20}
-  - {x: -50, y: 0, z: 0}
-  T: 0.22
+  - {x: 50, y: 0, z: 37.142857}
+  - {x: 25, y: 0, z: -20}
+  - {x: -40.080692, y: 0, z: -2.3667815}
+  - {x: -50, y: 0, z: -35.904373}
+  - {x: -55.162086, y: 0, z: -56.717598}
+  - {x: -82.496056, y: 0, z: -54.16194}
+  - {x: -69.73724, y: 0, z: -63.29072}
+  - {x: -49.49545, y: 0, z: -72.4195}
+  - {x: -77.901886, y: 0, z: -81.54829}
+  - {x: -78.379425, y: 0, z: -103.89005}
+  T: 0.854
+  nextCurveScale: 10
 --- !u!1 &974580096
 GameObject:
   m_ObjectHideFlags: 0

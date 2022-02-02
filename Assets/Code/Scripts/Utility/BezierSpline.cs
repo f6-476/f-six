@@ -14,7 +14,7 @@ public class BezierSpline : BezierSegment
     [Range(0, 1)] public float T = 0.5f;
 
     private Mesh mesh;
-
+    public float nextCurveScale = 1;
     public int CurveCount {
         get {
             return (points.Length - 1) / 3;
@@ -35,19 +35,14 @@ public class BezierSpline : BezierSegment
 
     private Vector3 GetPos(int i) => transform.TransformPoint(points[i]);//controlPoints[i].position;
     
-    // public void OnDrawGizmos()
-    // {
-    //     Gizmos.color = Color.white;
-    //     foreach (var point in points)//controlPoints)
-    //     {
-    //         Gizmos.DrawSphere(transform.TransformPoint(point),1f);
-    //     }
-    //     Handles.DrawBezier(GetPos(0),GetPos(3),GetPos(1),GetPos(2),
-    //         Color.white, EditorGUIUtility.whiteTexture, 1f);
-    //     Gizmos.DrawLine(GetPos(0),GetPos(1));
-    //     Gizmos.DrawLine(GetPos(2),GetPos(3));
-    //     
-    // }
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        foreach (var point in points)//controlPoints)
+        {
+            Gizmos.DrawSphere(transform.TransformPoint(point),1f);
+        }
+    }
 
 
     public override OrientedPoint GetBezierPoint(float t)
@@ -96,11 +91,12 @@ public class BezierSpline : BezierSegment
     public void AddCurve () {
         Vector3 point = points[points.Length - 1];
         Array.Resize(ref points, points.Length + 3);
-        point.x += 1f;
+        var forward = GetBezierTangent(1);
+        point += forward * nextCurveScale;
         points[points.Length - 3] = point;
-        point.x += 1f;
+        point += forward * nextCurveScale;
         points[points.Length - 2] = point;
-        point.x += 1f;
+        point += forward * nextCurveScale;
         points[points.Length - 1] = point;
     }
     

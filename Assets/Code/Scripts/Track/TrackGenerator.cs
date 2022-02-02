@@ -8,9 +8,10 @@ public class TrackGenerator : MonoBehaviour
     [Range(3, 128)] public int resolution = 10;
     [Range(2, 64)] public int edgeRingCount = 2;
     [Range(1, 20)] public float thickness = 3;
-    private Mesh mesh;
+    private Mesh mesh = new Mesh();
     public Vector3[] vertices;
     public BezierSegment curve;
+    public bool drawInEditor = true;
 
     private void Awake()
     {
@@ -30,7 +31,8 @@ public class TrackGenerator : MonoBehaviour
     private void OnValidate()
     {
         vertices = GenerateVertices();
-        //GenerateMesh();
+        
+        //if(drawInEditor) GenerateMesh();
         
     }
     
