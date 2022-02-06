@@ -10,7 +10,7 @@ public class TrackGenerator : MonoBehaviour
     [Range(1, 20)] public float thickness = 3;
     private Mesh mesh;
     public Vector3[] vertices;
-    public BezierSegment curve;
+    public BezierSegment segment;
     public bool drawInEditor = true;
 
     private void Awake()
@@ -18,8 +18,10 @@ public class TrackGenerator : MonoBehaviour
         mesh = new Mesh();
         mesh.name = "Segment";
         GetComponent<MeshFilter>().sharedMesh = mesh;
-        GetComponent<MeshCollider>().sharedMesh = mesh;
-        curve = GetComponent<BezierSegment>();
+        var collider = GetComponent<MeshCollider>();
+        collider.sharedMesh = mesh;
+        collider.enabled = true;
+        segment = GetComponent<BezierSegment>();
         vertices = GenerateVertices();
         GenerateMesh();
     }
@@ -40,13 +42,25 @@ public class TrackGenerator : MonoBehaviour
     {
         mesh.Clear();
         
+        
+        
         // Vertices
         List<Vector3> verts = new List<Vector3>();
         for (int ring = 0; ring < edgeRingCount; ring++)
         {
+            
+            /*Handles.color = Color.green;
+            Vector3 point = spline.GetPoint(0f);
+            Handles.DrawLine(point, point + spline.GetTangent(0f) * directionScale);
+            int steps = stepsPerCurve * spline.CurveCount;
+            for (int i = 1; i <= steps; i++) {
+                point = spline.GetPoint(i / (float)steps);
+                Handles.DrawLine(point, point + spline.GetTangent(i / (float)steps) * directionScale);
+            }*/
+            
             float t = ring / (edgeRingCount - 1f);
 
-            OrientedPoint op = curve.GetOrientedPoint(t);
+            OrientedPoint op = segment.GetOrientedPoint(t);
             
             for (int i = 0; i < vertices.Length; i++)
             {

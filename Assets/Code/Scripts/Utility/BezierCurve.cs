@@ -1,16 +1,10 @@
 using UnityEngine;
 
-//TODO: Separate this into 3 classes: curve, spline, and track
+//TODO: Separate this into 3 classes: segment, spline, and track
 public class BezierCurve : BezierSegment
 {
     //[SerializeField] private Transform[] controlPoints = new Transform[4];
 
-    public Vector3[] points = new []{
-        new Vector3(50, 0, 0),
-        new Vector3(25, 0, -20),
-        new Vector3(-25, 0, 20),
-        new Vector3(-50, 0, 0)
-    };
     [Range(0, 1)] public float T = 0.5f;
 
     private Mesh mesh;

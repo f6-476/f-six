@@ -295,7 +295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 780579224}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 1, z: -59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 837175302}
   - component: {fileID: 837175307}
   m_Layer: 0
-  m_Name: Segment
+  m_Name: Track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -384,21 +384,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a01c0e6279834a29acda247b34a6733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 10
+  resolution: 32
   edgeRingCount: 32
-  thickness: 3
+  thickness: 8
   vertices:
   - {x: 1, y: -0, z: 0}
-  - {x: 0.809017, y: -0.58778524, z: 0}
-  - {x: 0.30901697, y: -0.95105654, z: 0}
-  - {x: -0.30901703, y: -0.9510565, z: 0}
-  - {x: -0.80901706, y: -0.5877852, z: 0}
+  - {x: 0.98078525, y: -0.19509032, z: 0}
+  - {x: 0.9238795, y: -0.38268346, z: 0}
+  - {x: 0.8314696, y: -0.55557024, z: 0}
+  - {x: 0.70710677, y: -0.70710677, z: 0}
+  - {x: 0.5555702, y: -0.83146966, z: 0}
+  - {x: 0.38268343, y: -0.9238795, z: 0}
+  - {x: 0.19509023, y: -0.9807853, z: 0}
+  - {x: -0.00000004371139, y: -1, z: 0}
+  - {x: -0.19509032, y: -0.98078525, z: 0}
+  - {x: -0.38268352, y: -0.9238795, z: 0}
+  - {x: -0.55557036, y: -0.83146954, z: 0}
+  - {x: -0.70710677, y: -0.70710677, z: 0}
+  - {x: -0.83146966, y: -0.5555702, z: 0}
+  - {x: -0.9238796, y: -0.38268328, z: 0}
+  - {x: -0.9807853, y: -0.19509031, z: 0}
   - {x: -1, y: 0.00000008742278, z: 0}
-  - {x: -0.80901694, y: 0.58778536, z: 0}
-  - {x: -0.3090171, y: 0.9510565, z: 0}
-  - {x: 0.30901712, y: 0.9510565, z: 0}
-  - {x: 0.80901724, y: 0.58778495, z: 0}
-  curve: {fileID: 0}
+  - {x: -0.98078525, y: 0.19509049, z: 0}
+  - {x: -0.9238795, y: 0.38268343, z: 0}
+  - {x: -0.83146954, y: 0.5555703, z: 0}
+  - {x: -0.70710665, y: 0.7071069, z: 0}
+  - {x: -0.55557, y: 0.8314698, z: 0}
+  - {x: -0.38268313, y: 0.9238797, z: 0}
+  - {x: -0.19509038, y: 0.98078525, z: 0}
+  - {x: 0.000000011924881, y: 1, z: 0}
+  - {x: 0.19509041, y: 0.98078525, z: 0}
+  - {x: 0.3826836, y: 0.92387944, z: 0}
+  - {x: 0.5555704, y: 0.8314695, z: 0}
+  - {x: 0.707107, y: 0.70710653, z: 0}
+  - {x: 0.8314696, y: 0.5555703, z: 0}
+  - {x: 0.92387956, y: 0.38268343, z: 0}
+  - {x: 0.9807853, y: 0.19509023, z: 0}
+  segment: {fileID: 837175307}
   drawInEditor: 1
 --- !u!4 &837175303
 Transform:
@@ -433,7 +455,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d2867e5e74f88cc2cbcc1566bb67484a, type: 2}
+  - {fileID: 2100000, guid: 6a68801b66e1d0c4d9318716e8ea6b31, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -475,7 +497,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 0
-  m_CookingOptions: 30
+  m_CookingOptions: -1
   m_Mesh: {fileID: 0}
 --- !u!114 &837175307
 MonoBehaviour:
@@ -490,18 +512,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 50, y: 0, z: 37.142857}
+  - {x: 50, y: 0, z: 0}
   - {x: 25, y: 0, z: -20}
-  - {x: -40.080692, y: 0, z: -2.3667815}
-  - {x: -50, y: 0, z: -35.904373}
-  - {x: -55.162086, y: 0, z: -56.717598}
-  - {x: -82.496056, y: 0, z: -54.16194}
-  - {x: -69.73724, y: 0, z: -63.29072}
-  - {x: -49.49545, y: 0, z: -72.4195}
-  - {x: -77.901886, y: 0, z: -81.54829}
-  - {x: -78.379425, y: 0, z: -103.89005}
-  T: 0.854
-  nextCurveScale: 10
+  - {x: -25, y: 0, z: 20}
+  - {x: -50, y: 0, z: -1.4008238}
+  modes: 0000000000000000
+  T: 0.558
+  pointSpacing: 10
 --- !u!1 &974580096
 GameObject:
   m_ObjectHideFlags: 0

@@ -384,6 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 40
+  thrustMultiplier: 1
   boost: 1.5
 --- !u!114 &3317581294562083422
 MonoBehaviour:
@@ -392,12 +393,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3317581294562083414}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 399e61a19910be54389b642257a5dd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
   pitchCurve:
     serializedVersion: 2
     m_Curve:
@@ -431,6 +431,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _audioSource: {fileID: 0}
 --- !u!114 &3317581294562083416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,8 +444,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222e00e586e155a449c4e25a833c007a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverHeight: 4
+  hoverHeight: 1
   tunePID: 0
+  _gravity: 10
   p: 85
   i: 0.5
   d: 3
@@ -492,7 +494,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3317581294562083414}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7f6fc0b40ef08034e8abe496b36027af, type: 3}
@@ -5466,14 +5468,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebaa86a11bb5e7a4f883cb4b23b30f13, type: 3}
---- !u!4 &2990623117576256582 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ebaa86a11bb5e7a4f883cb4b23b30f13, type: 3}
-  m_PrefabInstance: {fileID: 3317581294204443565}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2507101251079268092 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ebaa86a11bb5e7a4f883cb4b23b30f13, type: 3}
+  m_PrefabInstance: {fileID: 3317581294204443565}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2990623117576256582 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ebaa86a11bb5e7a4f883cb4b23b30f13, type: 3}
   m_PrefabInstance: {fileID: 3317581294204443565}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &3317581295259282187
