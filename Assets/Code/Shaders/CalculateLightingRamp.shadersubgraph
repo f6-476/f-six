@@ -309,7 +309,7 @@
         "m_GuidSerialized": "24342eb3-8252-4cdc-bf82-138cd054c878"
     },
     "m_Name": "Vector1",
-    "m_DefaultReferenceName": "",
+    "m_DefaultReferenceName": "Vector1_388d1a72cdaf4db2ac4651908a1705d0",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
@@ -332,7 +332,7 @@
         "m_GuidSerialized": "a033e27e-f660-4766-adfe-61d3e340935c"
     },
     "m_Name": "Vector3",
-    "m_DefaultReferenceName": "",
+    "m_DefaultReferenceName": "Vector3_3bf5f7824b534cd49b5c00ec0333da0d",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
@@ -727,10 +727,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -269.20001220703127,
-            "y": -150.79998779296876,
-            "width": 208.00001525878907,
-            "height": 301.60003662109377
+            "x": -282.0,
+            "y": -133.0,
+            "width": 208.0,
+            "height": 302.0
         }
     },
     "m_Slots": [
@@ -780,10 +780,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 61.20001220703125,
-            "y": -150.80001831054688,
+            "x": 79.0,
+            "y": -133.0,
             "width": 208.0,
-            "height": 301.6000061035156
+            "height": 302.0
         }
     },
     "m_Slots": [
@@ -814,7 +814,7 @@
         "m_GuidSerialized": "fe8bf3ac-0eb8-4182-9e1b-aa7c20bd4094"
     },
     "m_Name": "Gradient",
-    "m_DefaultReferenceName": "",
+    "m_DefaultReferenceName": "Gradient_d6441fb9ce5d41b09e787e42a77ba1a3",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,

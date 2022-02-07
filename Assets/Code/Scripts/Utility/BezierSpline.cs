@@ -33,19 +33,51 @@ public class BezierSpline : BezierSegment
         return modes[(index + 1) / 3];
     }
 
-    public void SetControlPoint (int index, Vector3 point) 
+    public void SetControlPoint (int index, Vector3 point)
     {
+        if (index % 3 == 0) {
+            Vector3 delta = point - points[index];
+            if (index > 0) {
+                points[index - 1] += delta;
+            }
+            if (index + 1 < points.Length) {
+                points[index + 1] += delta;
+            }
+        }
         points[index] = point;
+        EnforceMode(index);
     }
 
     public void SetControlPointMode (int index, BezierControlPointMode mode) 
     {
         modes[(index + 1) / 3] = mode;
+        EnforceMode(index);
     }
     
     private void EnforceMode (int index) 
     {
-       // int modeIndex = (index + 1) / 3;
+       int modeIndex = (index + 1) / 3;
+       BezierControlPointMode mode = modes[modeIndex];
+       if (mode == BezierControlPointMode.Free || modeIndex == 0 || modeIndex == modes.Length - 1) {
+           return;
+       }
+       
+       int middleIndex = modeIndex * 3;
+       int fixedIndex, enforcedIndex;
+       if (index <= middleIndex) {
+           fixedIndex = middleIndex - 1;
+           enforcedIndex = middleIndex + 1;
+       }
+       else {
+           fixedIndex = middleIndex + 1;
+           enforcedIndex = middleIndex - 1;
+       }
+       Vector3 middle = points[middleIndex];
+       Vector3 enforcedTangent = middle - points[fixedIndex];
+       if (mode == BezierControlPointMode.Aligned) {
+           enforcedTangent = enforcedTangent.normalized * Vector3.Distance(middle, points[enforcedIndex]);
+       }
+       points[enforcedIndex] = middle + enforcedTangent;
     }
 
 
@@ -101,7 +133,7 @@ public class BezierSpline : BezierSegment
         
         Array.Resize(ref modes, modes.Length + 1);
         modes[modes.Length - 1] = modes[modes.Length - 2];
-       //EnforceMode(points.Length - 4);
+       EnforceMode(points.Length - 4);
     }
 
     public void RemoveCurve()
