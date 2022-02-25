@@ -79,8 +79,14 @@ public class BezierSplineInspector : Editor
         return point;
     }
     public override void OnInspectorGUI () {
-        DrawDefaultInspector();
         spline = target as BezierSpline;
+        EditorGUI.BeginChangeCheck();
+        bool loop = EditorGUILayout.Toggle("Loop", spline.Loop);
+        if (EditorGUI.EndChangeCheck()) {
+            Undo.RecordObject(spline, "Toggle Loop");
+            EditorUtility.SetDirty(spline);
+            spline.Loop = loop;
+        }
         if (selectedIndex >= 0 && selectedIndex < spline.ControlPointCount) {
             DrawSelectedPointInspector();
         }
