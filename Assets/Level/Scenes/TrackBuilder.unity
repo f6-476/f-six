@@ -386,6 +386,7 @@ GameObject:
   - component: {fileID: 837175306}
   - component: {fileID: 837175302}
   - component: {fileID: 837175307}
+  - component: {fileID: 837175308}
   m_Layer: 0
   m_Name: Track
   m_TagString: Untagged
@@ -586,6 +587,21 @@ MonoBehaviour:
   T: 0.558
   pointSpacing: 10
   loop: 1
+--- !u!114 &837175308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837175301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ee708d5e796d14b823116245708885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkpointCount: 30
+  WidthToThicknessRatio: 5
+  checkpointPrefab: {fileID: 2024585305990434241, guid: 8211f5b9d3659be4aa7a630e0581b467, type: 3}
 --- !u!1 &974580096
 GameObject:
   m_ObjectHideFlags: 0
