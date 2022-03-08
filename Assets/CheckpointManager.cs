@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
-    private static GameManager _instance;
+    private static CheckpointManager _instance;
 
-    public static GameManager Instance
+    public static CheckpointManager Instance
     {
         get
         {
             if (_instance == null)
             {
-                _instance = FindObjectOfType<GameManager>();
+                _instance = FindObjectOfType<CheckpointManager>();
             }
 
             return _instance;

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PowerupManager : MonoBehaviour
 {
-    private static GameManager _instance;
+    private static PowerupManager _instance;
 
-    public static GameManager Instance
+    public static PowerupManager Instance
     {
         get
         {
             if (_instance == null)
             {
-                _instance = FindObjectOfType<GameManager>();
+                _instance = FindObjectOfType<PowerupManager>();
             }
 
             return _instance;
