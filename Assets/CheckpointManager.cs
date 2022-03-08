@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
@@ -23,14 +24,17 @@ public class CheckpointManager : MonoBehaviour
     [Range(2, 10)] public int WidthToThicknessRatio = 5; // This controls the x scale of the checkpoint relative to the thickness of the track.
     public GameObject[] checkpoints;
     public GameObject checkpointPrefab;
+    public GameObject finishLine;
     private TrackGenerator track;
 
     void Start()
     {
         track = GetComponent<TrackGenerator>();
-        SetCheckpoints();  
+        SetCheckpoints();
+        SetFinishLine(GameManager.Instance._playersShips.First());
     }
-    public void SetCheckpoints()
+
+    private void SetCheckpoints()
     {
         checkpoints = new GameObject[checkpointCount];
         for (int i = 0; i < checkpointCount; i++)
@@ -56,5 +60,11 @@ public class CheckpointManager : MonoBehaviour
             }
         }
         checkpointCount -= 1;
+    }
+
+    private void SetFinishLine(Ship firstShip)
+    {
+        // Temporary: takes first ship in line and sets the finish line to be its closest checkpoint
+        finishLine = checkpoints.ToList().OrderBy(c => (c.transform.position - firstShip.transform.position).magnitude).First();
     }
 }

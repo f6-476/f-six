@@ -15,6 +15,7 @@ public class Ship : MonoBehaviour
     private ShipAudio _audio;
     private Rigidbody _rigidbody;
     private ShipInfo _info;
+    private ShipView _view;
 
     private void Awake() 
     {
@@ -24,12 +25,14 @@ public class Ship : MonoBehaviour
         _audio = GetComponent<ShipAudio>();
         _rigidbody = GetComponent<Rigidbody>();
         _info = GetComponent<ShipInfo>();
+        _view = GetComponent<ShipView>();
     }
 
     public ShipMovement Movement => _movement;
     public ShipHover Hover => _hover;
     public ShipAudio Audio => _audio;
     public ShipInfo Info => _info;
+    public ShipView View => _view;
     
     //TODO: Ship stats --> scriptable object to set values (speed, maneuverability, etc...)
     //TODO: State machine for animation?

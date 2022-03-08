@@ -6,10 +6,17 @@ using UnityEngine;
 [RequireComponent(typeof(Ship))]
 public class ShipInfo : MonoBehaviour
 {
-    [SerializeField] private Transform _transform;
     public List<Transform> CurrentCheckpoints = new List<Transform>();
+    [SerializeField] private List<float> _lapTimeList = new List<float>();
+    [SerializeField] private ShipView _shipView;
     public int LapsCompleted { get; set; }
     public int CurrentRank { get; set; }
+
+    private void Start()
+    {
+        LapsCompleted = 1;
+        _shipView.SetLapText(LapsCompleted);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,10 +27,11 @@ public class ShipInfo : MonoBehaviour
         }
 
         // If lap finished, clear all checkpoints reached and increment number of laps
-        if (HasFinishedLap())
+        if (HasFinishedLap() && other.gameObject == CheckpointManager.Instance.finishLine)
         {
             LapsCompleted++;
             CurrentCheckpoints.Clear();
+            _shipView.SetLapText(LapsCompleted);
         }
         
         // Update Rankings if necessary

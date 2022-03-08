@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,7 +19,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private List<Ship> _playersShips = new List<Ship>();
+    public List<Ship> _playersShips = new List<Ship>();
+    [SerializeField] private int _mapLaps;
 
     private void Awake()
     {
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     /// For sure, a lot of players will have same number of laps (most of the time, all of them)
     /// So on each lap level, those players are sorted by the amount of checkpoints passed
     /// The more checkpoints passed, the higher the rank among the same lapped players
-    /// Lists are ordered by descending (highest rank first)
+    /// Lists are ordered by ascending (first player is first)
     ///
     /// Method is called each time a player triggers a checkpoint (not putting it on Update() for better optimization)
     /// </summary>
@@ -59,8 +59,9 @@ public class GameManager : MonoBehaviour
         foreach (var ship in _playersShips.Where(ship => sortedByLap.Contains(ship)))
         {
             ship.Info.CurrentRank = sortedByLap.FindIndex(s => s == ship) + 1;
+            ship.View.SetRankText(ship.Info.CurrentRank);
         }
 
-        _playersShips = _playersShips.OrderByDescending(s => s.Info.CurrentRank).ToList();
+        _playersShips = _playersShips.OrderBy(s => s.Info.CurrentRank).ToList();
     }
 }
