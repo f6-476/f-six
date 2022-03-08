@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
+    private static GameManager _instance;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<GameManager>();
+            }
+
+            return _instance;
+        }
+    }
+    
     [Range(2, 64)] public int checkpointCount = 2;
     [Range(2, 10)] public int WidthToThicknessRatio = 5; // This controls the x scale of the checkpoint relative to the thickness of the track.
     public GameObject[] checkpoints;

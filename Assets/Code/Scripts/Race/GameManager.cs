@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] private List<Ship> _playersShips = new List<Ship>();
+    [SerializeField] private TrackGenerator _trackGenerator;
 
     private void Awake()
     {
