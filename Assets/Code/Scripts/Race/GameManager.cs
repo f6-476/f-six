@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -17,8 +20,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private List<Ship> _playersShips = new List<Ship>();
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update()
+    {
+        SetPlayerRanks();
+    }
+
+    private void SetPlayerRanks()
+    {
+        var sortedShips = _playersShips.OrderBy(ship => ship.Info.TrackDistance()).ToList();
+        for (var i = 0; i < sortedShips.Count; i++)
+        {
+            sortedShips[i].Info.CurrentRank = i;
+        }
     }
 }

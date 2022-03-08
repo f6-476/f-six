@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [
+    RequireComponent(typeof(ShipInfo)),
     RequireComponent(typeof(ShipMovement)),
     RequireComponent(typeof(ShipHover)),
     RequireComponent(typeof(ShipAudio)),
@@ -13,6 +14,7 @@ public class Ship : MonoBehaviour
     private ShipHover _hover;
     private ShipAudio _audio;
     private Rigidbody _rigidbody;
+    private ShipInfo _info;
 
     private void Awake() 
     {
@@ -20,12 +22,14 @@ public class Ship : MonoBehaviour
         _movement = GetComponent<ShipMovement>();
         _hover = GetComponent<ShipHover>();
         _audio = GetComponent<ShipAudio>();
-        _rigidbody = GetComponent<Rigidbody>(); 
+        _rigidbody = GetComponent<Rigidbody>();
+        _info = GetComponent<ShipInfo>();
     }
 
     public ShipMovement Movement => _movement;
     public ShipHover Hover => _hover;
     public ShipAudio Audio => _audio;
+    public ShipInfo Info => _info;
     
     //TODO: Ship stats --> scriptable object to set values (speed, maneuverability, etc...)
     //TODO: State machine for animation?
