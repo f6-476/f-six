@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class PowerupManager : MonoBehaviour
 {
+    private static PowerupManager _instance;
+
+    public static PowerupManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<PowerupManager>();
+            }
+
+            return _instance;
+        }
+    }
+    
     [Range(2, 100)] public int powerupCount = 20;
     [Range(2, 20)] public float radiusWithNoPowerUp = 5;
     public GameObject powerUpPrefab;
