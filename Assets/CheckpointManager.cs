@@ -66,5 +66,7 @@ public class CheckpointManager : MonoBehaviour
     {
         // Temporary: takes first ship in line and sets the finish line to be its closest checkpoint
         finishLine = checkpoints.ToList().OrderBy(c => (c.transform.position - firstShip.transform.position).magnitude).First();
+        finishLine.name = "FinishLine";
+        finishLine.gameObject.tag = "FinishLine";
     }
 }

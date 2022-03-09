@@ -44,6 +44,6 @@ public class ShipInfo : MonoBehaviour
     /// <returns></returns>
     private bool HasFinishedLap()
     {
-        return CurrentCheckpoints.All(c => CheckpointManager.Instance.checkpoints.ToList().Contains(c.gameObject));
+        return CurrentCheckpoints.Count > 0 && CurrentCheckpoints.All(c => CheckpointManager.Instance.checkpoints.ToList().Contains(c.gameObject));
     }
 }

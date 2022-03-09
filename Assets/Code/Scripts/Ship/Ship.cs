@@ -9,24 +9,13 @@ using UnityEngine;
 ]
 public class Ship : MonoBehaviour
 {
-    private Controller _controller;
-    private ShipMovement _movement;
-    private ShipHover _hover;
-    private ShipAudio _audio;
-    private Rigidbody _rigidbody;
-    private ShipInfo _info;
-    private ShipView _view;
-
-    private void Awake() 
-    {
-        _controller = GetComponent<Controller>();
-        _movement = GetComponent<ShipMovement>();
-        _hover = GetComponent<ShipHover>();
-        _audio = GetComponent<ShipAudio>();
-        _rigidbody = GetComponent<Rigidbody>();
-        _info = GetComponent<ShipInfo>();
-        _view = GetComponent<ShipView>();
-    }
+    [SerializeField] private Controller _controller;
+    [SerializeField] ShipMovement _movement;
+    [SerializeField] private ShipHover _hover;
+    [SerializeField] private ShipAudio _audio;
+    [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private ShipInfo _info;
+    [SerializeField] private ShipView _view;
 
     public ShipMovement Movement => _movement;
     public ShipHover Hover => _hover;
