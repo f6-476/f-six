@@ -21,7 +21,7 @@ public class ShipView : MonoBehaviour
         _lapText.text = $"LAPS: {lap}";
     }
     
-    public void SetLapTimeText(int lapTimeText)
+    public void SetLapTimeText(float lapTimeText)
     {
         _lapTimeText.text = $"LAP TIME: {lapTimeText}";
     }
