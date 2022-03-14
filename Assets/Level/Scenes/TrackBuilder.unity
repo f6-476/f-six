@@ -199,7 +199,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -338.49384, y: 148.4}
+  m_AnchoredPosition: {x: -185.6, y: 116.6}
   m_SizeDelta: {x: 227.0123, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &311898949
@@ -854,10 +854,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ship
       objectReference: {fileID: 0}
-    - target: {fileID: 3317581294562083414, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     - target: {fileID: 3317581294562083416, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: hoverHeight
       value: 2
@@ -1018,7 +1014,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -338.49384, y: 187}
+  m_AnchoredPosition: {x: -185.6, y: 155.20001}
   m_SizeDelta: {x: 227.0123, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1564197300
@@ -1126,7 +1122,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -338.49384, y: 227}
+  m_AnchoredPosition: {x: -185.6, y: 195.20001}
   m_SizeDelta: {x: 227.0123, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2091234768

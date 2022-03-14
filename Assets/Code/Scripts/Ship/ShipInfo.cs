@@ -12,28 +12,45 @@ public class ShipInfo : MonoBehaviour
     public int LapsCompleted { get; set; }
     public int CurrentRank { get; set; }
 
+    private float _stopWatch;
+    private bool _isCounting;
+
     private void Start()
     {
         LapsCompleted = 1;
         _shipView.SetLapText(LapsCompleted);
     }
 
+    private void Update()
+    {
+        if (_isCounting)
+        {
+            _stopWatch += Time.deltaTime;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // If checkpoint has not been reached once, add it to the list of checkpoints reached
-        if (other.gameObject.CompareTag("Checkpoint") && !CurrentCheckpoints.Contains(other.transform))
+        if (other.gameObject.CompareTag("Checkpoint") || other.gameObject.CompareTag("FinishLine") && !CurrentCheckpoints.Contains(other.transform))
         {
             CurrentCheckpoints.Add(other.transform);
         }
 
-        // If lap finished, clear all checkpoints reached and increment number of laps
-        if (HasFinishedLap() && other.gameObject == CheckpointManager.Instance.finishLine)
+        if (other.gameObject == CheckpointManager.Instance.finishLine)
         {
-            LapsCompleted++;
-            CurrentCheckpoints.Clear();
-            _shipView.SetLapText(LapsCompleted);
+            _isCounting = true;
+            if (HasFinishedLap())
+            {
+                LapsCompleted++;
+                CurrentCheckpoints.Clear();
+                _shipView.SetLapText(LapsCompleted);
+                _lapTimeList.Add(_stopWatch);
+                _shipView.SetLapTimeText(_stopWatch);
+                _stopWatch = 0.0f;
+            }
         }
-        
+
         // Update Rankings if necessary
         GameManager.Instance.RankPlayers();
     }
@@ -44,6 +61,7 @@ public class ShipInfo : MonoBehaviour
     /// <returns></returns>
     private bool HasFinishedLap()
     {
-        return CurrentCheckpoints.All(c => CheckpointManager.Instance.checkpoints.ToList().Contains(c.gameObject));
+        return CurrentCheckpoints.Count == CheckpointManager.Instance.checkpoints.Length && 
+               CurrentCheckpoints.All(c => CheckpointManager.Instance.checkpoints.ToList().Contains(c.gameObject));
     }
 }
