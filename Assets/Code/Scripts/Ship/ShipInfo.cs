@@ -18,6 +18,7 @@ public class ShipInfo : MonoBehaviour
     private void Start()
     {
         LapsCompleted = 1;
+        _lapTimeList.Add(0);
         _shipView.SetLapText(LapsCompleted);
     }
 
@@ -72,11 +73,15 @@ public class ShipInfo : MonoBehaviour
         
         LapsCompleted++;
         _shipView.SetLapText(LapsCompleted);
-
-        var lapTimeDifference = _stopWatch - _lapTimeList.Last();
-        _shipView.SetLapTimeText(lapTimeDifference);
-        _lapTimeList.Add(_stopWatch);
+        
         _shipView.SetStopwatchText(_stopWatch);
+        var lapTimeDifference = _lapTimeList.Last() - _stopWatch;
+        if (LapsCompleted > 1)
+        {
+            lapTimeDifference = _stopWatch - _lapTimeList.Last();
+        }
+        _shipView.SetLapTimeText(lapTimeDifference);
+        _lapTimeList.Add(lapTimeDifference);
 
         _stopWatch = 0.0f;
     }
