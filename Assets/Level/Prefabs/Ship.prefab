@@ -522,7 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverHeight: 1
   tunePID: 0
-  _gravity: 0
+  _gravity: 9.8
   p: 85
   i: 0.5
   d: 3
@@ -576,7 +576,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: -0.5}
 --- !u!54 &3317581294562083415
 Rigidbody:
   m_ObjectHideFlags: 0

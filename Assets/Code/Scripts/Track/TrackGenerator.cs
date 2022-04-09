@@ -18,12 +18,11 @@ public class TrackGenerator : MonoBehaviour
         mesh = new Mesh();
         mesh.name = "Segment";
         GetComponent<MeshFilter>().sharedMesh = mesh;
-        var collider = GetComponent<MeshCollider>();
-        collider.sharedMesh = mesh;
-        collider.enabled = true;
         segment = GetComponent<BezierSegment>();
         vertices = GenerateVertices();
         GenerateMesh();
+        var collider = GetComponent<MeshCollider>();
+        collider.sharedMesh = mesh;
     }
     private void Update()
     {
@@ -41,8 +40,6 @@ public class TrackGenerator : MonoBehaviour
     public void GenerateMesh()
     {
         mesh.Clear();
-        
-        
         
         // Vertices
         List<Vector3> verts = new List<Vector3>();
