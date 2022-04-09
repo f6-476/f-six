@@ -26,6 +26,7 @@ public class ShipInfo : MonoBehaviour
         if (_isCounting)
         {
             _stopWatch += Time.deltaTime;
+            _shipView.SetLapTimeText(_stopWatch);
         }
     }
 

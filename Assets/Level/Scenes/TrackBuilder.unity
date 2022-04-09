@@ -174,7 +174,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'LAP TIME:'
+  m_Text: 'LAP TIME: 0.0'
 --- !u!222 &240668521
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -199,8 +199,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -185.6, y: 116.6}
-  m_SizeDelta: {x: 227.0123, y: 30}
+  m_AnchoredPosition: {x: -270.9, y: 153.1}
+  m_SizeDelta: {x: 300.15, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &311898949
 GameObject:
@@ -986,7 +986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -185.6, y: 155.20001}
+  m_AnchoredPosition: {x: -306.6, y: 191.70001}
   m_SizeDelta: {x: 227.0123, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1564197300
@@ -1076,7 +1076,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -185.6, y: 195.20001}
+  m_AnchoredPosition: {x: -306.6, y: 231.70001}
   m_SizeDelta: {x: 227.0123, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2091234768
