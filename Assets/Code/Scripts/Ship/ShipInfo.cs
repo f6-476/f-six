@@ -23,11 +23,7 @@ public class ShipInfo : MonoBehaviour
 
     private void Update()
     {
-        if (_isCounting)
-        {
-            _stopWatch += Time.deltaTime;
-            _shipView.SetLapTimeText(_stopWatch);
-        }
+        TickStopWatch();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,17 +39,21 @@ public class ShipInfo : MonoBehaviour
             _isCounting = true;
             if (HasFinishedLap())
             {
-                LapsCompleted++;
-                CurrentCheckpoints.Clear();
-                _shipView.SetLapText(LapsCompleted);
-                _lapTimeList.Add(_stopWatch);
-                _shipView.SetLapTimeText(_stopWatch);
-                _stopWatch = 0.0f;
+                ResetTimer();
             }
         }
 
         // Update Rankings if necessary
         GameManager.Instance.RankPlayers();
+    }
+
+    private void TickStopWatch()
+    {
+        if (_isCounting)
+        {
+            _stopWatch += Time.deltaTime;
+            _shipView.SetStopwatchText(_stopWatch);
+        }
     }
 
     /// <summary>
@@ -64,5 +64,20 @@ public class ShipInfo : MonoBehaviour
     {
         return CurrentCheckpoints.Count == CheckpointManager.Instance.checkpoints.Length && 
                CurrentCheckpoints.All(c => CheckpointManager.Instance.checkpoints.ToList().Contains(c.gameObject));
+    }
+
+    private void ResetTimer()
+    {
+        CurrentCheckpoints.Clear();
+        
+        LapsCompleted++;
+        _shipView.SetLapText(LapsCompleted);
+
+        var lapTimeDifference = _stopWatch - _lapTimeList.Last();
+        _shipView.SetLapTimeText(lapTimeDifference);
+        _lapTimeList.Add(_stopWatch);
+        _shipView.SetStopwatchText(_stopWatch);
+
+        _stopWatch = 0.0f;
     }
 }
