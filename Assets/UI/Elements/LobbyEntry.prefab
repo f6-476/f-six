@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 5307638570087831417}
   - component: {fileID: 7341837758002058729}
   m_Layer: 5
-  m_Name: Host Name
+  m_Name: HostName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 5307638571319508001}
   - component: {fileID: 5948175617896113558}
   m_Layer: 5
-  m_Name: Player Count
+  m_Name: PlayerCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -504,8 +504,9 @@ GameObject:
   - component: {fileID: 5307638571522850425}
   - component: {fileID: 5307638571522850426}
   - component: {fileID: 6415684352928960472}
+  - component: {fileID: 8271860652467072028}
   m_Layer: 5
-  m_Name: TableEntry
+  m_Name: LobbyEntry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -629,3 +630,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
+--- !u!114 &8271860652467072028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5307638571522850428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 863b4396e3088a26d922d7dc0a3a0165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
