@@ -13,6 +13,7 @@ public class PWPopup : MonoBehaviour
     {
         // TODO: Finish this function to Join Online Game
         Debug.Log($"Join game with pw: {password}");
+        LevelManager.Instance.LoadScene("Lobby");
     }
 
     public void Cancel()

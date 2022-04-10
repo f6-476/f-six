@@ -12,5 +12,6 @@ public class HostPopup : PWPopup
     {
         //TODO
         Debug.Log($"Host an {(online?"online":"offline")} game with pw: {base.password}");
+        LevelManager.Instance.LoadScene("Lobby");
     }
 }
