@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 240668521}
   - component: {fileID: 240668520}
   m_Layer: 5
-  m_Name: TimelapText
+  m_Name: StopWatchText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'LAP TIME:'
+  m_Text: 'LAP TIME: 0.0'
 --- !u!222 &240668521
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -199,8 +199,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -185.6, y: 116.6}
-  m_SizeDelta: {x: 227.0123, y: 30}
+  m_AnchoredPosition: {x: -280.3, y: 153.1}
+  m_SizeDelta: {x: 300.15, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &311898949
 GameObject:
@@ -295,6 +295,85 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &354423648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 354423649}
+  - component: {fileID: 354423651}
+  - component: {fileID: 354423650}
+  m_Layer: 5
+  m_Name: TimeLapText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &354423649
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354423648}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 974580100}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -280.3, y: 113.5}
+  m_SizeDelta: {x: 300.15, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &354423650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354423648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 24
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 000000000000
+--- !u!222 &354423651
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354423648}
+  m_CullTransparentMesh: 1
 --- !u!4 &395431609 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3317581294562083420, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
@@ -777,6 +856,7 @@ RectTransform:
   - {fileID: 2091234767}
   - {fileID: 1564197299}
   - {fileID: 240668522}
+  - {fileID: 354423649}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -848,6 +928,14 @@ PrefabInstance:
       objectReference: {fileID: 2091234768}
     - target: {fileID: 3230696607494715880, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: _lapTimeText
+      value: 
+      objectReference: {fileID: 240668520}
+    - target: {fileID: 3230696607494715880, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
+      propertyPath: _timeLapText
+      value: 
+      objectReference: {fileID: 354423650}
+    - target: {fileID: 3230696607494715880, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
+      propertyPath: _stopWatchText
       value: 
       objectReference: {fileID: 240668520}
     - target: {fileID: 3317581294562083414, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
@@ -986,7 +1074,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -185.6, y: 155.20001}
+  m_AnchoredPosition: {x: -316, y: 191.70001}
   m_SizeDelta: {x: 227.0123, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1564197300
@@ -1076,7 +1164,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -185.6, y: 195.20001}
+  m_AnchoredPosition: {x: -316, y: 231.70001}
   m_SizeDelta: {x: 227.0123, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2091234768

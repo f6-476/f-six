@@ -9,7 +9,8 @@ public class ShipView : MonoBehaviour
 {
     [SerializeField] private Text _rankText;
     [SerializeField] private Text _lapText;
-    [SerializeField] private Text _lapTimeText;
+    [SerializeField] private Text _stopWatchText;
+    [SerializeField] private Text _timeLapText;
 
     public void SetRankText(int rank)
     {
@@ -21,8 +22,27 @@ public class ShipView : MonoBehaviour
         _lapText.text = $"LAPS: {lap}";
     }
     
-    public void SetLapTimeText(float lapTimeText)
+    public void SetStopwatchText(float lapTime)
     {
-        _lapTimeText.text = $"LAP TIME: {lapTimeText}";
+        _stopWatchText.text = $"LAP TIME: {lapTime}";
+    }
+
+    public void SetLapTimeText(float lapTimeDifference)
+    {
+        if (lapTimeDifference < 0f)
+        {
+            _timeLapText.text = $"LAP TIME: +{Mathf.Abs(lapTimeDifference)}";
+            _timeLapText.color = Color.green;
+        }
+        else if (lapTimeDifference > 0f)
+        {
+            _timeLapText.text = $"LAP TIME: -{Mathf.Abs(lapTimeDifference)}";
+            _timeLapText.color = Color.red;
+        }
+        else
+        {
+            _timeLapText.text = $"LAP TIME: {Mathf.Abs(lapTimeDifference)}";
+            _timeLapText.color = Color.grey;
+        }
     }
 }
