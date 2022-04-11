@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     public List<Ship> _playersShips = new List<Ship>();
     [SerializeField] private int _mapLaps;
+    public int MapLaps => _mapLaps;
 
     private void Awake()
     {
@@ -69,5 +70,10 @@ public class GameManager : MonoBehaviour
         }
 
         _playersShips = _playersShips.OrderBy(s => s.Info.CurrentRank).ToList();
+
+        foreach (var ship in _playersShips)
+        {
+            ship.View.SetRankingsText();
+        }
     }
 }
