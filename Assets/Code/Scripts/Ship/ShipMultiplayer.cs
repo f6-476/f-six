@@ -5,8 +5,6 @@ using UnityEngine;
 public class ShipMultiplayer : NetworkBehaviour 
 {
     private Ship ship;
-    private CameraController cameraController;
-
     private NetworkVariable<Vector3> position;
     private NetworkVariable<Quaternion> rotation;
 
