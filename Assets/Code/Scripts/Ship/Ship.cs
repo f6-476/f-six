@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [
@@ -31,4 +32,9 @@ public class Ship : MonoBehaviour
     public float RudderValue  => _controller.GetRudderValue();
     public float ThrustValue => _controller.GetThrustValue();
     public bool Boost => _controller.GetBoost();
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject);
+    }
 }

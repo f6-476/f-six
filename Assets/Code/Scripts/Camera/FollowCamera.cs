@@ -19,6 +19,6 @@ public class FollowCamera : MonoBehaviour
     private void Update()
     {
         transform.position += ((_target.position - (_target.forward * depthoffset) + (_target.up * heightoffset)) - transform.position) * 0.05f;
-        transform.rotation = Quaternion.Slerp(transform.rotation,_target.rotation, 0.05f);
+        transform.rotation = Quaternion.Lerp(transform.rotation,_target.rotation, 0.05f);
     }
 }

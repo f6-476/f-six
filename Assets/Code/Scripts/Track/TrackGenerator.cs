@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class TrackGenerator : MonoBehaviour
 {
     [Range(3, 128)] public int resolution = 10;
-    [Range(2, 64)] public int edgeRingCount = 2;
-    [Range(1, 20)] public float thickness = 3;
+    [Range(2, 128)] public int edgeRingCount = 2;
+    [Range(1, 40)] public float thickness = 3;
     private Mesh mesh;
     public Vector3[] vertices;
     public BezierSegment segment;
@@ -17,10 +18,10 @@ public class TrackGenerator : MonoBehaviour
     {
         mesh = new Mesh();
         mesh.name = "Segment";
-        GetComponent<MeshFilter>().sharedMesh = mesh;
-        segment = GetComponent<BezierSegment>();
         vertices = GenerateVertices();
         GenerateMesh();
+        GetComponent<MeshFilter>().sharedMesh = mesh;
+        segment = GetComponent<BezierSegment>();
         var collider = GetComponent<MeshCollider>();
         collider.sharedMesh = mesh;
     }
@@ -101,6 +102,12 @@ public class TrackGenerator : MonoBehaviour
         mesh.SetVertices(verts);
         mesh.SetTriangles(triangleIndices,0);
         mesh.RecalculateNormals();
+        /*foreach (var norm in mesh.normals)
+        {
+            Debug.Log(norm);
+        }
+        */
+            
     }
     public Vector3[] GenerateVertices()
     {
@@ -114,4 +121,10 @@ public class TrackGenerator : MonoBehaviour
 
         return verts.ToArray();
     }
+
+    /*private void OnDrawGizmos()
+    {
+        OrientedPoint op = segment.GetOrientedPoint(0);
+        Handles.DrawSolidDisc(transform.position, transform.forward, thickness);
+    }*/
 }
