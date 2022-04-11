@@ -17,10 +17,10 @@ public class TrackGenerator : MonoBehaviour
     {
         mesh = new Mesh();
         mesh.name = "Segment";
-        GetComponent<MeshFilter>().sharedMesh = mesh;
-        segment = GetComponent<BezierSegment>();
         vertices = GenerateVertices();
         GenerateMesh();
+        GetComponent<MeshFilter>().sharedMesh = mesh;
+        segment = GetComponent<BezierSegment>();
         var collider = GetComponent<MeshCollider>();
         collider.sharedMesh = mesh;
     }

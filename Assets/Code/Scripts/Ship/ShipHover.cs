@@ -67,30 +67,36 @@ public class ShipHover : MonoBehaviour
         
     }
 
-    public RaycastHit SampleRayCast(Vector3 direction)
-    {
-        Physics.Raycast(transform.position, direction, out RaycastHit hit, 10, trackLayer);
-        return hit;
-    }
+    
 
     public Vector3 SampleCornersAverage()
     {
+        Vector3 norm = Vector3.zero;
+        if (Time.time < 1) return transform.up;
         List<RaycastHit> hits = new List<RaycastHit>();
         hits.Clear();
         
         //front right
-        hits.Add(SampleRayCast(-transform.up + transform.forward * 1 + transform.right * 1));
+        var direction = -transform.up + transform.forward * 1 + transform.right * 1;
+        if(Physics.Raycast(transform.position, direction, out RaycastHit hit1, 10, trackLayer))
+            hits.Add(hit1);
         
         //front left
-        hits.Add(SampleRayCast(-transform.up + transform.forward * 1 - transform.right * 1));
-        
-        //back right
-        hits.Add(SampleRayCast(-transform.up - transform.forward * 1 + transform.right * 1));
-        
-        //back right
-        hits.Add(SampleRayCast(-transform.up - transform.forward * 1 - transform.right * 1));
+        direction = -transform.up + transform.forward * 1 - transform.right * 1;
+        if(Physics.Raycast(transform.position, direction, out RaycastHit hit2, 10, trackLayer))
+            hits.Add(hit1);
 
-        Vector3 norm = Vector3.zero;
+        //back right
+        direction = -transform.up - transform.forward * 1 + transform.right * 1;
+        if(Physics.Raycast(transform.position, direction, out RaycastHit hit3, 10, trackLayer))
+            hits.Add(hit3);
+        
+        //back left
+        direction = -transform.up - transform.forward * 1 - transform.right * 1;
+        if(Physics.Raycast(transform.position, direction, out RaycastHit hit4, 10, trackLayer))
+            hits.Add(hit4);
+
+        
         if (hits.Count > 0)
         {
             foreach (var hit in hits)
@@ -100,7 +106,8 @@ public class ShipHover : MonoBehaviour
             }
             norm = norm / hits.Count;
         }
-        else norm = transform.up;
+        else 
+            norm = transform.up;
         
         return norm;
 
