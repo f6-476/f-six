@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -60,7 +61,7 @@ public class ShipHover : MonoBehaviour
             //Debug.Log("Normal: " + normal + " || Magnitude: " + normal.magnitude);
             /*_ship.Rigidbody.MoveRotation(align * _ship.Rigidbody.rotation);
             _ship.Rigidbody.MoveRotation(turn * _ship.Rigidbody.rotation);*/
-            _ship.Rigidbody.rotation = Quaternion.Slerp(_ship.Rigidbody.rotation, align * _ship.Rigidbody.rotation,  .2f);
+            _ship.Rigidbody.rotation = Quaternion.Slerp(_ship.Rigidbody.rotation, align * _ship.Rigidbody.rotation,  .3f);
             _ship.Rigidbody.rotation = Quaternion.Slerp(_ship.Rigidbody.rotation, turn  * _ship.Rigidbody.rotation,  .5f);
         }
         
@@ -74,23 +75,33 @@ public class ShipHover : MonoBehaviour
 
     public Vector3 SampleCornersAverage()
     {
+        List<RaycastHit> hits = new List<RaycastHit>();
+        hits.Clear();
+        
         //front right
-        var hit1 =  SampleRayCast(-transform.up + transform.forward * 2 + transform.right * 2);
-        Debug.DrawRay(transform.position, hit1.point-transform.position);
+        hits.Add(SampleRayCast(-transform.up + transform.forward * 1 + transform.right * 1));
+        
         //front left
-        var hit2 =  SampleRayCast(-transform.up + transform.forward * 2 - transform.right * 2);
-        Debug.DrawRay(transform.position, hit2.point-transform.position);
+        hits.Add(SampleRayCast(-transform.up + transform.forward * 1 - transform.right * 1));
+        
         //back right
-        var hit3 =  SampleRayCast(-transform.up - transform.forward * 2 + transform.right * 2);
-        Debug.DrawRay(transform.position, hit3.point-transform.position);
+        hits.Add(SampleRayCast(-transform.up - transform.forward * 1 + transform.right * 1));
+        
         //back right
-        var hit4 =  SampleRayCast(-transform.up - transform.forward * 2 - transform.right * 2);
-        Debug.DrawRay(transform.position, hit4.point-transform.position);
+        hits.Add(SampleRayCast(-transform.up - transform.forward * 1 - transform.right * 1));
 
-        var norm = (BarycentricCoordinateInterpolator.GetInterpolatedNormal(hit1) 
-                    + BarycentricCoordinateInterpolator.GetInterpolatedNormal(hit2)
-                    + BarycentricCoordinateInterpolator.GetInterpolatedNormal(hit3)
-                    + BarycentricCoordinateInterpolator.GetInterpolatedNormal(hit4))*0.25f;
+        Vector3 norm = Vector3.zero;
+        if (hits.Count > 0)
+        {
+            foreach (var hit in hits)
+            {
+                norm += (BarycentricCoordinateInterpolator.GetInterpolatedNormal(hit));
+                Debug.DrawRay(transform.position, hit.point - transform.position);
+            }
+            norm = norm / hits.Count;
+        }
+        else norm = transform.up;
+        
         return norm;
 
     }
