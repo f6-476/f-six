@@ -109,6 +109,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  shields: {fileID: 6699833627855391038, guid: 7bc17656c8551e547a3395896dfaf053, type: 3}
-  greenMissiles: {fileID: 0}
-  redMissiles: {fileID: 0}

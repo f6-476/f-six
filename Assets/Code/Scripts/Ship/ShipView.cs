@@ -45,5 +45,4 @@ public class ShipView : MonoBehaviour
             _timeLapText.color = Color.grey;
         }
     }
-
 }

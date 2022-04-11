@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 3317581294562083423}
   m_Layer: 0
   m_Name: Ship
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -343,12 +343,10 @@ Transform:
   m_GameObject: {fileID: 3317581294562083414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.89291, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3317581294558630138}
   - {fileID: 2990623117576256582}
-  - {fileID: 3840704169729776170}
-  - {fileID: 8921005811803299314}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -444,46 +442,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 05629039-02ab-485c-bde3-78c1fc6c898c
     m_ActionName: Gameplay/Boost[/Keyboard/shift]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5d27f420-82a8-4f02-9b8c-694f8830676b
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f020acef-a541-40f6-8b1c-79a31eaa8325
-    m_ActionName: UI/Submit[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1a5bb119-cd14-4a12-bd03-b6a543e9aa6b
-    m_ActionName: UI/Cancel[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 76cd8c26-a382-4eab-8a51-046a96bb42fa
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e66a87c4-e88c-45c3-8295-de917da85b1b
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 858968e7-65dd-4fcb-b872-acf5753f8e9a
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e41420dd-44cb-4752-8db1-a509ec604374
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2fbe375e-2cf3-4bfb-8baf-883b719f48ed
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d6290bbe-d969-4425-8bc3-ee5cf8cb8e99
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 776ab467-e526-4bca-9390-03a39c7906c5
-    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -597,8 +555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rankText: {fileID: 0}
   _lapText: {fileID: 0}
-  _stopWatchText: {fileID: 0}
-  _timeLapText: {fileID: 0}
+  _lapTimeText: {fileID: 0}
 --- !u!33 &3317581294562083419
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -618,8 +575,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.69, y: 0.85, z: 1.3905088}
-  m_Center: {x: 0, y: 0.5, z: -0.78140897}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: -0.5}
 --- !u!54 &3317581294562083415
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5536,66 +5493,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!1 &6432129596907590737
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3840704169729776170}
-  m_Layer: 0
-  m_Name: ShieldSpawnPosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3840704169729776170
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6432129596907590737}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.015, y: 0.5693, z: -0.791}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3317581294562083420}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8762357904559597146
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8921005811803299314}
-  m_Layer: 0
-  m_Name: MissleSpawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8921005811803299314
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8762357904559597146}
-  m_LocalRotation: {x: -0, y: 0.015234074, z: -0, w: 0.999884}
-  m_LocalPosition: {x: 0.0515, y: 0.5693, z: 0.503}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3317581294562083420}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 1.746, z: 0}
 --- !u!1001 &3317581294204443565
 PrefabInstance:
   m_ObjectHideFlags: 0
