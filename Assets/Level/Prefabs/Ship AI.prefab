@@ -316,6 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3317581294562083420}
   - component: {fileID: 1848271416}
+  - component: {fileID: 1427607838068107227}
   - component: {fileID: 4983645465006733698}
   - component: {fileID: 1848271417}
   - component: {fileID: 3317581294562083422}
@@ -324,6 +325,7 @@ GameObject:
   - component: {fileID: 3317581294562083417}
   - component: {fileID: 3317581294562083415}
   - component: {fileID: 3317581294562083423}
+  - component: {fileID: 5873080679221222837}
   m_Layer: 0
   m_Name: Ship AI
   m_TagString: Untagged
@@ -357,6 +359,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7b2294138e158c41a206554e354251b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controller: {fileID: 0}
+  _movement: {fileID: 0}
+  _hover: {fileID: 0}
+  _audio: {fileID: 0}
+  _rigidbody: {fileID: 0}
+  _info: {fileID: 0}
+  _view: {fileID: 0}
+--- !u!114 &1427607838068107227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317581294562083414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17f644609a3a0649b5d78087a6b551d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &4983645465006733698
@@ -583,6 +604,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5873080679221222837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317581294562083414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e26c22dbda32974abf82ae31ab20d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentCheckpoints: []
+  _lapTimeList: []
+  _shipView: {fileID: 0}
 --- !u!1 &3317581295477237567
 GameObject:
   m_ObjectHideFlags: 0
