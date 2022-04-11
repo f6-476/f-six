@@ -36,7 +36,7 @@ public class ShipView : MonoBehaviour
     
     public void SetLapText(int lap)
     {
-        _lapText.text = $"{lap}/3 LAPS";
+        _lapText.text = $"{lap}/{GameManager.Instance.MapLaps} LAPS";
     }
     
     public void SetStopwatchText(float lapTime)

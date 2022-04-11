@@ -29,6 +29,8 @@ public class ShipInfo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (HasFinishedRace()) return;
+        
         // If checkpoint has not been reached once, add it to the list of checkpoints reached
         if (other.gameObject.CompareTag("Checkpoint") || other.gameObject.CompareTag("FinishLine") && !CurrentCheckpoints.Contains(other.transform))
         {
@@ -50,9 +52,14 @@ public class ShipInfo : MonoBehaviour
 
     private void TickStopWatch()
     {
-        if (_isCounting)
+        if (_isCounting && !HasFinishedRace())
         {
             _stopWatch += Time.deltaTime;
+            _shipView.SetStopwatchText(_stopWatch);
+        }
+        else
+        {
+            _stopWatch = 0f;
             _shipView.SetStopwatchText(_stopWatch);
         }
     }
@@ -70,8 +77,11 @@ public class ShipInfo : MonoBehaviour
     private void ResetTimer()
     {
         CurrentCheckpoints.Clear();
-        
-        LapsCompleted++;
+
+        if (LapsCompleted < GameManager.Instance.MapLaps)
+        {
+            LapsCompleted++;
+        }
         _shipView.SetLapText(LapsCompleted);
         
         _shipView.SetStopwatchText(_stopWatch);
@@ -84,5 +94,10 @@ public class ShipInfo : MonoBehaviour
         _lapTimeList.Add(lapTimeDifference);
 
         _stopWatch = 0.0f;
+    }
+
+    private bool HasFinishedRace()
+    {
+        return LapsCompleted > GameManager.Instance.MapLaps;
     }
 }
