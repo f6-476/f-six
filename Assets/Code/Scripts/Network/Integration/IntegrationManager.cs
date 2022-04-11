@@ -1,7 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
 
-public class IntegrationManager : NetworkBehaviour
+public class IntegrationManager : AbstractManager<IntegrationManager>
 {
     private static readonly Integration[] INTEGRATIONS = new Integration[]
     {
@@ -16,24 +16,6 @@ public class IntegrationManager : NetworkBehaviour
     private void OnCommand(Integration.OnCommandArgs args)
     {
 
-    }
-
-    private static IntegrationManager instance;
-    public static IntegrationManager Singleton
-    {
-        get => instance;
-    }
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
     public void Connect()

@@ -1,19 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class RaceMenu : MonoBehaviour
+public class RaceMenu : UIMenu
 {
-
     [SerializeField]
     private GameObject lobbyEntryPrefab;
     private GameObject lobbiesContainer;
     private GameObject passwordPopup;
     private GameObject hostPopup;
 
-    public LobbyEntry currentLobby
+    public LobbyEntry currentServer
     {
         get
         {
@@ -43,20 +42,16 @@ public class RaceMenu : MonoBehaviour
 
     public void JoinPopup()
     {
-        if (currentLobby != null)
+        if (currentServer != null)
         {
             passwordPopup.SetActive(true);
+            passwordPopup.transform.GetComponent<PWPopup>().entry = currentServer;
         }
     }
 
     public void HostPopup()
     {
         hostPopup.SetActive(true);
-    }
-
-    public void BackToMainMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
     }
 
     public void Refresh()
@@ -66,13 +61,13 @@ public class RaceMenu : MonoBehaviour
 
     private void UpdateEntries()
     {
-        foreach(Transform child in lobbiesContainer.transform) 
+        foreach (Transform child in lobbiesContainer.transform)
         {
             Destroy(child.gameObject);
         }
 
         ToggleGroup toggleGroup = lobbiesContainer.GetComponent<ToggleGroup>();
-        foreach(ServerManager.Server server in ServerManager.Singleton.Servers)
+        foreach (ServerManager.Server server in ServerManager.Singleton.Servers)
         {
             GameObject lobbyEntryGameObject = Instantiate(lobbyEntryPrefab, lobbiesContainer.transform);
             LobbyEntry entry = lobbyEntryGameObject.GetComponent<LobbyEntry>();

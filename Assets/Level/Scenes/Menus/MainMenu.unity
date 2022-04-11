@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44658822, g: 0.49642313, b: 0.5748253, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -136,9 +136,8 @@ GameObject:
   - component: {fileID: 50083800}
   - component: {fileID: 50083799}
   - component: {fileID: 50083798}
-  - component: {fileID: 50083802}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Race
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,9 +227,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 50083802}
-        m_TargetAssemblyTypeName: ChangeSceneButton, Assembly-CSharp
-        m_MethodName: ChangeScene
+      - m_Target: {fileID: 257552788}
+        m_TargetAssemblyTypeName: UIMenu, Assembly-CSharp
+        m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -278,18 +277,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50083796}
   m_CullTransparentMesh: 1
---- !u!114 &50083802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50083796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7dc66ec6b6d3d75b9adfba287813197, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &257552783
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,6 +289,7 @@ GameObject:
   - component: {fileID: 257552786}
   - component: {fileID: 257552785}
   - component: {fileID: 257552784}
+  - component: {fileID: 257552788}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -394,6 +382,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &257552788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257552783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4495266f2d181d0e8b0517ded39623f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &287313615
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,23 +741,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!1 &1030926795 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2408252681976408815, guid: 3f5521abe3c32f5af9f306bed7123795, type: 3}
-  m_PrefabInstance: {fileID: 2408252682481195333}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1030926796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030926795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7dc66ec6b6d3d75b9adfba287813197, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1104299968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,7 +1188,6 @@ GameObject:
   - component: {fileID: 1499656191}
   - component: {fileID: 1499656190}
   - component: {fileID: 1499656189}
-  - component: {fileID: 1499656193}
   m_Layer: 5
   m_Name: QuickPlayButton
   m_TagString: Untagged
@@ -1296,16 +1278,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1499656193}
-        m_TargetAssemblyTypeName: ChangeSceneButton, Assembly-CSharp
-        m_MethodName: ChangeScene
+      - m_Target: {fileID: 257552788}
+        m_TargetAssemblyTypeName: UIMenu, Assembly-CSharp
+        m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: TestAlex
+          m_StringArgument: Multiplayer
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1499656191
@@ -1346,18 +1328,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499656187}
   m_CullTransparentMesh: 1
---- !u!114 &1499656193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499656187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7dc66ec6b6d3d75b9adfba287813197, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1566019333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1927,7 +1897,7 @@ GameObject:
   - component: {fileID: 1954511289}
   - component: {fileID: 1954511288}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2073,18 +2043,18 @@ PrefabInstance:
     - target: {fileID: 2408252681976408808, guid: 3f5521abe3c32f5af9f306bed7123795, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1030926796}
+      objectReference: {fileID: 257552788}
     - target: {fileID: 2408252681976408808, guid: 3f5521abe3c32f5af9f306bed7123795, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2408252681976408808, guid: 3f5521abe3c32f5af9f306bed7123795, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeScene
+      value: LoadScene
       objectReference: {fileID: 0}
     - target: {fileID: 2408252681976408808, guid: 3f5521abe3c32f5af9f306bed7123795, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ChangeSceneButton, Assembly-CSharp
+      value: UIMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2408252681976408808, guid: 3f5521abe3c32f5af9f306bed7123795, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -2180,7 +2150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2408252681976408815, guid: 3f5521abe3c32f5af9f306bed7123795, type: 3}
       propertyPath: m_Name
-      value: Button (1)
+      value: Options
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f5521abe3c32f5af9f306bed7123795, type: 3}

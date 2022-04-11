@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Unity.Netcode;
 
-public class ServerManager : NetworkBehaviour
+public class ServerManager : AbstractManager<ServerManager>
 {
     private static readonly string[] SERVERS = {
         "http://localhost:13337"
@@ -14,7 +14,7 @@ public class ServerManager : NetworkBehaviour
     private string mainServer;
     public IEnumerator RefreshMainServer()
     {
-        foreach(string server in SERVERS)
+        foreach (string server in SERVERS)
         {
             UnityWebRequest request = UnityWebRequest.Get($"{server}/ping");
             yield return request.SendWebRequest();
@@ -49,15 +49,15 @@ public class ServerManager : NetworkBehaviour
         public string name;
         public int count;
     }
-    private List<Server> servers;
-    public List<Server> Servers 
+    private List<Server> servers = new List<Server>();
+    public List<Server> Servers
     {
         get => servers;
     }
     public IEnumerator RefreshServers()
     {
         servers = new List<Server>();
-        if(foundServer) 
+        if (foundServer)
         {
             UnityWebRequest request = UnityWebRequest.Get($"{mainServer}/servers/");
             yield return request.SendWebRequest();
@@ -77,21 +77,123 @@ public class ServerManager : NetworkBehaviour
         callback();
     }
 
-    private static ServerManager instance;
-    public static ServerManager Singleton 
+    [System.Serializable]
+    private struct GetServerResponse
     {
-        get => instance;
+        public string id;
+        public string name;
+        public string host;
+        public int port;
     }
-    private void Awake()
+
+    [System.Serializable]
+    public struct Config 
     {
-        if (instance == null)
+        public string name;
+        public string host;
+        public int port;
+        public string password;
+    }
+
+    public IEnumerator JoinServer(string id, string password)
+    {
+        if (foundServer)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            string json = $"{{\"password\":\"{password}\"}}";
+
+            UnityWebRequest request = new UnityWebRequest($"{mainServer}/servers/{id}", "POST");
+            byte[] requestBody = new System.Text.UTF8Encoding().GetBytes(json);
+            request.uploadHandler = new UploadHandlerRaw(requestBody);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.responseCode == 200)
+            {
+                GetServerResponse response = JsonUtility.FromJson<GetServerResponse>(request.downloadHandler.text);
+
+                LobbyManager.Config lobbyConfig = new LobbyManager.Config {
+                    id = response.id,
+                    name = response.name,
+                    host = response.host,
+                    port = response.port,
+                    password = password
+                };
+
+                LobbyManager.Singleton.JoinLobby(lobbyConfig);
+            }
         }
-        else
+    }
+
+    public Config GetConfig(string password)
+    {
+        return new Config
         {
-            Destroy(gameObject);
+            name = AuthManager.Singleton.Username,
+            host = "127.0.0.1",
+            port = 7777,
+            password = password.Trim()
+        };
+    }
+
+    [System.Serializable]
+    private struct CreateServerResponse
+    {
+        public string id;
+        public string name;
+        public string host;
+        public int port;
+        public string token;
+    }
+    public IEnumerator HostServer(string password)
+    {
+        if (foundServer)
+        {
+            Config config = GetConfig(password);
+
+            string json = JsonUtility.ToJson(config);
+
+            UnityWebRequest request = new UnityWebRequest($"{mainServer}/servers/", "POST");
+            byte[] requestBody = new System.Text.UTF8Encoding().GetBytes(json);
+            request.uploadHandler = new UploadHandlerRaw(requestBody);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.responseCode == 200)
+            {
+                CreateServerResponse response = JsonUtility.FromJson<CreateServerResponse>(request.downloadHandler.text);
+                AuthManager.Singleton.ServerToken = response.token;
+
+                LobbyManager.Config lobbyConfig = new LobbyManager.Config {
+                    id = response.id,
+                    name = response.name,
+                    host = response.host,
+                    port = response.port,
+                    password = password
+                };
+
+                LobbyManager.Singleton.HostLobby(lobbyConfig);
+            }
+        }
+    }
+
+    public IEnumerator UpdatePlayerCount(string id, int count)
+    {
+        if (foundServer && !id.Equals("0"))
+        {
+            string json = $"{{\"count\":\"{count}\"}}";
+
+            UnityWebRequest request = new UnityWebRequest($"{mainServer}/servers/{id}", "PUT");
+            byte[] requestBody = new System.Text.UTF8Encoding().GetBytes(json);
+            request.uploadHandler = new UploadHandlerRaw(requestBody);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Authorization", $"Bearer {AuthManager.Singleton.ServerToken}");
+
+            yield return request.SendWebRequest();
         }
     }
 }

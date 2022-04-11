@@ -5,15 +5,27 @@ using UnityEngine.UI;
 
 public class PWPopup : MonoBehaviour
 {
-    protected string password {
-        get => GetComponentInChildren<InputField>().text;
+    public LobbyEntry entry;
+
+    private InputField passwordInput;
+    protected string password
+    {
+        get => passwordInput.text;
+    }
+
+    private void Start()
+    {
+        passwordInput = GetComponentInChildren<InputField>();
+    }
+
+    private IEnumerator JoinAsync()
+    {
+        yield return ServerManager.Singleton.JoinServer(entry.server.id, password);
     }
 
     public void Join()
     {
-        // TODO: Finish this function to Join Online Game
-        Debug.Log($"Join game with pw: {password}");
-        LevelManager.Instance.LoadScene("Lobby");
+        StartCoroutine(JoinAsync());
     }
 
     public void Cancel()

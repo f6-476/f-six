@@ -3,15 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HostPopup : PWPopup
+public class HostPopup : MonoBehaviour
 {
-    bool online {
-        get => GetComponentInChildren<Toggle>().isOn;
+    private InputField passwordInput;
+    protected string password
+    {
+        get => passwordInput.text;
     }
+
+    private Toggle onlineToggle;
+    bool online
+    {
+        get => onlineToggle.isOn;
+    }
+
+    private void Start()
+    {
+        passwordInput = GetComponentInChildren<InputField>();
+        onlineToggle = GetComponentInChildren<Toggle>();
+    }
+
     public void Host()
     {
-        //TODO
-        Debug.Log($"Host an {(online?"online":"offline")} game with pw: {base.password}");
-        LevelManager.Instance.LoadScene("Lobby");
+        if (online)
+        {
+            StartCoroutine(ServerManager.Singleton.HostServer(password));
+        }
+        else
+        {
+            LobbyManager.Singleton.HostLobby(password);
+        }
     }
 }
