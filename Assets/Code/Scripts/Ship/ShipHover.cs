@@ -55,20 +55,44 @@ public class ShipHover : MonoBehaviour
             //_ship.Rigidbody.rotation = Quaternion.Slerp(Quaternion.FromToRotation(transform.up, normal) * Quaternion.AngleAxis(_ship.RudderValue * 2f, transform.up) * _ship.Rigidbody.rotation);
 
             var turn = Quaternion.AngleAxis(_ship.RudderValue * 2f, transform.up);
-            var align = Quaternion.FromToRotation(transform.up, normal);
-            if (Time.time - lastPrintTime > 1)
-            {
-                lastPrintTime = Time.time;
-            }
+            var align = Quaternion.FromToRotation(transform.up, SampleCornersAverage());
+           
             //Debug.Log("Normal: " + normal + " || Magnitude: " + normal.magnitude);
-            Debug.Log(hit.collider.gameObject);
             /*_ship.Rigidbody.MoveRotation(align * _ship.Rigidbody.rotation);
             _ship.Rigidbody.MoveRotation(turn * _ship.Rigidbody.rotation);*/
-            _ship.Rigidbody.rotation = Quaternion.Slerp(_ship.Rigidbody.rotation, turn * align * _ship.Rigidbody.rotation,  .4f);
+            _ship.Rigidbody.rotation = Quaternion.Slerp(_ship.Rigidbody.rotation, align * _ship.Rigidbody.rotation,  .2f);
+            _ship.Rigidbody.rotation = Quaternion.Slerp(_ship.Rigidbody.rotation, turn  * _ship.Rigidbody.rotation,  .5f);
         }
+        
+    }
 
-        
-        
+    public RaycastHit SampleRayCast(Vector3 direction)
+    {
+        Physics.Raycast(transform.position, direction, out RaycastHit hit, 10, trackLayer);
+        return hit;
+    }
+
+    public Vector3 SampleCornersAverage()
+    {
+        //front right
+        var hit1 =  SampleRayCast(-transform.up + transform.forward * 2 + transform.right * 2);
+        Debug.DrawRay(transform.position, hit1.point-transform.position);
+        //front left
+        var hit2 =  SampleRayCast(-transform.up + transform.forward * 2 - transform.right * 2);
+        Debug.DrawRay(transform.position, hit2.point-transform.position);
+        //back right
+        var hit3 =  SampleRayCast(-transform.up - transform.forward * 2 + transform.right * 2);
+        Debug.DrawRay(transform.position, hit3.point-transform.position);
+        //back right
+        var hit4 =  SampleRayCast(-transform.up - transform.forward * 2 - transform.right * 2);
+        Debug.DrawRay(transform.position, hit4.point-transform.position);
+
+        var norm = (BarycentricCoordinateInterpolator.GetInterpolatedNormal(hit1) 
+                    + BarycentricCoordinateInterpolator.GetInterpolatedNormal(hit2)
+                    + BarycentricCoordinateInterpolator.GetInterpolatedNormal(hit3)
+                    + BarycentricCoordinateInterpolator.GetInterpolatedNormal(hit4))*0.25f;
+        return norm;
+
     }
 }
 
