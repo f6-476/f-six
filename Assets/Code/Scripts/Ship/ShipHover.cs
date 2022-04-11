@@ -44,23 +44,22 @@ public class ShipHover : MonoBehaviour
         if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 5,trackLayer))
         {
             //Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 5)
-            
-            var normal = BarycentricCoordinateInterpolator.GetInterpolatedNormal(hit);
+
+            var normal = SampleCornersAverage();
             var direction = (transform.position - hit.point).normalized;
-         
+
+            Physics.Raycast(transform.position, -normal, out RaycastHit hit2, 5, trackLayer);
+            
+
+            var turn = Quaternion.AngleAxis(_ship.RudderValue * 10f, transform.up);
+            var align = Quaternion.FromToRotation(transform.up, normal);
+            
             Debug.DrawLine(transform.position,hit.point,Color.green);
         
             _ship.Rigidbody.AddForce(-_gravity * direction, ForceMode.Acceleration);
-            _ship.Rigidbody.AddForce(normal * _hoverPidController.GetOutput((hoverHeight - hit.distance), Time.fixedDeltaTime));
-            //_ship.Rigidbody.rotation = Quaternion.Slerp(Quaternion.FromToRotation(transform.up, normal) * Quaternion.AngleAxis(_ship.RudderValue * 2f, transform.up) * _ship.Rigidbody.rotation);
-
-            var turn = Quaternion.AngleAxis(_ship.RudderValue * 10f, transform.up);
-            var align = Quaternion.FromToRotation(transform.up, SampleCornersAverage());
+            _ship.Rigidbody.AddForce(normal * _hoverPidController.GetOutput((hoverHeight - hit2.distance), Time.fixedDeltaTime));
            
-            //Debug.Log("Normal: " + normal + " || Magnitude: " + normal.magnitude);
-            /*_ship.Rigidbody.MoveRotation(align * _ship.Rigidbody.rotation);
-            _ship.Rigidbody.MoveRotation(turn * _ship.Rigidbody.rotation);*/
-            
+
             var rot = Quaternion.Slerp(_ship.Rigidbody.rotation, align * _ship.Rigidbody.rotation,  .4f);
             rot = Quaternion.Slerp(rot, turn  * rot,  .4f);
 

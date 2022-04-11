@@ -399,6 +399,10 @@ PrefabInstance:
       value: ShipAI_Steering (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1730196761283606868, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730196761283606868, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
       propertyPath: m_TagString
       value: AI
       objectReference: {fileID: 0}
@@ -993,7 +997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3317581294562083416, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: p
-      value: 85
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3317581294562083416, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: tunePID
@@ -1307,7 +1311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1730196761283606868, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1730196761283606868, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
       propertyPath: m_TagString
