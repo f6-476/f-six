@@ -69,5 +69,10 @@ public class GameManager : MonoBehaviour
         }
 
         _playersShips = _playersShips.OrderBy(s => s.Info.CurrentRank).ToList();
+
+        foreach (var ship in _playersShips)
+        {
+            ship.View.SetRankingsText();
+        }
     }
 }
