@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.19024792, g: 0.23154604, b: 0.19883883, a: 1}
+  m_IndirectSpecularColor: {r: 0.19026652, g: 0.23149729, b: 0.19881594, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -374,11 +374,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354423648}
   m_CullTransparentMesh: 1
---- !u!4 &395431609 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3317581294562083420, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
-  m_PrefabInstance: {fileID: 1336248139}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &772734419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -400,7 +395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1730196761283606868, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1730196761283606868, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
       propertyPath: m_TagString
@@ -472,7 +467,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4171989266106430878, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
       propertyPath: maxDegreesDelta
-      value: 20
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4171989266106430878, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
+      propertyPath: trackLayer.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 5898617892677633453, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
       propertyPath: m_Constraints
@@ -628,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da78f5a3aa9f3f246bf1a6b28bbf0a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 395431609}
+  _target: {fileID: 1098511811}
   depthoffset: 8
   heightoffset: 4
 --- !u!1 &837175301
@@ -964,6 +963,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1098511811 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3939494109200932139, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
+  m_PrefabInstance: {fileID: 5973394377385192271}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1336248139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1311,7 +1315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1730196761283606868, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1730196761283606868, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
       propertyPath: m_TagString
@@ -1384,6 +1388,10 @@ PrefabInstance:
     - target: {fileID: 4171989266106430878, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
       propertyPath: maxDegreesDelta
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4171989266106430878, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
+      propertyPath: trackLayer.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 5898617892677633453, guid: 02f2c31f9fbcb27479b0e6338030c726, type: 3}
       propertyPath: m_Constraints

@@ -13,12 +13,28 @@ public class ShipAI : MonoBehaviour
     private int currentFollowingIndex;
     private float arrivalRadius;
     private float ConstMaxSpeed;
-    private bool isChasingPowerup;
+    private bool isChasingPowerup = false;
+
+
+    public LayerMask trackLayer;
+    public float hoverHeight = 4;
+
+    public bool tunePID = false;
+
+    [SerializeField] private float _gravity = 9.8f;
+    [SerializeField]
+    [Range(-100f, 100f)]
+    private float p, i, d;
+    private PID _hoverPidController;
+    private Rigidbody rb;
     void Start()
     {
         pathToFollow = new List<OrientedPoint>();
-        arrivalRadius = maxSpeed / 5;
+        arrivalRadius = maxSpeed / 2;
         ConstMaxSpeed = maxSpeed;
+
+        _hoverPidController = new PID(p, i, d);
+        rb = GetComponent<Rigidbody>();
     }
 
     public void TrackTarget(OrientedPoint targetTransform)
@@ -26,33 +42,70 @@ public class ShipAI : MonoBehaviour
         TargetPoint = targetTransform;
     }
 
+    private float lastPrintTime = 0;
+    private void FixedUpdate()
+    {
+        //var normal = Vector3.zero;
+        if (tunePID)
+        {
+            _hoverPidController.Kp = p;
+            _hoverPidController.Ki = i;
+            _hoverPidController.Kd = d;
+        }
+
+
+        //var direction = Vector3.zero;
+        Debug.DrawRay(transform.position, -transform.up, Color.red);
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 5, trackLayer))
+        {
+            //Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 5)
+
+            var normal = BarycentricCoordinateInterpolator.GetInterpolatedNormal(hit);
+            var direction = (transform.position - hit.point).normalized;
+
+            Debug.DrawLine(transform.position, hit.point, Color.green);
+
+            rb.AddForce(-_gravity * direction, ForceMode.Acceleration);
+            rb.AddForce(normal * _hoverPidController.GetOutput((hoverHeight - hit.distance), Time.fixedDeltaTime));
+            //_ship.Rigidbody.rotation = Quaternion.Slerp(Quaternion.FromToRotation(transform.up, normal) * Quaternion.AngleAxis(_ship.RudderValue * 2f, transform.up) * _ship.Rigidbody.rotation);
+            float rudder = 0;
+            Vector3 targetDir = TargetPoint.position - transform.position;
+            //The dot product between the vectors
+            float dotProduct = Vector3.Dot(transform.forward, targetDir);
+
+            //Now we can decide if we should turn left or right
+            if (dotProduct > 0f)
+            {
+                rudder = 1;
+            }
+            else
+            {
+                rudder = -1;
+            }
+            var turn = Quaternion.AngleAxis(rudder * 3, transform.up);
+            var align = Quaternion.FromToRotation(transform.up, SampleCornersAverage());
+
+            //Debug.Log("Normal: " + normal + " || Magnitude: " + normal.magnitude);
+            /*_ship.Rigidbody.MoveRotation(align * _ship.Rigidbody.rotation);
+            _ship.Rigidbody.MoveRotation(turn * _ship.Rigidbody.rotation);*/
+            //rb.rotation = Quaternion.Slerp(rb.rotation, align * rb.rotation, .3f);
+            //rb.rotation = Quaternion.Slerp(rb.rotation, turn * rb.rotation, .5f);
+            rb.rotation = Quaternion.RotateTowards(transform.rotation, AlignWithVelocity(), maxDegreesDelta * Time.fixedDeltaTime);
+            Vector3 separation = MoveApart();
+            
+            rb.AddForce((transform.forward + (1.5f * separation)) * (maxSpeed), ForceMode.Acceleration);
+            
+            //rb.AddForce(separation * maxSpeed * 1.1f, ForceMode.Force);
+
+        }
+
+    }
 
     void Update()
+    {
+        maxSpeed = Mathf.Min(ConstMaxSpeed * 1.5f, Mathf.Max(ConstMaxSpeed / 1.5f, maxSpeed + Random.Range(ConstMaxSpeed / -10, ConstMaxSpeed / 10)));
+        if (pathToFollow.Count > 0)
         {
-            maxSpeed = Mathf.Min(ConstMaxSpeed* 1.5f,Mathf.Max(ConstMaxSpeed / 1.5f, maxSpeed + Random.Range(ConstMaxSpeed / -10, ConstMaxSpeed / 10)));
-            if (pathToFollow.Count > 0)
-            {
-                GetSteeringSum(out Vector3 steeringForce, out Quaternion rotation);
-
-                Vector3 acceleration = (steeringForce);
-                Velocity += acceleration * Time.deltaTime * 50;
-                if (Velocity.magnitude > maxSpeed)
-                {
-                    Velocity = Velocity.normalized * maxSpeed;
-                }
-                if (steeringForce.magnitude == 0)
-                {
-                    Velocity = Vector3.zero;
-                }
-            transform.position += Velocity * Time.deltaTime;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, maxDegreesDelta * Time.deltaTime);
-
-            // Ignore, This is for the other implementation of Align
-
-            //rotation = Quaternion.Euler(rotation.eulerAngles.x, rotation.eulerAngles.y, 0);
-            //transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation * transform.rotation, maxDegreesDelta * Time.deltaTime);
-            FindPowerupNearby();
-            
             if (!isChasingPowerup && !pathToFollow.Contains(TargetPoint))
             {
                 int index = FindNearestWaypointIndex();
@@ -60,26 +113,28 @@ public class ShipAI : MonoBehaviour
                 TrackTarget(pathToFollow[currentFollowingIndex]);
             }
 
+            // enable this for powerup finding
+            // FindPowerupNearby();
             if (!isChasingPowerup)
-            { 
+            {
                 if (currentFollowingIndex < pathToFollow.Count - 1 && Vector3.Distance(this.transform.position, pathToFollow[currentFollowingIndex].position) < arrivalRadius)
-                    {
-                        currentFollowingIndex += 1;
-                        TrackTarget(pathToFollow[currentFollowingIndex]);
-                    }
-                    else if (currentFollowingIndex == pathToFollow.Count - 1)
-                    {
-                        currentFollowingIndex = 0;
-                        TrackTarget(pathToFollow[0]);
-                    }
+                {
+                    currentFollowingIndex += 1;
+                    TrackTarget(pathToFollow[currentFollowingIndex]);
+                }
+                else if (currentFollowingIndex == pathToFollow.Count - 1)
+                {
+                    currentFollowingIndex = 0;
+                    TrackTarget(pathToFollow[0]);
                 }
             }
-            else
-            {
-                initializePath();
-            }
-
         }
+        else
+        {
+            initializePath();
+        }
+
+    }
 
     public void FindPowerupNearby(float range = 50.0f)
     {
@@ -95,34 +150,6 @@ public class ShipAI : MonoBehaviour
             }
         }
         isChasingPowerup = false;
-    }
-
-    private void GetSteeringSum(out Vector3 steeringForceSum, out Quaternion rotation)
-        {
-            steeringForceSum = Vector3.zero;
-            rotation = Quaternion.identity;
-            Vector3 separation = MoveApart();
-            if (separation.sqrMagnitude > 0.5)
-            {
-            steeringForceSum = MoveApart();
-            }
-            else
-            {
-                steeringForceSum += Arrive() + MoveApart();
-            }
-
-             rotation = AlignWithVelocity();
-            }
-
-    public Vector3 Arrive()
-    {
-
-        float distanceToGoal = (this.pathToFollow[this.pathToFollow.Count - 1].position - this.transform.position).magnitude;
-
-        Vector3 desiredVelocity = this.TargetPoint.position - this.transform.position;
-        float distance = desiredVelocity.magnitude;
-        desiredVelocity = desiredVelocity.normalized * maxSpeed;
-        return desiredVelocity; //- this.Velocity;
     }
 
     public Quaternion AlignWithVelocity()
@@ -170,7 +197,7 @@ public class ShipAI : MonoBehaviour
             }
         }
 
-        return SeparationVelocity - Vector3.up * SeparationVelocity.y - Vector3.right * SeparationVelocity.x; //only want the z for avoidance
+        return SeparationVelocity; //only want the z for avoidance
     }
 
     public int FindNearestWaypointIndex()
@@ -209,4 +236,48 @@ public class ShipAI : MonoBehaviour
         }
     }
 
+
+    public Vector3 SampleCornersAverage()
+    {
+        Vector3 norm = Vector3.zero;
+        if (Time.time < 1) return transform.up;
+        List<RaycastHit> hits = new List<RaycastHit>();
+        hits.Clear();
+
+        //front right
+        var direction = -transform.up + transform.forward * 1 + transform.right * 1;
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit1, 10, trackLayer))
+            hits.Add(hit1);
+
+        //front left
+        direction = -transform.up + transform.forward * 1 - transform.right * 1;
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit2, 10, trackLayer))
+            hits.Add(hit1);
+
+        //back right
+        direction = -transform.up - transform.forward * 1 + transform.right * 1;
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit3, 10, trackLayer))
+            hits.Add(hit3);
+
+        //back left
+        direction = -transform.up - transform.forward * 1 - transform.right * 1;
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit4, 10, trackLayer))
+            hits.Add(hit4);
+
+
+        if (hits.Count > 0)
+        {
+            foreach (var hit in hits)
+            {
+                norm += (BarycentricCoordinateInterpolator.GetInterpolatedNormal(hit));
+                Debug.DrawRay(transform.position, hit.point - transform.position);
+            }
+            norm = norm / hits.Count;
+        }
+        else
+            norm = transform.up;
+
+        return norm;
+
+    }
 }
