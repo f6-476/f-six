@@ -6,45 +6,9 @@ using UnityEngine.UI;
 
 public class LobbyEntry : MonoBehaviour
 {
-    string _hostname;
-    public string hostname {
-        get => _hostname;
-        set {
-            _hostname = value;
-            hostnameComponent.text = value;
-        }
-    }
+    public ServerManager.Server server;
 
-    string _ping;
-    public string ping {
-        get => _ping;
-        set {
-            _ping = value;
-            pingComponent.text = value;
-            pingComponent.color = PingColor(value);
-        }
-    }
-
-    string _playerCount;
-    public string playerCount {
-        get => _playerCount;
-        set {
-            _playerCount = value;
-            playerCountComponent.text = value;
-            
-            if (value == "8/8")
-            {
-                toggleComponent.interactable = false;
-                toggleComponent.isOn = false;
-            }
-            else
-            {
-                toggleComponent.interactable = true;
-            }
-        }
-    }
-
-    ToggleGroup _group;
+    private ToggleGroup _group;
     public ToggleGroup group {
         get => _group;
         set {
@@ -53,32 +17,36 @@ public class LobbyEntry : MonoBehaviour
         }
     }
 
-    Text hostnameComponent;
-    Text playerCountComponent;
-    Text pingComponent;
-    Toggle toggleComponent;
+    private Text hostnameText;
+    private Text playerCountText;
+    private Text pingText;
+    private Toggle toggleComponent;
 
-    void Start()
+    private void Awake()
     {
-        hostnameComponent = gameObject.transform.Find("HostName").GetComponent<Text>();
-        playerCountComponent = gameObject.transform.Find("PlayerCount").GetComponent<Text>();
-        pingComponent = gameObject.transform.Find("Ping").GetComponent<Text>();
+        hostnameText = gameObject.transform.Find("HostName").GetComponent<Text>();
+        playerCountText = gameObject.transform.Find("PlayerCount").GetComponent<Text>();
+        pingText = gameObject.transform.Find("Ping").GetComponent<Text>();
         toggleComponent = GetComponent<Toggle>();
 
         InvokeRepeating("PingHost", 1.0f, 5.0f);
     }
 
-    void PingHost()
+    private void PingHost()
     {
         // TODO Ping Host
         string pingResponse = UnityEngine.Random.Range(15, 1000) + "";
-        ping = pingResponse;
-
-        string playerCountResponse = UnityEngine.Random.Range(1, 9) + "/8";
-        playerCount = playerCountResponse;
+        pingText.color = PingColor(pingResponse);
+        pingText.text = pingResponse;
     }
 
-    Color PingColor(string value)
+    private void Update()
+    {
+        hostnameText.text = server.name;
+        playerCountText.text = $"{server.count}/8";
+    }
+
+    private Color PingColor(string value)
     {
         Color color = Color.black;
 

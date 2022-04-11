@@ -1,7 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
 
-public class IntegrationManager : NetworkBehaviour 
+public class IntegrationManager : NetworkBehaviour
 {
     private static readonly Integration[] INTEGRATIONS = new Integration[]
     {
@@ -10,7 +10,7 @@ public class IntegrationManager : NetworkBehaviour
 
     private void OnConnected(Integration.OnConnectedArgs args)
     {
-        
+
     }
 
     private void OnCommand(Integration.OnCommandArgs args)
@@ -18,33 +18,43 @@ public class IntegrationManager : NetworkBehaviour
 
     }
 
-    private void Start()
+    private static IntegrationManager instance;
+    public static IntegrationManager Singleton
     {
-        if (IsHost || IsServer)
+        get => instance;
+    }
+    private void Awake()
+    {
+        if (instance == null)
         {
-            Integration.onConnected += OnConnected;
-            Integration.onCommand += OnCommand;
-
-            foreach(Integration integration in INTEGRATIONS)
-            {
-                integration.Connect();
-            }
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
-    public override void OnDestroy() 
+    public void Connect()
     {
-        if (IsHost || IsServer)
+        Integration.onConnected += OnConnected;
+        Integration.onCommand += OnCommand;
+
+        foreach (Integration integration in INTEGRATIONS)
         {
-            Integration.onConnected -= OnConnected;
-            Integration.onCommand -= OnCommand;
-
-            foreach(Integration integration in INTEGRATIONS)
-            {
-                integration.Disconnect();
-            }
+            integration.Connect();
         }
+    }
 
-        base.OnDestroy();
+    public void Disconnect()
+    {
+        Integration.onConnected -= OnConnected;
+        Integration.onCommand -= OnCommand;
+
+        foreach (Integration integration in INTEGRATIONS)
+        {
+            integration.Disconnect();
+        }
     }
 }
