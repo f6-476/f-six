@@ -101,6 +101,12 @@ public class TrackGenerator : MonoBehaviour
         mesh.SetVertices(verts);
         mesh.SetTriangles(triangleIndices,0);
         mesh.RecalculateNormals();
+        /*foreach (var norm in mesh.normals)
+        {
+            Debug.Log(norm);
+        }
+        */
+            
     }
     public Vector3[] GenerateVertices()
     {

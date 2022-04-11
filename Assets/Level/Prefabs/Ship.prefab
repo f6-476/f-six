@@ -442,6 +442,46 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 05629039-02ab-485c-bde3-78c1fc6c898c
     m_ActionName: Gameplay/Boost[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5d27f420-82a8-4f02-9b8c-694f8830676b
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f020acef-a541-40f6-8b1c-79a31eaa8325
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1a5bb119-cd14-4a12-bd03-b6a543e9aa6b
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 76cd8c26-a382-4eab-8a51-046a96bb42fa
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e66a87c4-e88c-45c3-8295-de917da85b1b
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 858968e7-65dd-4fcb-b872-acf5753f8e9a
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e41420dd-44cb-4752-8db1-a509ec604374
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2fbe375e-2cf3-4bfb-8baf-883b719f48ed
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d6290bbe-d969-4425-8bc3-ee5cf8cb8e99
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 776ab467-e526-4bca-9390-03a39c7906c5
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -520,7 +560,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222e00e586e155a449c4e25a833c007a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverHeight: 1
+  trackLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  hoverHeight: 0.6
   tunePID: 0
   _gravity: 9.8
   p: 85
@@ -555,7 +598,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rankText: {fileID: 0}
   _lapText: {fileID: 0}
-  _lapTimeText: {fileID: 0}
+  _stopWatchText: {fileID: 0}
+  _timeLapText: {fileID: 0}
+  _rankingsText: {fileID: 0}
 --- !u!33 &3317581294562083419
 MeshFilter:
   m_ObjectHideFlags: 0

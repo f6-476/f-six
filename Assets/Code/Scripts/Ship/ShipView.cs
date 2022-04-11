@@ -72,7 +72,7 @@ public class ShipView : MonoBehaviour
         {
             textField += $"{rank + 1}. {player.name}\n";
         }
-        _rankingsText.text = textField;
+        //_rankingsText.text = textField;
     }
 
     private string SetFloatToTimer(float timeFloat)
