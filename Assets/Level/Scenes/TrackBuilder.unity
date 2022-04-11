@@ -1827,6 +1827,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6ead3c1b8b430db8ac41d9146e99c77, type: 3}
+--- !u!1 &734083179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 734083181}
+  - component: {fileID: 734083180}
+  m_Layer: 0
+  m_Name: Obstacle Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &734083180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734083179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef03a68950898b94d9136d9cfa5635d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleCount: 50
+  obstacleWithNoPowerUp: 35
+  obstaclePrefab: {fileID: 7281222330009360164, guid: 944441498959b884f8157a80f0972d94, type: 3}
+  track: {fileID: 837175302}
+  obstacles: []
+--- !u!4 &734083181
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734083179}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -83.35205, y: -47.895496, z: 260.0108}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &773399639 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6178660852945252228, guid: 42133a429cdbde3e898a31b1f3ecf370, type: 3}
@@ -2537,7 +2585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupCount: 20
-  radiusWithNoPowerUp: 10
+  radiusWithNoPowerUp: 100
   powerUpPrefab: {fileID: 5266013875750877368, guid: 30801de40d3957d43bb98c447e7a7120, type: 3}
   track: {fileID: 837175302}
   powerUps: []
@@ -2549,7 +2597,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1397206752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -83.35205, y: -47.895496, z: 260.0108}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
