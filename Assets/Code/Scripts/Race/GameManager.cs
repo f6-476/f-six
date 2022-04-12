@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public List<Ship> _playersShips = new List<Ship>();
+    public List<Ship> _playersShips;
+    public List<Ship> _scoredShips = new List<Ship>();
     [SerializeField] private int _mapLaps;
     public int MapLaps => _mapLaps;
 
