@@ -36,9 +36,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Shields
+  - GreenMissle
+  - RedMissle
   m_SortingLayers:
   - name: Default
     uniqueID: 0
