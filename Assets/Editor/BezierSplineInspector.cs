@@ -27,6 +27,7 @@ public class BezierSplineInspector : Editor
     private int selectedIndex = -1;
 
     private void OnSceneGUI () {
+        
         spline = target as BezierSpline;
         handleTransform = spline.transform;
         handleRotation = Tools.pivotRotation == PivotRotation.Local ?
@@ -79,6 +80,7 @@ public class BezierSplineInspector : Editor
         return point;
     }
     public override void OnInspectorGUI () {
+        //DrawDefaultInspector ();
         spline = target as BezierSpline;
         EditorGUI.BeginChangeCheck();
         bool loop = EditorGUILayout.Toggle("Loop", spline.Loop);

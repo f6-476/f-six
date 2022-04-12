@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 // Code modified from:
@@ -221,6 +222,7 @@ public class BezierSpline : BezierSegment
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(GetOrientedPoint(T).position,1);
+        Gizmos.DrawSphere(GetOrientedPoint(T).position,10);
+        Handles.PositionHandle(GetOrientedPoint(T).position, GetOrientedPoint(T).rotation);
     }
 }

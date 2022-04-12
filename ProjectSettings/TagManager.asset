@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Checkpoint
   - FinishLine
+  - AI
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -14,8 +16,11 @@ TagManager:
   - Water
   - UI
   - PowerUp
+  - Obstacle
+  - Checkpoint
+  - Track
   - 
-  - 
+  - Obstacle
   - 
   - 
   - 
