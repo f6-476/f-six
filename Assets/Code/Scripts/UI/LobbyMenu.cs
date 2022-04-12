@@ -4,7 +4,7 @@ using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
 
-public class LobbyMenu : NetworkBehaviour
+public class LobbyMenu : MonoBehaviour
 {
     [SerializeField] private Text lobbyNames;
 

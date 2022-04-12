@@ -5,8 +5,8 @@ using UnityEngine;
 public class ShipMultiplayer : NetworkBehaviour 
 {
     private Ship ship;
-    private NetworkVariable<Vector3> position;
-    private NetworkVariable<Quaternion> rotation;
+    private NetworkVariable<Vector3> position = new NetworkVariable<Vector3>(Vector3.zero);
+    private NetworkVariable<Quaternion> rotation = new NetworkVariable<Quaternion>(Quaternion.identity);
 
     private void Awake() 
     {

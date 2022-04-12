@@ -39,8 +39,34 @@ public class ServerManager : AbstractManager<ServerManager>
         callback(false, null, approve, Vector3.zero, Quaternion.identity);
     }
 
-    private void SetConfig(Config config)
+    private bool ValidateIPv4(string ipString)
     {
+        if (ipString == null || ipString.Trim().Length == 0)
+        {
+            return false;
+        }
+ 
+        string[] sections = ipString.Split('.');
+        if (sections.Length != 4)
+        {
+            return false;
+        }
+
+        foreach (string section in sections)
+        {
+            if (!byte.TryParse(section, out byte _))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool SetConfig(Config config)
+    {
+        if (!ValidateIPv4(config.host)) return false;
+
         this.config = config;
 
         NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.ASCII.GetBytes(config.password);
@@ -52,24 +78,49 @@ public class ServerManager : AbstractManager<ServerManager>
             unet.ConnectAddress = config.host;
             unet.ConnectPort = config.port;
         }
+        else if (transport is Unity.Netcode.Transports.UTP.UnityTransport)
+        {
+            Unity.Netcode.Transports.UTP.UnityTransport utp = (Unity.Netcode.Transports.UTP.UnityTransport)transport;
+            utp.ConnectionData.Address = config.host;
+            utp.ConnectionData.Port = (ushort)config.port;
+        }
         else
         {
             throw new System.Exception("Unhandled transport.");
         }
+
+        return true;
     }
 
-    private void JoinLobby(Config config)
+    private bool IsConnecting()
     {
-        SetConfig(config);
-
-        NetworkManager.Singleton.StartClient();
+        return NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer;
     }
 
-    private void HostLobby(Config config)
+    private bool JoinLobby(Config config)
     {
-        SetConfig(config);
+        if (IsConnecting()) return false;
 
-        NetworkManager.Singleton.StartHost();
+        if (!SetConfig(config)) return false;
+
+        if(NetworkManager.Singleton.StartClient()) return true;
+
+        NetworkManager.Singleton.Shutdown();
+
+        return false;
+    }
+
+    private bool HostLobby(Config config)
+    {
+        if (IsConnecting()) return false;
+
+        if (!SetConfig(config)) return false;
+
+        if (NetworkManager.Singleton.StartHost()) return true;
+ 
+        NetworkManager.Singleton.Shutdown();
+
+        return false;
     }
 
     public void JoinUnlistedServer(string host, string password)
@@ -131,7 +182,6 @@ public class ServerManager : AbstractManager<ServerManager>
             var data = new RegistryManager.InsertServerData
             {
                 name = AuthManager.Singleton.Username,
-                host = "127.0.0.1",
                 port = 7777,
                 password = password
             };

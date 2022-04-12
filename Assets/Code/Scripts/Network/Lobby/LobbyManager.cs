@@ -78,7 +78,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
 
     private void OnClientDisconnect(ulong clientId)
     {
-        if (clientId == NetworkManager.Singleton.LocalClientId)
+        if (clientId == NetworkManager.Singleton.LocalClientId || clientId == 0)
         {
             SceneManager.LoadScene("RaceMenu", LoadSceneMode.Single);
         }

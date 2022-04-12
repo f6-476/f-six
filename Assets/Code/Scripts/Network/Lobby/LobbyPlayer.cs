@@ -5,7 +5,7 @@ using Unity.Collections;
 
 public class LobbyPlayer : NetworkBehaviour
 {
-    private NetworkVariable<bool> ready;
+    private NetworkVariable<bool> ready = new NetworkVariable<bool>(false);
     public bool Ready
     {
         get => ready.Value;
@@ -15,7 +15,7 @@ public class LobbyPlayer : NetworkBehaviour
         }
     }
 
-    private NetworkVariable<FixedString64Bytes> username;
+    private NetworkVariable<FixedString64Bytes> username = new NetworkVariable<FixedString64Bytes>("");
     public string Username
     {
         get => username.Value.ToString();

@@ -90,7 +90,6 @@ public class RegistryManager : AbstractManager<RegistryManager>
     public struct InsertServerData
     {
         public string name;
-        public string host;
         public int port;
         public string password;
     }
