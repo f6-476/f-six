@@ -3,16 +3,17 @@ using UnityEngine.UI;
 
 public class OptionMenu : UIMenu
 {
-    [SerializeField] private InputField nameInput;
+    [SerializeField] 
+    private UIField nameField;
 
     private void Start() 
     {
-        nameInput.text = AuthManager.Singleton.Username;    
+        nameField.text = AuthManager.Singleton.Username;    
     }
 
-    public override void BackToMainMenu()
+    public override void Back()
     {
-        AuthManager.Singleton.Username = nameInput.text;
-        base.BackToMainMenu();
+        AuthManager.Singleton.Username = nameField.text;
+        LoadScene("MainMenu");
     }
 }

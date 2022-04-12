@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LobbyEntry : MonoBehaviour
 {
-    public ServerManager.Server server;
+    public RegistryManager.Server server;
 
     private ToggleGroup _group;
     public ToggleGroup group {

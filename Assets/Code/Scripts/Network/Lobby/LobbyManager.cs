@@ -7,132 +7,99 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : AbstractManager<LobbyManager>
 {
-    [SerializeField] private GameObject lobbyPlayerPrefab;
-    private Config? config = null;
-    public NetworkList<LobbyPlayer.Raw> players;
-    public LobbyPlayer localPlayer = null;
+    [SerializeField]
+    private GameObject lobbyPlayerPrefab;
 
-    private void Start()
+    [SerializeField]
+    private GameObject gamePlayerPrefab;
+
+    public LobbyPlayer LocalPlayer;
+
+    public HashSet<LobbyPlayer> Players { get; set; }
+
+    private void Reset()
     {
-        NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
+        Players = new HashSet<LobbyPlayer>();
+    }
+
+    protected void Start()
+    {
+        this.Reset();
+
+        NetworkManager.Singleton.OnServerStarted += OnServerStarted;
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnect;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
-        NetworkManager.Singleton.OnServerStarted += OnServerConnected;
     }
 
-    public struct Config 
+    private void OnServerStarted()
     {
-        public string id;
-        public string name;
-        public string host;
-        public int port;
-        public string password;
-    }
+        this.Reset();
 
-    private void OnServerConnected()
-    {
-        if (!(IsServer || IsHost)) return;
-
-        NetworkManager.Singleton.SceneManager.OnLoadComplete += OnLoadComplete;
-
+        NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnLoadEventComplete;
         NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
     }
 
-    private void OnLoadComplete(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
+    private void OnLoadEventComplete(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
-        if (!(IsServer || IsHost)) return;
-        if (clientId != NetworkManager.Singleton.LocalClientId) return;
+        if (!IsMaster) return;
 
-        if (sceneName == "Lobby")
+        // TODO: Naming convention for maps?
+        if (!sceneName.Equals("Lobby"))
         {
-            OnClientConnect(NetworkManager.Singleton.LocalClientId);
-        }
-    }
-
-    private void OnClientConnect(ulong clientId)
-    {
-        if (!(IsServer || IsHost)) return;
-
-        GameObject player = Instantiate(lobbyPlayerPrefab, Vector3.zero, Quaternion.identity);
-        player.GetComponent<NetworkObject>().SpawnWithOwnership(clientId, true);
-
-        int count = 1;
-        if (players != null) count = players.Count;
-
-        StartCoroutine(ServerManager.Singleton.UpdatePlayerCount(config.Value.id, NetworkManager.Singleton.ConnectedClientsIds.Count));
-    }
-
-    private void OnClientDisconnect(ulong clientId)
-    {
-        if (!(IsServer || IsHost)) return;
-
-        for (int i = 0; i < players.Count; i++)
-        {
-            if (players[i].id == clientId)
+            foreach (LobbyPlayer player in Players)
             {
-                players.RemoveAt(i);
-
-                StartCoroutine(ServerManager.Singleton.UpdatePlayerCount(config.Value.id, NetworkManager.Singleton.ConnectedClientsIds.Count));
-
-                break;
+                GameObject playerObject = Instantiate(gamePlayerPrefab, Vector3.zero, Quaternion.identity);
+                playerObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId);
             }
         }
     }
 
-    private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback)
+    public void Disconnect()
     {
-        string password = connectionData.ToString();
-        // TODO: Check timing attack.
-        bool approve = this.config.HasValue && this.config.Value.password.Equals(password);
+        NetworkManager.Singleton.Shutdown();
 
-        callback(false, null, approve, Vector3.zero, Quaternion.identity);
-    }
-
-    private void SetConfig(Config config)
-    {
-        this.config = config;
-
-        Unity.Netcode.NetworkTransport transport = NetworkManager.Singleton.NetworkConfig.NetworkTransport;
-
-        if (transport is Unity.Netcode.Transports.UNET.UNetTransport)
+        if (IsMaster)
         {
-            Unity.Netcode.Transports.UNET.UNetTransport unet = (Unity.Netcode.Transports.UNET.UNetTransport)transport;
-            unet.ConnectAddress = config.host;
-            unet.ConnectPort = config.port;
+            ServerManager.Singleton.Disconnect();
         }
-        else
+
+        SceneManager.LoadScene("RaceMenu", LoadSceneMode.Single);
+    }
+
+    private void OnClientConnect(ulong clientId)
+    {
+        if (!IsMaster) return;
+
+        GameObject player = Instantiate(lobbyPlayerPrefab, Vector3.zero, Quaternion.identity);
+        player.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
+
+        ServerManager.Singleton.UpdatePlayerCount(NetworkManager.Singleton.ConnectedClientsIds.Count);
+    }
+
+    private void OnClientDisconnect(ulong clientId)
+    {
+        if (clientId == NetworkManager.Singleton.LocalClientId)
         {
-            throw new System.Exception("Unhandled transport.");
+            SceneManager.LoadScene("RaceMenu", LoadSceneMode.Single);
         }
     }
 
-    public void HostLobby(string password)
+    public void OnPlayerUpdate(LobbyPlayer updatedPlayer)
     {
-        var serverConfig = ServerManager.Singleton.GetConfig(password);
-        Config config = new Config {
-            id = "0",
-            name = serverConfig.name,
-            host = serverConfig.host,
-            port = serverConfig.port,
-            password = password
-        };
-        HostLobby(config);
-    }
+        bool ready = true;
+        foreach (LobbyPlayer player in LobbyManager.Singleton.Players)
+        {
+            if (!player.Ready)
+            {
+                ready = false;
+                break;
+            }
+        }
 
-    public void HostLobby(Config config)
-    {
-        SetConfig(config);
-
-        NetworkManager.Singleton.StartHost();
-    }
-
-    public bool JoinLobby(Config config)
-    {
-        SetConfig(config);
-
-        NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.ASCII.GetBytes(config.password);
-        if (!NetworkManager.Singleton.StartClient()) return false;
-
-        return true;
+        if (ready)
+        {
+            // TODO: Scene picker.
+            NetworkManager.Singleton.SceneManager.LoadScene("Multiplayer", LoadSceneMode.Single);
+        }
     }
 }

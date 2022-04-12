@@ -1,7 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
 
-public abstract class AbstractManager<T>: NetworkBehaviour where T: AbstractManager<T> 
+public abstract class AbstractManager<T>: MonoBehaviour where T: AbstractManager<T> 
 {
     private static T instance;
     public static T Singleton
@@ -19,5 +19,15 @@ public abstract class AbstractManager<T>: NetworkBehaviour where T: AbstractMana
         {
             Destroy(gameObject);
         }
+    }
+
+    public virtual void OnDestroy() 
+    {
+        if (instance == this) instance = null;
+    }
+
+    public bool IsMaster
+    {
+        get => NetworkManager.Singleton != null && (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer);
     }
 }

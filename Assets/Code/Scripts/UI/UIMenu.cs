@@ -1,15 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIMenu : MonoBehaviour 
+public abstract class UIMenu : MonoBehaviour 
 {
-    public virtual void LoadScene(string scene)
+    public abstract void Back();
+
+    public void LoadScene(string scene)
     {
         SceneManager.LoadScene(scene);
-    }
-
-    public virtual void BackToMainMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
     }
 }

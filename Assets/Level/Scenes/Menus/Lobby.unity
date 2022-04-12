@@ -432,21 +432,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 889116443978606004, guid: 485ba638c8090d637aaf6d9d7152a14c, type: 3}
       propertyPath: m_Text
-      value: 'Name
+      value: 'LoremIpsum1234567
 
-        Name
+        LoremIpsum1234567
 
-        Name
+        LoremIpsum1234567
 
-        Name
+        LoremIpsum1234567
 
-        Name
+        LoremIpsum1234567
 
-        Name
+        LoremIpsum1234567
 
-        Name
+        LoremIpsum1234567
 
-        Name'
+        LoremIpsum1234567'
       objectReference: {fileID: 0}
     - target: {fileID: 889116443978606004, guid: 485ba638c8090d637aaf6d9d7152a14c, type: 3}
       propertyPath: m_FontData.m_Font
@@ -691,9 +691,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 257552788}
-        m_TargetAssemblyTypeName: UIMenu, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 5
+        m_TargetAssemblyTypeName: LobbyMenu, Assembly-CSharp
+        m_MethodName: Back
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -875,7 +875,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: 320
+  m_MinWidth: 400
   m_MinHeight: 360
   m_PreferredWidth: -1
   m_PreferredHeight: -1

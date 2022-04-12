@@ -192,8 +192,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5684869921028916344}
   - component: {fileID: 5684869921028916345}
+  - component: {fileID: 8757430849118189317}
   m_Layer: 5
-  m_Name: Text Field Input (1)
+  m_Name: Online Field Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,6 +247,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8757430849118189317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5684869921028916347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca9a2ddbf8f095b89a698541d00af667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputField: {fileID: 0}
+  toggle: {fileID: 1887476062088742088}
 --- !u!1 &7191991989788840568
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +322,7 @@ MonoBehaviour:
     m_Top: 80
     m_Bottom: 80
   m_ChildAlignment: 4
-  m_Spacing: 40
+  m_Spacing: 80
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -380,6 +395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d1a9564e578772c836990904a80f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  passwordField: {fileID: 7180687272489919903}
+  onlineField: {fileID: 8757430849118189317}
 --- !u!1 &7191991990980844964
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,7 +799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7307138933303745442, guid: b6c6f67a642f92956a674554ea2f219c, type: 3}
       propertyPath: m_Name
-      value: Text Field Input
+      value: Password Field Input
       objectReference: {fileID: 0}
     - target: {fileID: 7307138934431727651, guid: b6c6f67a642f92956a674554ea2f219c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -819,6 +836,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7307138933303745441, guid: b6c6f67a642f92956a674554ea2f219c, type: 3}
   m_PrefabInstance: {fileID: 7191991990563908078}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7180687272489919903 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 29831519298784369, guid: b6c6f67a642f92956a674554ea2f219c, type: 3}
+  m_PrefabInstance: {fileID: 7191991990563908078}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca9a2ddbf8f095b89a698541d00af667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7191991990910466548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -940,7 +968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2408252681976408815, guid: 3f5521abe3c32f5af9f306bed7123795, type: 3}
       propertyPath: m_Name
-      value: Button (1)
+      value: Cancel
       objectReference: {fileID: 0}
     - target: {fileID: 2408252683382899739, guid: 3f5521abe3c32f5af9f306bed7123795, type: 3}
       propertyPath: m_Text
@@ -1074,7 +1102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2408252681976408815, guid: 3f5521abe3c32f5af9f306bed7123795, type: 3}
       propertyPath: m_Name
-      value: Button
+      value: Host
       objectReference: {fileID: 0}
     - target: {fileID: 2408252683382899739, guid: 3f5521abe3c32f5af9f306bed7123795, type: 3}
       propertyPath: m_Text

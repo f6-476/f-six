@@ -52,21 +52,21 @@ public class CameraController : MonoBehaviour
         return Quaternion.LookRotation(average, Vector3.up);
     }
 
-    private Quaternion AverageNormal()
+    private Vector3 AverageNormal()
     {
         Vector3 average = Vector3.zero;
 
-        if(targets.Count == 0) return Quaternion.Euler(average);
+        if(targets.Count == 0) return Vector3.up;
 
         foreach(Transform target in targets)
         {
             average += target.transform.up;
         }
 
-        return Quaternion.LookRotation(average, Vector3.up);
+        return average.normalized;
     }
 
-    private void Update() 
+    private void UpdateTransform()
     {
         Vector3 target = AveragePosition();
         Quaternion direction = AverageDirection() * Quaternion.Euler(rotationOffset.y, rotationOffset.x, 0.0f);
@@ -76,6 +76,11 @@ public class CameraController : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, target + offset, Time.deltaTime * translationSpeed);
 
         Vector3 lookForward = (transformOffset - offset).normalized;
-        transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(lookForward), Time.deltaTime * rotationSpeed);
+        transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(lookForward, AverageNormal()), Time.deltaTime * rotationSpeed);
+    }
+
+    private void Update() 
+    {
+        UpdateTransform();
     }
 }

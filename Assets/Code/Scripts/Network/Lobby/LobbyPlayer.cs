@@ -5,68 +5,50 @@ using Unity.Collections;
 
 public class LobbyPlayer : NetworkBehaviour
 {
-    private bool ready = false;
+    private NetworkVariable<bool> ready;
     public bool Ready
     {
-        get => ready;
-        set 
+        get => ready.Value;
+        set
         {
-            if (ready != value)
-            {
-                ready = value;
-                UpdatePlayerServerRpc(Get());
-            }
+            if (IsOwner) UpdateReadyServerRpc(value); 
         }
     }
 
-    public struct Raw : System.IEquatable<Raw>
+    private NetworkVariable<FixedString64Bytes> username;
+    public string Username
     {
-        public ulong id;
-        public FixedString64Bytes name;
-        public bool ready;
-
-        public bool Equals(Raw raw)
-        {
-            return this.id == raw.id && this.name.Equals(raw.name) && this.ready == raw.ready;
-        }
-    }
-
-    public Raw Get()
-    {
-        return new Raw
-        {
-            id = NetworkManager.Singleton.LocalClientId,
-            name = AuthManager.Singleton.Username,
-            ready = Ready
-        };
+        get => username.Value.ToString();
     }
 
     private void Start()
     {
+        LobbyManager.Singleton.Players.Add(this);
+
         if (IsOwner)
         {
-            LobbyManager.Singleton.localPlayer = this;
-            AddPlayerServerRpc(Get());
+            LobbyManager.Singleton.LocalPlayer = this;
+            UpdateUsernameServerRpc(AuthManager.Singleton.Username);
         }
     }
 
-    [ServerRpc]
-    public void AddPlayerServerRpc(Raw raw)
+    public override void OnNetworkDespawn()
     {
-        LobbyManager.Singleton.players.Add(raw);
+        if (LobbyManager.Singleton != null) LobbyManager.Singleton.Players.Remove(this);
+
+        base.OnNetworkDespawn();
     }
 
     [ServerRpc]
-    public void UpdatePlayerServerRpc(Raw raw)
+    private void UpdateReadyServerRpc(bool ready)
     {
-        var players = LobbyManager.Singleton.players;
-        for(int i = 0; i < players.Count; i++)
-        {
-            if (players[i].id.Equals(raw.id))
-            {
-                players[i] = raw;
-                break;
-            }
-        }
+        this.ready.Value = ready;
+        LobbyManager.Singleton.OnPlayerUpdate(this);
+    }
+
+    [ServerRpc]
+    private void UpdateUsernameServerRpc(FixedString64Bytes username)
+    {
+        this.username.Value = username;
     }
 }

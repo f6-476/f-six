@@ -3,35 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HostPopup : MonoBehaviour
+public class HostPopup : UIPopup
 {
-    private InputField passwordInput;
-    protected string password
-    {
-        get => passwordInput.text;
-    }
+    [SerializeField]
+    private UIField passwordField;
 
-    private Toggle onlineToggle;
-    bool online
-    {
-        get => onlineToggle.isOn;
-    }
+    [SerializeField]
+    private UIField onlineField;
 
-    private void Start()
+    public override void Show()
     {
-        passwordInput = GetComponentInChildren<InputField>();
-        onlineToggle = GetComponentInChildren<Toggle>();
+        if (RegistryManager.Singleton.IsConnected)
+        {
+            onlineField.Show();
+        }
+        else
+        {
+            onlineField.Hide();
+        }
+
+        base.Show();
     }
 
     public void Host()
     {
-        if (online)
-        {
-            StartCoroutine(ServerManager.Singleton.HostServer(password));
-        }
-        else
-        {
-            LobbyManager.Singleton.HostLobby(password);
-        }
+        ServerManager.Singleton.HostServer(passwordField.text, onlineField.isOn);
     }
 }

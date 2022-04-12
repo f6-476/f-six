@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc27fee8b0b0e7c69e882cfbb1d1781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameInput: {fileID: 907246374}
+  nameField: {fileID: 7307138933284495740}
 --- !u!1 &276886134
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,17 +490,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4056722035431715349, guid: 485ba638c8090d637aaf6d9d7152a14c, type: 3}
   m_PrefabInstance: {fileID: 1170957173}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &907246374 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7307138934431727650, guid: b6c6f67a642f92956a674554ea2f219c, type: 3}
-  m_PrefabInstance: {fileID: 7307138933284495739}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1163264009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1527,7 +1516,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 257552788}
         m_TargetAssemblyTypeName: OptionMenu, Assembly-CSharp
-        m_MethodName: BackToMainMenu
+        m_MethodName: Back
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2054,3 +2043,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6c6f67a642f92956a674554ea2f219c, type: 3}
+--- !u!114 &7307138933284495740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 29831519298784369, guid: b6c6f67a642f92956a674554ea2f219c, type: 3}
+  m_PrefabInstance: {fileID: 7307138933284495739}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca9a2ddbf8f095b89a698541d00af667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
