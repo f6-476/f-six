@@ -66,14 +66,8 @@ public class GameManager : MonoBehaviour
         foreach (var ship in _playersShips.Where(ship => sortedByLap.Contains(ship)))
         {
             ship.Info.CurrentRank = sortedByLap.FindIndex(s => s == ship) + 1;
-            ship.View.SetRankText(ship.Info.CurrentRank);
         }
 
         _playersShips = _playersShips.OrderBy(s => s.Info.CurrentRank).ToList();
-
-        foreach (var ship in _playersShips)
-        {
-            ship.View.SetRankingsText();
-        }
     }
 }

@@ -22,7 +22,6 @@ public class Ship : MonoBehaviour
     public ShipHover Hover => _hover;
     public ShipAudio Audio => _audio;
     public ShipInfo Info => _info;
-    public ShipView View => _view;
     
     //TODO: Ship stats --> scriptable object to set values (speed, maneuverability, etc...)
     //TODO: State machine for animation?
