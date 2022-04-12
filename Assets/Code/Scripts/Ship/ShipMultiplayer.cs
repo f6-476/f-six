@@ -5,8 +5,6 @@ using UnityEngine;
 public class ShipMultiplayer : NetworkBehaviour 
 {
     private Ship ship;
-    private CameraController cameraController;
-
     private NetworkVariable<Vector3> position;
     private NetworkVariable<Quaternion> rotation;
 
@@ -19,7 +17,8 @@ public class ShipMultiplayer : NetworkBehaviour
     {
         if(IsOwner)
         {
-            NetworkGameManager.Local.AttachShip(ship);
+            // TODO: Set from manager?
+            Camera.main.GetComponent<CameraController>().AddTarget(transform);
         }
         else
         {

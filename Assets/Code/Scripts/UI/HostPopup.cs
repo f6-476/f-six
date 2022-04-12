@@ -3,15 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HostPopup : PWPopup
+public class HostPopup : UIPopup
 {
-    bool online {
-        get => GetComponentInChildren<Toggle>().isOn;
+    [SerializeField]
+    private UIField passwordField;
+
+    [SerializeField]
+    private UIField onlineField;
+
+    public override void Show()
+    {
+        if (RegistryManager.Singleton.IsConnected)
+        {
+            onlineField.Show();
+        }
+        else
+        {
+            onlineField.Hide();
+        }
+
+        base.Show();
     }
+
     public void Host()
     {
-        //TODO
-        Debug.Log($"Host an {(online?"online":"offline")} game with pw: {base.password}");
-        LevelManager.Instance.LoadScene("Lobby");
+        ServerManager.Singleton.HostServer(passwordField.text, onlineField.isOn);
     }
 }

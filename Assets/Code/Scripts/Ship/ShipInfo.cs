@@ -8,7 +8,6 @@ public class ShipInfo : MonoBehaviour
 {
     public List<Transform> CurrentCheckpoints = new List<Transform>();
     [SerializeField] private List<float> _lapTimeList = new List<float>();
-    [SerializeField] private ShipView _shipView;
     public int LapsCompleted { get; set; }
     public int CurrentRank { get; set; }
 
@@ -19,7 +18,6 @@ public class ShipInfo : MonoBehaviour
     {
         LapsCompleted = 1;
         _lapTimeList.Add(0);
-        _shipView.SetLapText(LapsCompleted);
     }
 
     private void Update()
@@ -55,12 +53,10 @@ public class ShipInfo : MonoBehaviour
         if (_isCounting && !HasFinishedRace())
         {
             _stopWatch += Time.deltaTime;
-            _shipView.SetStopwatchText(_stopWatch);
         }
         else
         {
             _stopWatch = 0f;
-            _shipView.SetStopwatchText(_stopWatch);
         }
     }
 
@@ -82,15 +78,12 @@ public class ShipInfo : MonoBehaviour
         {
             LapsCompleted++;
         }
-        _shipView.SetLapText(LapsCompleted);
-        
-        _shipView.SetStopwatchText(_stopWatch);
+
         var lapTimeDifference = _lapTimeList.Last() - _stopWatch;
         if (LapsCompleted > 1)
         {
             lapTimeDifference = _stopWatch - _lapTimeList.Last();
         }
-        _shipView.SetLapTimeText(lapTimeDifference);
         _lapTimeList.Add(lapTimeDifference);
 
         _stopWatch = 0.0f;

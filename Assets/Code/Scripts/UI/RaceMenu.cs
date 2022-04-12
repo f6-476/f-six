@@ -1,81 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class RaceMenu : MonoBehaviour
+public class RaceMenu : UIMenu
 {
+    [SerializeField]
+    private GameObject lobbyEntryPrefab;
 
     [SerializeField]
-    GameObject lobbyEntryPrefab;
+    private ServerListContainer serverList;
 
-    GameObject lobbiesContainer;
+    [SerializeField]
+    private JoinPopup joinPopup;
+    [SerializeField]
+    private HostPopup hostPopup;
 
-    GameObject passwordPopup;
-    GameObject hostPopup;
-
-    LobbyEntry currentLobby {
-        get {
-            LobbyEntry entry = null;
-
-            foreach(Toggle toggle in lobbiesContainer.GetComponent<ToggleGroup>().ActiveToggles())
-            {
-                entry = toggle.gameObject.GetComponent<LobbyEntry>();
-            }
-            
-            return entry;
-        }
+    private void Start()
+    {
+        joinPopup.Hide();
+        hostPopup.Hide();
     }
 
-    void Start()
+    public override void Back()
     {
-        lobbiesContainer = GameObject.Find("LobbiesContainer");
-        
-        passwordPopup = GameObject.Find("PW Popup");
-        passwordPopup.SetActive(false);
-
-        hostPopup = GameObject.Find("Host Popup");
-        hostPopup.SetActive(false);
+        LoadScene("MainMenu");
     }
 
     public void JoinPopup()
     {
-        if (currentLobby != null)
+        LobbyEntry entry = serverList.current;
+
+        if (entry == null)
         {
-            passwordPopup.SetActive(true);
+            joinPopup.entry = null;
         }
+        else
+        {
+            joinPopup.entry = entry;
+        }
+
+        joinPopup.Show();
     }
 
     public void HostPopup()
     {
-        hostPopup.SetActive(true);
+        hostPopup.Show();
     }
 
     public void Refresh()
     {
-        AddEntry("Test");
-    }
-
-    void AddEntry(string hostname)
-    {
-        GameObject lobbyEntryGameObject = Instantiate(lobbyEntryPrefab, lobbiesContainer.transform);
-
-        LobbyEntry entry = lobbyEntryGameObject.GetComponent<LobbyEntry>();
-        StartCoroutine(SetupEntry(entry, hostname));
-    }
-
-    IEnumerator SetupEntry(LobbyEntry entry, string hostname)
-    {
-        yield return null;
-        entry.hostname = hostname;
-        entry.playerCount = "1/8";
-        entry.ping = "50";
-        entry.group = lobbiesContainer.GetComponent<ToggleGroup>();
-    }
-
-    public void BackToMainMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
+        serverList.Refresh();
     }
 }

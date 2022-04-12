@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Level/Scenes/TestAlex.unity
-    guid: 2e8d9ea2860098d609e06f0fe63d4576
+    path: Assets/Level/Scenes/Loader.unity
+    guid: 63b17a423eb2cec1897895a32cafe593
+  - enabled: 1
+    path: Assets/Level/Scenes/Menus/MainMenu.unity
+    guid: 0f8af0b36d452ec56aa8ded83d3b681b
   - enabled: 1
     path: Assets/Level/Scenes/Menus/RaceMenu.unity
     guid: fd3cf2a8934033489b345b3b6cbec517
@@ -15,10 +18,10 @@ EditorBuildSettings:
     path: Assets/Level/Scenes/Menus/Lobby.unity
     guid: 89f3d249920ccbd8faa8e2023a8834ae
   - enabled: 1
-    path: Assets/Level/Scenes/Menus/MainMenu.unity
-    guid: 0f8af0b36d452ec56aa8ded83d3b681b
-  - enabled: 1
     path: Assets/Level/Scenes/Menus/OptionsMenu.unity
     guid: 6727b0dc08f912095a1292f850d0cc76
+  - enabled: 1
+    path: Assets/Level/Scenes/Multiplayer.unity
+    guid: 183c4462ba6cebe56852de8fd4201701
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: ddb9a59c6b435f00081a3958198d7281, type: 2}

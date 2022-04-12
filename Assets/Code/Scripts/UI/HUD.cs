@@ -5,17 +5,16 @@ using UnityEngine.InputSystem;
 
 public class HUD : MonoBehaviour
 {
-    GameObject quitPopupComponent;
+    [SerializeField]
+    private QuitPopup quitPopup;
 
-    // Start is called before the first frame update
     void Start()
     {
-        quitPopupComponent = GameObject.Find("Quit Popup");
-        quitPopupComponent.SetActive(false);
+        quitPopup.Hide();
     }
 
     public void OnCancel(InputAction.CallbackContext context)
     {
-        quitPopupComponent.SetActive(true);
+        quitPopup.Show();
     }
 }
