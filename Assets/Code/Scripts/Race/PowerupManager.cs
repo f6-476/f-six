@@ -2,45 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerupManager : MonoBehaviour
+public class PowerupManager : ObjectPlacement
 {
-    private static GameManager _instance;
+    private static PowerupManager _instance;
 
-    public static GameManager Instance
+    public static PowerupManager Instance
     {
         get
         {
             if (_instance == null)
             {
-                _instance = FindObjectOfType<GameManager>();
+                _instance = FindObjectOfType<PowerupManager>();
             }
 
             return _instance;
         }
     }
-
-    [Range(2, 100)] public int powerupCount = 20;
-    [Range(2, 500)] public float radiusWithNoPowerUp = 200;
-    public GameObject powerUpPrefab;
-    public TrackGenerator track;
-    [HideInInspector] public List<GameObject> powerUps;
-    private float prefabRadius;
     void Start()
     {
-        powerUps = new List<GameObject>();
-        prefabRadius = powerUpPrefab.transform.localScale.y;
-        InitializePowerups();
+        InitializeObjectPlacementVariables();
+        prefabRadius = objectPrefab.transform.localScale.y;
+        InitializeObjects();
     }
 
-    public void InitializePowerups()
+    public override void InitializeObjects()
     {
-        for (int i = 0; i < powerupCount; i++)
+        for (int i = 0; i < objectCount; i++)
         {
-            GameObject p = ObjectPlacement.PlaceOneObject(radiusWithNoPowerUp, powerUpPrefab, this.transform, prefabRadius, track, 8, powerUps);
-            if (p)
-            {
-                powerUps.Add(p);
-            }
+            GameObject p = PlaceOneObject(this.transform);
         }
     }
 
