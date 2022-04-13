@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2379152826062508369}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &467520162
 ParticleSystem:
@@ -4834,7 +4834,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2379152826062508369}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &599954523
 ParticleSystem:
@@ -9638,7 +9638,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2379152826062508369}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &1989200376
 ParticleSystem:
@@ -14442,7 +14442,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2379152826062508369}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &2006219188
 ParticleSystem:
@@ -19242,6 +19242,22 @@ PrefabInstance:
     - target: {fileID: 1848271417, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: thrustMultiplier
       value: 1.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 815530847089162924, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 815530847089162924, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5.598076
+      objectReference: {fileID: 0}
+    - target: {fileID: 815530847089162924, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 815530847089162924, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.19
       objectReference: {fileID: 0}
     - target: {fileID: 2507101251079268092, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: m_IsActive
