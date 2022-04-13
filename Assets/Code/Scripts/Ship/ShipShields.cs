@@ -44,14 +44,13 @@ public class ShipShields : MonoBehaviour
           i kind of imagine this like mario kart were the shield of shells block one attack
           and after each consecutive hit the shells circling the player decreases. To mimic that here
           i reduce the scale of the sphere to signify to the player that their shields
-          are depleting. 8 is for obstacles, and when the player is shielded he is immune to getting
-          derailed(BUMPED) from them. 6 happens when you hit a powerup orb that grants shields again.It
-          essentially resets this shields instance.
+          are depleting. 7 is for obstacles, and when the player is shielded he is immune to getting
+          derailed(BUMPED) from them.
          */
 
         int otherLayer = other.gameObject.layer;
         
-        if (otherLayer == 8 || otherLayer == 30)
+        if (otherLayer == 7 || otherLayer == 30)
         {
             this.hitCount--;
             Destroy(other.gameObject);
@@ -77,11 +76,17 @@ public class ShipShields : MonoBehaviour
         else if(otherLayer == 6)
         {
             //reset shields to square one after shield re-pickup
-            CancelInvoke("DestroyMe");
-            transform.localScale = originalScale;
-            shieldHealthBar.fillAmount = 100f;
-            this.hitCount = 3;
-            Invoke("DestroyMe", 10.0f);
+            GameObject tempPowerUp = other.gameObject;
+            PowerUp powerUpScript = tempPowerUp.GetComponent<PowerUp>();
+
+            if (powerUpScript.type == PowerUpType.SHIELD)
+            {
+                CancelInvoke("DestroyMe");
+                transform.localScale = originalScale;
+                shieldHealthBar.fillAmount = 100f;
+                this.hitCount = 3;
+                Invoke("DestroyMe", 10.0f);
+            }
         }
         else if (otherLayer == 31)
         {
