@@ -9,8 +9,8 @@ public class PowerUp : MonoBehaviour
     public PowerUpType type;
 
     [SerializeField] private GameObject shields;
-    [SerializeField] private GameObject greenMissiles;//reg
-    [SerializeField] private GameObject redMissiles;//homing
+    [SerializeField] private GameObject greenMissilesControllerSpawn;//reg
+    [SerializeField] private GameObject redMissilesControllerSpawn;//homing
 
     private void OnTriggerEnter(Collider other)
     {
@@ -31,12 +31,12 @@ public class PowerUp : MonoBehaviour
                     var greenMissleSpawnPosGameObj = other.transform.Find("MissleControllerSpawnPos");
                     spawnPosition = greenMissleSpawnPosGameObj.transform.position;
                     var missleRotation = other.transform.rotation;
-                    Instantiate(this.greenMissiles, spawnPosition, missleRotation*Quaternion.Euler(90f,0f,0f), other.transform);
+                    Instantiate(this.greenMissilesControllerSpawn, spawnPosition, missleRotation*Quaternion.Euler(90f,0f,0f), other.transform);
                     break;
                 case PowerUpType.RED_MISSILE:
                     var redMissleSpawnPosGameObj = other.transform.Find("MissleControllerSpawnPos");
                     spawnPosition = redMissleSpawnPosGameObj.transform.position;
-                    Instantiate(this.redMissiles, spawnPosition, other.transform.rotation, other.transform);
+                    Instantiate(this.redMissilesControllerSpawn, spawnPosition, other.transform.rotation, other.transform);
                     break;
                 default:
 

@@ -110,5 +110,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   shields: {fileID: 6699833627855391038, guid: 7bc17656c8551e547a3395896dfaf053, type: 3}
-  greenMissiles: {fileID: 7563435635619759808, guid: f4a7188f0cfc3bd4e9de0b819d597565, type: 3}
-  redMissiles: {fileID: 0}
+  greenMissilesControllerSpawn: {fileID: 7563435635619759808, guid: f4a7188f0cfc3bd4e9de0b819d597565, type: 3}
+  redMissilesControllerSpawn: {fileID: 0}
