@@ -322,6 +322,7 @@ GameObject:
   - component: {fileID: 3317581294562083422}
   - component: {fileID: 3317581294562083416}
   - component: {fileID: 9136744597938755499}
+  - component: {fileID: 6684139329690415598}
   - component: {fileID: 3317581294562083419}
   - component: {fileID: 3317581294562083417}
   - component: {fileID: 3317581294562083415}
@@ -585,7 +586,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentCheckpoints: []
   _lapTimeList: []
-  _shipView: {fileID: 0}
+--- !u!114 &6684139329690415598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317581294562083414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f859a3d2ec3834285db63f114a758b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rankText: {fileID: 0}
+  _lapText: {fileID: 0}
+  _stopWatchText: {fileID: 0}
+  _timeLapText: {fileID: 0}
+  _rankingsText: {fileID: 0}
 --- !u!33 &3317581294562083419
 MeshFilter:
   m_ObjectHideFlags: 0

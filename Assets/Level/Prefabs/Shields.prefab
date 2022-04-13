@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8507230679341299388}
   - component: {fileID: 2249785464404894546}
   - component: {fileID: 2238086673899498141}
-  - component: {fileID: 1536811367679052066}
+  - component: {fileID: 8812861508198831718}
   m_Layer: 29
   m_Name: Shields
   m_TagString: Untagged
@@ -95,8 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17f644609a3a0649b5d78087a6b551d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!64 &1536811367679052066
-MeshCollider:
+--- !u!135 &8812861508198831718
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -105,7 +105,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 2
+  m_Radius: 0.50000006
+  m_Center: {x: 0, y: 0, z: 0}
