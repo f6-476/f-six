@@ -126,10 +126,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bffe35dcab4875949a16e03b82cb2e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  hoverHeight: 1
+  tunePID: 0
   missleSpeed: 10
   _gravity: 9.8
-  p: 0
-  i: 0
-  d: 0
-  hoverHeight: 4
-  tunePID: 0
+  p: 85
+  i: 0.5
+  d: 3
