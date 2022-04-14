@@ -98,7 +98,6 @@ public class ShipShields : MonoBehaviour
         {
             _shipView.SetShieldBar(0f);
         }
-        //Adjust UI
         Destroy(gameObject);
     }
 

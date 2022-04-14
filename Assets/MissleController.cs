@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class MissleController : MonoBehaviour
 {
-    [SerializeField] private GameObject missle;
-    private Transform ship;
-    private Vector3 missleSpawnPos;
+    [SerializeField] private GameObject _missle;
+    private Ship _ship;
+    private ShipView _shipView;
+    private Vector3 _missleSpawnPos;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        ship = transform.parent;
-        missleSpawnPos = ship.Find("MissleSpawnPos").position;
+        //Destroy this shields instance in 10 sec
+        Invoke(nameof(DestroyMe), 10.0f);
+    }
+
+    public void InitializeController(Ship owner)
+    {
+        _ship = owner;
+        _shipView = owner.View;
+        _missleSpawnPos = owner.gameObject.transform.Find("MissleSpawnPos").position;
     }
 
     // Update is called once per frame
@@ -23,4 +30,10 @@ public class MissleController : MonoBehaviour
          * instantiate a missle on missle spawn pos
          */
     }
+
+    private void DestroyMe()
+    {
+        Destroy(gameObject);
+    }
+
 }

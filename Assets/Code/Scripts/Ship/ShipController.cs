@@ -25,6 +25,16 @@ public class ShipController : Controller
             boost = false;
         }
     }
-    
-    
+
+    public void GetFire(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed && !fire)
+        {
+            fire = true;
+        }
+        else if (ctx.canceled)
+        {
+            fire = false;
+        }
+    }
 }
