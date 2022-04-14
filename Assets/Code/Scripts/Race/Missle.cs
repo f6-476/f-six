@@ -4,9 +4,10 @@ public abstract class Missle : MonoBehaviour
 {   
     public LayerMask trackLayer;
     public float hoverHeight = 1;
+    public float thrustMultiplier = 1;
     public bool tunePID = false;   
 
-    [SerializeField] protected float missleSpeed = 10;
+    [SerializeField] protected float missleSpeed = 3f;
     [SerializeField] protected float _gravity = 9.8f;
     [SerializeField][Range(-100f, 100f)] protected float p, i, d;
 

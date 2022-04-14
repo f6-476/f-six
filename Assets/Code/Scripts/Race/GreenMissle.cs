@@ -7,6 +7,8 @@ public class GreenMissle : Missle
 
     public override void FixedUpdate()
     {
+
+        missleRigidBody.AddForce(transform.up * (missleSpeed * 10 * thrustMultiplier), ForceMode.Acceleration);
         //var normal = Vector3.zero;
         if (tunePID)
         {
@@ -16,9 +18,10 @@ public class GreenMissle : Missle
         }
 
         //var direction = Vector3.zero;
-        Debug.DrawRay(transform.position, -transform.up, Color.red);
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 5, trackLayer))
+        Debug.DrawRay(transform.position, transform.forward, Color.red);
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 5, trackLayer))
         {
+            print("Im in here");
             //Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 5)
 
             var normal = SampleCornersAverage();
@@ -26,8 +29,8 @@ public class GreenMissle : Missle
 
             Physics.Raycast(transform.position, -normal, out RaycastHit hit2, 5, trackLayer);
 
-            var turn = Quaternion.AngleAxis(0 * 10f, transform.up);
-            var align = Quaternion.FromToRotation(transform.up, normal);
+            var turn = Quaternion.AngleAxis(0 * 10f, -transform.forward);
+            var align = Quaternion.FromToRotation(-transform.forward, normal);
 
             Debug.DrawLine(transform.position, hit.point, Color.green);
 
@@ -47,27 +50,27 @@ public class GreenMissle : Missle
     public Vector3 SampleCornersAverage()
     {
         Vector3 norm = Vector3.zero;
-        if (Time.time < 1) return transform.up;
+        if (Time.time < 1) return transform.forward;
         List<RaycastHit> hits = new List<RaycastHit>();
         hits.Clear();
 
         //front right
-        var direction = -transform.up + transform.forward * 1 + transform.right * 1;
+        var direction = transform.forward + transform.up * 1 + transform.right * 1;
         if (Physics.Raycast(transform.position, direction, out RaycastHit hit1, 10, trackLayer))
             hits.Add(hit1);
 
         //front left
-        direction = -transform.up + transform.forward * 1 - transform.right * 1;
+        direction = transform.forward + transform.up * 1 - transform.right * 1;
         if (Physics.Raycast(transform.position, direction, out RaycastHit hit2, 10, trackLayer))
             hits.Add(hit1);
 
         //back right
-        direction = -transform.up - transform.forward * 1 + transform.right * 1;
+        direction = transform.forward - transform.up * 1 + transform.right * 1;
         if (Physics.Raycast(transform.position, direction, out RaycastHit hit3, 10, trackLayer))
             hits.Add(hit3);
 
         //back left
-        direction = -transform.up - transform.forward * 1 - transform.right * 1;
+        direction = transform.forward - transform.up * 1 - transform.right * 1;
         if (Physics.Raycast(transform.position, direction, out RaycastHit hit4, 10, trackLayer))
             hits.Add(hit4);
 
@@ -90,7 +93,8 @@ public class GreenMissle : Missle
 
     public override void Fire()
     {
-        throw new System.NotImplementedException();
+        //instantiate the missle
+        //set some boolean to be true and let the fixed update do it's magic
     }
 
 }

@@ -1868,7 +1868,7 @@ Rigidbody:
   m_Drag: 1
   m_AngularDrag: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2882,49 +2882,61 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenMissle
       objectReference: {fileID: 0}
+    - target: {fileID: 122724933601696295, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 122724933601696295, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
+      propertyPath: m_AngularDrag
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 124948265524323207, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 124948265524323207, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 100.692
+      value: 91.900085
       objectReference: {fileID: 0}
     - target: {fileID: 124948265524323207, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21.23
+      value: 40.063515
       objectReference: {fileID: 0}
     - target: {fileID: 124948265524323207, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -242.765
+      value: -245.83124
       objectReference: {fileID: 0}
     - target: {fileID: 124948265524323207, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.46390373
+      value: -0.63609946
       objectReference: {fileID: 0}
     - target: {fileID: 124948265524323207, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.46390373
+      value: -0.448532
       objectReference: {fileID: 0}
     - target: {fileID: 124948265524323207, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5336603
+      value: 0.42182785
       objectReference: {fileID: 0}
     - target: {fileID: 124948265524323207, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.5336603
+      value: -0.4650353
       objectReference: {fileID: 0}
     - target: {fileID: 124948265524323207, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
+      value: 107.918
       objectReference: {fileID: 0}
     - target: {fileID: 124948265524323207, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -98
+      value: -204.557
       objectReference: {fileID: 0}
     - target: {fileID: 124948265524323207, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -486.091
+      objectReference: {fileID: 0}
+    - target: {fileID: 5813136295788204608, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
+      propertyPath: missleSpeed
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
