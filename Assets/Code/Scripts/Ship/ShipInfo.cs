@@ -6,13 +6,14 @@ using UnityEngine;
 [RequireComponent(typeof(Ship))]
 public class ShipInfo : MonoBehaviour
 {
+    [SerializeField] private ShipView _shipView;
     public List<Transform> CurrentCheckpoints = new List<Transform>();
     [SerializeField] private List<float> _lapTimeList = new List<float>();
     public int LapsCompleted { get; set; }
     public int CurrentRank { get; set; }
 
-    private float _stopWatch;
-    private bool _isCounting;
+    public float _stopWatch;
+    public bool _isCounting;
     public bool HasFinished { get; set; }
 
     private void Start()
@@ -47,12 +48,14 @@ public class ShipInfo : MonoBehaviour
 
         if (other.gameObject == CheckpointManager.Instance.finishLine)
         {
-            _isCounting = true;
             ResetTimer();
+            _isCounting = true;
         }
 
         // Update Rankings if necessary
         GameManager.Instance.RankPlayers();
+        _shipView.SetRankText(CurrentRank);
+        _shipView.SetRankingsText();
     }
 
     private void TickStopWatch()
@@ -65,6 +68,7 @@ public class ShipInfo : MonoBehaviour
         {
             _stopWatch = 0f;
         }
+        _shipView.SetStopwatchText(_stopWatch);
     }
 
     /// <summary>
@@ -81,9 +85,10 @@ public class ShipInfo : MonoBehaviour
     {
         CurrentCheckpoints.Clear();
 
-        if (LapsCompleted < GameManager.Instance.MapLaps)
+        if (LapsCompleted < GameManager.Instance.MapLaps && _isCounting)
         {
             LapsCompleted++;
+            _shipView.SetLapText(LapsCompleted);
         }
 
         var lapTimeDifference = _lapTimeList.Last() - _stopWatch;
@@ -91,6 +96,7 @@ public class ShipInfo : MonoBehaviour
         {
             lapTimeDifference = _stopWatch - _lapTimeList.Last();
         }
+        _shipView.SetLapTimeText(lapTimeDifference);
         _lapTimeList.Add(lapTimeDifference);
 
         _stopWatch = 0.0f;

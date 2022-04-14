@@ -5,36 +5,32 @@ using UnityEngine.UI;
 
 public class ShipShields : MonoBehaviour
 {
-    private BoxCollider shipCollider;
-    private GameObject ship;
-    private Image shieldHealthBar;
+    private Ship _ship;
+    private ShipView _shipView;
+    private BoxCollider _shipCollider;
 
-    private Vector3 originalScale;
+    private Vector3 _originalScale;
 
-    private int hitCount = 3;
+    private int _hitCount = 3;
 
     private void Awake()
     {
-        ship = GameObject.Find("Ship");
-        //disable ship's collider for now while shields are active
-        shipCollider = ship.GetComponent<BoxCollider>();
-        shipCollider.enabled = !shipCollider.enabled;
         //keeps track of the OG scale of shields prefab. It's a visual aid on shield status
-        originalScale = transform.localScale;
-
-        //Fill for UI getting for next three lines
-        GameObject tempGameObj = GameObject.Find("Top Right");
-        //Filling Bar
-        Transform tempChild = tempGameObj.transform.GetChild(0);
-        //Fill
-        tempChild = tempChild.GetChild(0);
-        
-        //get ref to shield bars UI
-        shieldHealthBar = tempChild.gameObject.GetComponent<Image>();
-        shieldHealthBar.fillAmount = 100f;
+        _originalScale = transform.localScale;
 
         //Destroy this shields instance in 10 sec
-        Invoke("DestroyMe", 10.0f);
+        Invoke(nameof(DestroyMe), 10.0f);
+    }
+
+    // When shield is instantiated, set its owner to the ship that picked up that powerup
+    public void InitializeShield(Ship owner)
+    {
+        _ship = owner;
+        _shipView = owner.View;
+        _shipCollider = owner.gameObject.GetComponent<BoxCollider>();
+        // disable ship collider while having a shield
+        // Not necessary to have it when the shield has one while it's active
+        _shipCollider.enabled = !_shipCollider.enabled;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,24 +48,24 @@ public class ShipShields : MonoBehaviour
         
         if (otherLayer == 7 || otherLayer == 30)
         {
-            this.hitCount--;
+            this._hitCount--;
             Destroy(other.gameObject);
 
-            if (hitCount == 2)
+            if (_hitCount == 2)
             {
                 //reduce scale of shields
                 transform.localScale -= new Vector3(0.55f, 0.1f, 0.2f);
-                shieldHealthBar.fillAmount -= 0.33f;
+                _shipView.DecreaseShieldBar(0.33f);
             }
-            else if (hitCount == 1)
+            else if (_hitCount == 1)
             {
                 //reduce scale of shields
                 transform.localScale -= new Vector3(0.55f, 0.1f, 0.2f);
-                shieldHealthBar.fillAmount -= 0.33f;
+                _shipView.DecreaseShieldBar(0.33f);
             }
-            if (hitCount == 0)
+            if (_hitCount == 0)
             {
-                shieldHealthBar.fillAmount = 0f;
+                _shipView.DecreaseShieldBar(0f);
                 Destroy(gameObject);
             }
         }
@@ -81,11 +77,11 @@ public class ShipShields : MonoBehaviour
 
             if (powerUpScript.type == PowerUpType.SHIELD)
             {
-                CancelInvoke("DestroyMe");
-                transform.localScale = originalScale;
-                shieldHealthBar.fillAmount = 100f;
-                this.hitCount = 3;
-                Invoke("DestroyMe", 10.0f);
+                CancelInvoke(nameof(DestroyMe));
+                transform.localScale = _originalScale;
+                _shipView.SetShieldBar(1f);
+                _hitCount = 3;
+                Invoke(nameof(DestroyMe), 10.0f);
             }
         }
         else if (otherLayer == 31)
@@ -98,9 +94,9 @@ public class ShipShields : MonoBehaviour
 
     private void DestroyMe()
     {
-        if(this.hitCount > 0)
+        if(_hitCount > 0)
         {
-            shieldHealthBar.fillAmount = 0f;
+            _shipView.SetShieldBar(0f);
         }
         //Adjust UI
         Destroy(gameObject);
@@ -109,6 +105,6 @@ public class ShipShields : MonoBehaviour
     private void OnDestroy()
     {
         //re-enable ship collider
-        shipCollider.enabled = !shipCollider.enabled;
+        _shipCollider.enabled = !_shipCollider.enabled;
     }
 }

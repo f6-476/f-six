@@ -22,7 +22,9 @@ public class PowerUp : MonoBehaviour
                 case PowerUpType.SHIELD:
                     var shieldSpawnPosGameObj = other.transform.Find("ShieldSpawnPos");
                     spawnPosition = shieldSpawnPosGameObj.transform.position;
-                    Instantiate(shields, spawnPosition, other.transform.rotation, other.transform);
+                    var shield = Instantiate(shields, spawnPosition, other.transform.rotation, other.transform);
+                    var shipShields = shield.GetComponent<ShipShields>();
+                    shipShields.InitializeShield(other.gameObject.GetComponent<Ship>());
                     break;
                 case PowerUpType.BOOST:
                     //do something with boost

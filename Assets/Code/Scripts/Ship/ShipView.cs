@@ -13,6 +13,7 @@ public class ShipView : MonoBehaviour
     [SerializeField] private Text _stopWatchText;
     [SerializeField] private Text _timeLapText;
     [SerializeField] private Text _rankingsText;
+    [SerializeField] private Image _shieldBar;
 
     public void SetRankText(int rank)
     {
@@ -46,33 +47,33 @@ public class ShipView : MonoBehaviour
 
     public void SetLapTimeText(float lapTimeDifference)
     {
+        _timeLapText.text = $"{SetFloatToTimer(lapTimeDifference)}";
         if (lapTimeDifference < 0f)
         {
-            _timeLapText.text = $"+{SetFloatToTimer(lapTimeDifference)}";
+            _timeLapText.text = $"-{_timeLapText.text}";
             _timeLapText.color = Color.green;
         }
         else if (lapTimeDifference > 0f)
         {
-            _timeLapText.text = $"-{SetFloatToTimer(lapTimeDifference)}";
+            _timeLapText.text = $"+{_timeLapText.text}";
             _timeLapText.color = Color.red;
         }
         else
         {
-            _timeLapText.text = $"{SetFloatToTimer(lapTimeDifference)}";
+            _timeLapText.text = $"{_timeLapText.text}";
             _timeLapText.color = Color.grey;
         }
     }
 
     public void SetRankingsText()
     {
-        var playerList = GameManager.Instance._playersShips;
         var textField = "";
         var rank = 0;
         foreach (var player in GameManager.Instance._playersShips)
         {
             textField += $"{rank + 1}. {player.name}\n";
         }
-        //_rankingsText.text = textField;
+        _rankingsText.text = textField;
     }
 
     private string SetFloatToTimer(float timeFloat)
@@ -82,5 +83,15 @@ public class ShipView : MonoBehaviour
         //(n-(int)n)*1000;
         var milliseconds = (timeFloat - (int) timeFloat) * 1000f;
         return $"{minutes}:{seconds}:{(int) milliseconds}";
+    }
+
+    public void DecreaseShieldBar(float shieldDamage)
+    {
+        _shieldBar.fillAmount -= shieldDamage;
+    }
+
+    public void SetShieldBar(float amount)
+    {
+        _shieldBar.fillAmount = amount;
     }
 }
