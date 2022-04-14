@@ -10,6 +10,7 @@ public class PowerUp : MonoBehaviour
 
     [SerializeField] private GameObject shields;
     [SerializeField] private GameObject greenMissilesController;//reg
+    [SerializeField] private GameObject greenMissile;
     [SerializeField] private GameObject redMissilesController;//homing
 
     private void OnTriggerEnter(Collider other)
@@ -30,12 +31,11 @@ public class PowerUp : MonoBehaviour
                     //do something with boost
                     break;
                 case PowerUpType.GREEN_MISSILE:
-                    var greenMissleSpawnPosGameObj = other.transform.Find("MissleControllerSpawnPos");
-                    spawnPosition = greenMissleSpawnPosGameObj.transform.position;
-                    var missleRotation = other.transform.rotation;
-                    var missleController = Instantiate(this.greenMissilesController, spawnPosition, missleRotation * Quaternion.Euler(90f, 0f, 0f), other.transform);
-                    var missleContollerScript = missleController.GetComponent<MissleController>();
-                    missleContollerScript.InitializeController(other.gameObject.GetComponent<Ship>());
+                    var playerShip = other.gameObject.GetComponent<Ship>();
+                    if (!playerShip.Info.CurrentMissile)
+                    {
+                        playerShip.Info.SetMissile(greenMissile);
+                    }
                     break;
                 case PowerUpType.RED_MISSILE:
                     var redMissleSpawnPosGameObj = other.transform.Find("MissleControllerSpawnPos");

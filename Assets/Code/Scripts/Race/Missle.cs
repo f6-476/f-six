@@ -12,15 +12,15 @@ public abstract class Missle : MonoBehaviour
     [SerializeField][Range(-100f, 100f)] protected float p, i, d;
 
     protected PID _hoverPidController;
-    protected Rigidbody missleRigidBody;
-    protected Transform spawnActualMisslePos;
+    [SerializeField] protected CapsuleCollider _missileCollider;
+    [SerializeField] protected Rigidbody _missileRigidbody;
+    public Ship _owner { get; set; }
     //some audio source
     //some particle system to show explosions
 
     // Start is called before the first frame update
     public void Start()
     {
-        missleRigidBody = GetComponent<Rigidbody>();
         //finding the actual missle spawn
         _hoverPidController = new PID(p, i, d);
     }

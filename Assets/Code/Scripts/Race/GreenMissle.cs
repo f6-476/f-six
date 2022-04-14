@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GreenMissle : Missle
-{ 
-
+{
     public override void FixedUpdate()
     {
+        if (_missileRigidbody.isKinematic) return;
 
-        missleRigidBody.AddForce(transform.up * (missleSpeed * 10 * thrustMultiplier), ForceMode.Acceleration);
+        _missileRigidbody.AddForce(transform.up * (missleSpeed * 10 * thrustMultiplier), ForceMode.Acceleration);
         //var normal = Vector3.zero;
         if (tunePID)
         {
@@ -34,17 +34,16 @@ public class GreenMissle : Missle
 
             Debug.DrawLine(transform.position, hit.point, Color.green);
 
-            missleRigidBody.AddForce(-_gravity * direction, ForceMode.Acceleration);
-            missleRigidBody.AddForce(normal * _hoverPidController.GetOutput((hoverHeight - hit2.distance), Time.fixedDeltaTime));
+            _missileRigidbody.AddForce(-_gravity * direction, ForceMode.Acceleration);
+            _missileRigidbody.AddForce(normal * _hoverPidController.GetOutput((hoverHeight - hit2.distance), Time.fixedDeltaTime));
 
-            var rot = Quaternion.Slerp(missleRigidBody.rotation, align * missleRigidBody.rotation, .4f);
+            var rot = Quaternion.Slerp(_missileRigidbody.rotation, align * _missileRigidbody.rotation, .4f);
             rot = Quaternion.Slerp(rot, turn * rot, .4f);
 
-            var quat = rot * Quaternion.Inverse(missleRigidBody.rotation);
+            var quat = rot * Quaternion.Inverse(_missileRigidbody.rotation);
 
-            missleRigidBody.AddTorque(quat.x * 100, quat.y * 100, quat.z * 100, ForceMode.Acceleration);
+            _missileRigidbody.AddTorque(quat.x * 100, quat.y * 100, quat.z * 100, ForceMode.Acceleration);
         }
-
     }
 
     public Vector3 SampleCornersAverage()
@@ -93,8 +92,9 @@ public class GreenMissle : Missle
 
     public override void Fire()
     {
-        //instantiate the missle
-        //set some boolean to be true and let the fixed update do it's magic
+        transform.parent = null;
+        _missileRigidbody.isKinematic = false;
+        _missileCollider.enabled = true;
+        _owner.Info.CurrentMissile = null;
     }
-
 }

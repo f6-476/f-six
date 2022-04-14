@@ -349,7 +349,6 @@ Transform:
   - {fileID: 2990623117576256582}
   - {fileID: 3840704169729776170}
   - {fileID: 8921005811803299314}
-  - {fileID: 6240900257820797421}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -485,6 +484,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 776ab467-e526-4bca-9390-03a39c7906c5
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a58099de-6113-4fdd-8125-ab9dcb3f2aac
+    m_ActionName: Gameplay/Fire[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -584,8 +587,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e26c22dbda32974abf82ae31ab20d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shipView: {fileID: 0}
   CurrentCheckpoints: []
   _lapTimeList: []
+  _stopWatch: 0
+  _isCounting: 0
+  _missileSpawn: {fileID: 8921005811803299314}
 --- !u!114 &6684139329690415598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,6 +610,7 @@ MonoBehaviour:
   _stopWatchText: {fileID: 0}
   _timeLapText: {fileID: 0}
   _rankingsText: {fileID: 0}
+  _shieldBar: {fileID: 0}
 --- !u!33 &3317581294562083419
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5599,36 +5607,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3317581294562083420}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8795612536728119151
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6240900257820797421}
-  m_Layer: 0
-  m_Name: MissleControllerSpawnPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6240900257820797421
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8795612536728119151}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.004, y: 1.443, z: -0.991}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3317581294562083420}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3317581294204443565
 PrefabInstance:

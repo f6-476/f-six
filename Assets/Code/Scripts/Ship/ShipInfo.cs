@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Ship))]
 public class ShipInfo : MonoBehaviour
 {
+    [Header("Race Properties")]
     [SerializeField] private ShipView _shipView;
     public List<Transform> CurrentCheckpoints = new List<Transform>();
     [SerializeField] private List<float> _lapTimeList = new List<float>();
@@ -15,6 +16,10 @@ public class ShipInfo : MonoBehaviour
     public float _stopWatch;
     public bool _isCounting;
     public bool HasFinished { get; set; }
+
+    [Header("PowerUp Properties")]
+    [SerializeField] private Transform _missileSpawn;
+    public GameObject CurrentMissile { get; set; }
 
     private void Start()
     {
@@ -105,5 +110,19 @@ public class ShipInfo : MonoBehaviour
     private bool HasFinishedRace()
     {
         return LapsCompleted > GameManager.Instance.MapLaps;
+    }
+
+    public void SetMissile(GameObject missilePrefab)
+    {
+        CurrentMissile = Instantiate(missilePrefab, _missileSpawn.position, _missileSpawn.rotation * Quaternion.Euler(90f, 0f, 0f), _missileSpawn);
+        CurrentMissile.GetComponent<Missle>()._owner = GetComponent<Ship>();
+    }
+
+    public void FireGreenMissile()
+    {
+        if (CurrentMissile)
+        {
+            CurrentMissile.GetComponent<Missle>().Fire();
+        }
     }
 }

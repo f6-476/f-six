@@ -93,7 +93,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 122174201285692073}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1.2793049
   m_Height: 9.780996
   m_Direction: 1
@@ -110,7 +110,7 @@ Rigidbody:
   m_Drag: 1
   m_AngularDrag: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -130,9 +130,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   hoverHeight: 1
+  thrustMultiplier: 1
   tunePID: 0
   missleSpeed: 10
   _gravity: 9.8
   p: 85
   i: 0.5
   d: 3
+  _missileCollider: {fileID: 122724933601696292}
+  _missileRigidbody: {fileID: 122724933601696295}

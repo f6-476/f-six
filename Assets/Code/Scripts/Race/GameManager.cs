@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [Header("Race Properties")]
     public List<Ship> _playersShips;
     public List<Ship> _scoredShips = new List<Ship>();
     [SerializeField] private int _mapLaps;
