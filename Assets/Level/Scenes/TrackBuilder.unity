@@ -1084,6 +1084,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5330330478253998678, guid: 42133a429cdbde3e898a31b1f3ecf370, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5379897195800491163, guid: 42133a429cdbde3e898a31b1f3ecf370, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1868,6 +1872,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &590116248 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5330330478253998678, guid: 42133a429cdbde3e898a31b1f3ecf370, type: 3}
+  m_PrefabInstance: {fileID: 248649071}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &615463788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2523,7 +2538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3317581294562083420, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 100
+      value: 108.1
       objectReference: {fileID: 0}
     - target: {fileID: 3317581294562083420, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2746,6 +2761,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 520097778}
     - target: {fileID: 6684139329690415598, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
+      propertyPath: _shieldBar
+      value: 
+      objectReference: {fileID: 590116248}
+    - target: {fileID: 6684139329690415598, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: _timeLapText
       value: 
       objectReference: {fileID: 785633123}
@@ -2757,6 +2776,10 @@ PrefabInstance:
       propertyPath: _stopWatchText
       value: 
       objectReference: {fileID: 773399639}
+    - target: {fileID: 9136744597938755499, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
+      propertyPath: _shipView
+      value: 
+      objectReference: {fileID: 43332353}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
 --- !u!1 &1397206752
