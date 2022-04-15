@@ -325,7 +325,8 @@ GameObject:
   - component: {fileID: 3317581294562083417}
   - component: {fileID: 3317581294562083415}
   - component: {fileID: 3317581294562083423}
-  - component: {fileID: 5873080679221222837}
+  - component: {fileID: 6780532023430290787}
+  - component: {fileID: -306088511557248013}
   m_Layer: 0
   m_Name: Ship AI
   m_TagString: Untagged
@@ -366,8 +367,7 @@ MonoBehaviour:
   _hover: {fileID: 0}
   _audio: {fileID: 0}
   _rigidbody: {fileID: 0}
-  _info: {fileID: 0}
-  _view: {fileID: 0}
+  _race: {fileID: 0}
 --- !u!114 &1427607838068107227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,6 +465,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222e00e586e155a449c4e25a833c007a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackLayer:
+    serializedVersion: 2
+    m_Bits: 0
   hoverHeight: 1
   tunePID: 0
   _gravity: 10
@@ -604,7 +607,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5873080679221222837
+--- !u!114 &6780532023430290787
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -613,12 +616,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 3317581294562083414}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e26c22dbda32974abf82ae31ab20d81, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e1aa80163a33fed78d062eb01688129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentCheckpoints: []
-  _lapTimeList: []
-  _shipView: {fileID: 0}
+--- !u!114 &-306088511557248013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317581294562083414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &3317581295477237567
 GameObject:
   m_ObjectHideFlags: 0
@@ -5504,14 +5520,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebaa86a11bb5e7a4f883cb4b23b30f13, type: 3}
---- !u!1 &2507101251079268092 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ebaa86a11bb5e7a4f883cb4b23b30f13, type: 3}
-  m_PrefabInstance: {fileID: 3317581294204443565}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2990623117576256582 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ebaa86a11bb5e7a4f883cb4b23b30f13, type: 3}
+  m_PrefabInstance: {fileID: 3317581294204443565}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2507101251079268092 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ebaa86a11bb5e7a4f883cb4b23b30f13, type: 3}
   m_PrefabInstance: {fileID: 3317581294204443565}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &3317581295259282187

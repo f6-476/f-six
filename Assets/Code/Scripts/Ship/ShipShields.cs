@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class ShipShields : MonoBehaviour
 {
     private Ship _ship;
-    private ShipView _shipView;
     private BoxCollider _shipCollider;
 
     private Vector3 _originalScale;
+    public static readonly int MAX_HIT_COUNT = 3; 
 
-    private int _hitCount = 3;
+    private int _hitCount = MAX_HIT_COUNT;
+    public int HitCount => _hitCount;
 
     private void Awake()
     {
@@ -26,7 +27,7 @@ public class ShipShields : MonoBehaviour
     public void InitializeShield(Ship owner)
     {
         _ship = owner;
-        _shipView = owner.View;
+        _ship.Shields = this;
         _shipCollider = owner.gameObject.GetComponent<BoxCollider>();
         // disable ship collider while having a shield
         // Not necessary to have it when the shield has one while it's active
@@ -55,17 +56,14 @@ public class ShipShields : MonoBehaviour
             {
                 //reduce scale of shields
                 transform.localScale -= new Vector3(0.55f, 0.1f, 0.2f);
-                _shipView.DecreaseShieldBar(0.33f);
             }
             else if (_hitCount == 1)
             {
                 //reduce scale of shields
                 transform.localScale -= new Vector3(0.55f, 0.1f, 0.2f);
-                _shipView.DecreaseShieldBar(0.33f);
             }
             if (_hitCount == 0)
             {
-                _shipView.DecreaseShieldBar(0f);
                 Destroy(gameObject);
             }
         }
@@ -79,7 +77,6 @@ public class ShipShields : MonoBehaviour
             {
                 CancelInvoke(nameof(DestroyMe));
                 transform.localScale = _originalScale;
-                _shipView.SetShieldBar(1f);
                 _hitCount = 3;
                 Invoke(nameof(DestroyMe), 10.0f);
             }
@@ -94,11 +91,8 @@ public class ShipShields : MonoBehaviour
 
     private void DestroyMe()
     {
-        if(_hitCount > 0)
-        {
-            _shipView.SetShieldBar(0f);
-        }
         //Adjust UI
+        _ship.Shields = null;
         Destroy(gameObject);
     }
 
