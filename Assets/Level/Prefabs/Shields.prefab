@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 4534331398252950050}
   - component: {fileID: 8507230679341299388}
   - component: {fileID: 2249785464404894546}
-  - component: {fileID: 2238086673899498141}
-  - component: {fileID: 8812861508198831718}
   m_Layer: 29
   m_Name: Shields
   m_TagString: Untagged
@@ -28,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6699833627855391038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 100.911, y: 20.328, z: -239.834}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.4818857, y: 2.1647146, z: 3.2836165}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,28 +81,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2238086673899498141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6699833627855391038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d17f644609a3a0649b5d78087a6b551d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!135 &8812861508198831718
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6699833627855391038}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.45
-  m_Center: {x: 0, y: 0.15, z: 0}

@@ -321,12 +321,13 @@ GameObject:
   - component: {fileID: 1848271417}
   - component: {fileID: 3317581294562083422}
   - component: {fileID: 3317581294562083416}
-  - component: {fileID: 9136744597938755499}
-  - component: {fileID: 6684139329690415598}
   - component: {fileID: 3317581294562083419}
   - component: {fileID: 3317581294562083417}
   - component: {fileID: 3317581294562083415}
   - component: {fileID: 3317581294562083423}
+  - component: {fileID: 940504599400041749}
+  - component: {fileID: 8905406261744842930}
+  - component: {fileID: 2016791849586159485}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Player
@@ -369,8 +370,8 @@ MonoBehaviour:
   _hover: {fileID: 3317581294562083416}
   _audio: {fileID: 3317581294562083422}
   _rigidbody: {fileID: 3317581294562083415}
-  _info: {fileID: 9136744597938755499}
-  _view: {fileID: 0}
+  _race: {fileID: 940504599400041749}
+  _powerup: {fileID: 2016791849586159485}
 --- !u!114 &1848271415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,49 +572,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   hoverHeight: 0.6
-  tunePID: 0
-  _gravity: 9.8
+  gravity: 9.8
+  rigidbody: {fileID: 0}
   p: 85
   i: 0.5
   d: 3
---- !u!114 &9136744597938755499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3317581294562083414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e26c22dbda32974abf82ae31ab20d81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shipView: {fileID: 0}
-  CurrentCheckpoints: []
-  _lapTimeList: []
-  _stopWatch: 0
-  _isCounting: 0
-  _missileSpawn: {fileID: 8921005811803299314}
-  greenMissle: {fileID: 122174201285692073, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
-  redMissle: {fileID: 0}
---- !u!114 &6684139329690415598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3317581294562083414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5f859a3d2ec3834285db63f114a758b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rankText: {fileID: 0}
-  _lapText: {fileID: 0}
-  _stopWatchText: {fileID: 0}
-  _timeLapText: {fileID: 0}
-  _rankingsText: {fileID: 0}
-  _shieldBar: {fileID: 0}
 --- !u!33 &3317581294562083419
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -661,7 +624,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7f6fc0b40ef08034e8abe496b36027af, type: 3}
+  m_audioClip: {fileID: 8300000, guid: cd2aaf30c6d017db6b1b4383f2a0cfcd, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
@@ -747,6 +710,47 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &940504599400041749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317581294562083414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e1aa80163a33fed78d062eb01688129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkpointIndex: 0
+--- !u!114 &8905406261744842930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317581294562083414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &2016791849586159485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317581294562083414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31651f0cd7fa79cfab300c2f4501b5ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3317581295477237567
 GameObject:
   m_ObjectHideFlags: 0
@@ -5591,7 +5595,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8921005811803299314}
   m_Layer: 0
-  m_Name: MissleSpawnPos
+  m_Name: MissileSpawnPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5605,7 +5609,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8762357904559597146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.004, y: 0.486, z: 0.819}
+  m_LocalPosition: {x: 0, y: 0.75, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3317581294562083420}

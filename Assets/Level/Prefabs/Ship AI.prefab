@@ -316,7 +316,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3317581294562083420}
   - component: {fileID: 1848271416}
-  - component: {fileID: 1427607838068107227}
   - component: {fileID: 4983645465006733698}
   - component: {fileID: 1848271417}
   - component: {fileID: 3317581294562083422}
@@ -327,6 +326,7 @@ GameObject:
   - component: {fileID: 3317581294562083423}
   - component: {fileID: 6780532023430290787}
   - component: {fileID: -306088511557248013}
+  - component: {fileID: 6153344186254044711}
   m_Layer: 0
   m_Name: Ship AI
   m_TagString: Untagged
@@ -362,24 +362,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b2294138e158c41a206554e354251b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controller: {fileID: 0}
-  _movement: {fileID: 0}
-  _hover: {fileID: 0}
-  _audio: {fileID: 0}
-  _rigidbody: {fileID: 0}
-  _race: {fileID: 0}
---- !u!114 &1427607838068107227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3317581294562083414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d17f644609a3a0649b5d78087a6b551d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _controller: {fileID: 4983645465006733698}
+  _movement: {fileID: 1848271417}
+  _hover: {fileID: 3317581294562083416}
+  _audio: {fileID: 3317581294562083422}
+  _rigidbody: {fileID: 3317581294562083415}
+  _race: {fileID: 6780532023430290787}
+  _powerup: {fileID: 6153344186254044711}
 --- !u!114 &4983645465006733698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 118cf12581352f34aa7bc117fd4882b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ship: {fileID: 0}
 --- !u!114 &1848271417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,6 +609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e1aa80163a33fed78d062eb01688129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkpointIndex: 0
 --- !u!114 &-306088511557248013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,6 +626,18 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &6153344186254044711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317581294562083414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31651f0cd7fa79cfab300c2f4501b5ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3317581295477237567
 GameObject:
   m_ObjectHideFlags: 0

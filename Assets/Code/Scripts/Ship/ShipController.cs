@@ -28,9 +28,9 @@ public class ShipController : Controller
 
     public void GetFire(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && _ship.Info.CurrentMissile)
+        if (ctx.performed)
         {
-            _ship.Info.FireGreenMissile();
+            _ship.PowerUp.OnActivate();
         }
     }
 }

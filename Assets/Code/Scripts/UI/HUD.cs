@@ -39,14 +39,17 @@ public class HUD : MonoBehaviour
             SetSpeedText((int)ship.Rigidbody.velocity.magnitude);
         }
 
-        if (ship != null && ship.Shields != null)
+        float shieldBar = 0.0f;
+        if (ship != null && ship.PowerUp.PowerUp is ShieldPowerUp)
         {
-            SetShieldBar((float)ship.Shields.HitCount / (float)ShipShields.MAX_HIT_COUNT);
+            ShieldPowerUp shieldPowerUp = (ShieldPowerUp)ship.PowerUp.PowerUp;
+
+            if (shieldPowerUp.Active)
+            {
+                shieldBar = (float)shieldPowerUp.HitCount / (float)ShieldPowerUp.MAX_HIT_COUNT;
+            }
         }
-        else
-        {
-            SetShieldBar(0);
-        }
+        SetShieldBar(shieldBar);
     }
 
     private void SetRankText(int rank)

@@ -108,8 +108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9379d34ae2b544ea51be063c5c7cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  shields: {fileID: 6699833627855391038, guid: 7bc17656c8551e547a3395896dfaf053, type: 3}
-  greenMissilesController: {fileID: 0}
-  greenMissile: {fileID: 122174201285692073, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
-  redMissilesController: {fileID: 0}
+  powerUpPrefabs:
+  - {fileID: 1823925946054754012, guid: b87d1aaa3087e69338d622163c869185, type: 3}
+  - {fileID: 6666614632498143776, guid: 8ec16da06677c4354b9ea41bb89bc454, type: 3}
