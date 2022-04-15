@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [
-    RequireComponent(typeof(ShipInfo)),
+    RequireComponent(typeof(ShipRace)),
     RequireComponent(typeof(ShipMovement)),
     RequireComponent(typeof(ShipHover)),
     RequireComponent(typeof(ShipAudio)),
@@ -15,15 +15,14 @@ public class Ship : MonoBehaviour
     [SerializeField] private ShipHover _hover;
     [SerializeField] private ShipAudio _audio;
     [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private ShipInfo _info;
-    [SerializeField] private ShipView _view;
+    [SerializeField] private ShipRace _race;
 
     public ShipMovement Movement => _movement;
     public ShipHover Hover => _hover;
     public ShipAudio Audio => _audio;
-    public ShipInfo Info => _info;
-    public ShipView View => _view;
-    
+    public ShipRace Race => _race;
+    public ShipShields Shields { get; set; }
+
     //TODO: Ship stats --> scriptable object to set values (speed, maneuverability, etc...)
     //TODO: State machine for animation?
 
