@@ -6,7 +6,7 @@ public class Hover : MonoBehaviour
 {
     [SerializeField] private LayerMask trackLayer;
     [SerializeField] private float hoverHeight = 4;
-    private bool tunePID = false;
+    public bool tunePID = false;
     [SerializeField] private float gravity = 9.8f;
     protected new Rigidbody rigidbody;
     [SerializeField]
@@ -45,12 +45,17 @@ public class Hover : MonoBehaviour
 
     protected void UpdatePhysics()
     {
+        Debug.DrawRay(transform.position,-transform.up.normalized * MAX_FLOOR_DISTANCE,Color.red);
         if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, MAX_FLOOR_DISTANCE, trackLayer))
         {
             Vector3? cornerNormal = GetAverageCornerNormal();
 
             Vector3 normal = hit.normal;
-            if (cornerNormal.HasValue) normal = cornerNormal.Value;
+            if (cornerNormal.HasValue)
+            {
+                normal = cornerNormal.Value;
+                Debug.DrawRay(transform.position,-normal,Color.green);
+            }
 
             Vector3 direction = (transform.position - hit.point).normalized;
 
@@ -58,10 +63,12 @@ public class Hover : MonoBehaviour
             {
                 Quaternion turn = Quaternion.AngleAxis(Rudder * RUDDER_MULTIPLIER, transform.up);
                 Quaternion align = Quaternion.FromToRotation(transform.up, normal);
-
+                
+                
                 rigidbody.AddForce(-gravity * direction, ForceMode.Acceleration);
                 rigidbody.AddForce(normal * hoverPidController.GetOutput((hoverHeight - hit2.distance), Time.fixedDeltaTime));
-
+                Debug.DrawRay(hit2.point - transform.forward,transform.up * hoverHeight,Color.yellow);
+                
                 Quaternion rot = Quaternion.Slerp(rigidbody.rotation, align * rigidbody.rotation, ROTATION_MULTIPLIER);
                 rot = Quaternion.Slerp(rot, turn * rot, ROTATION_MULTIPLIER);
 
@@ -84,6 +91,7 @@ public class Hover : MonoBehaviour
             if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 10, trackLayer))
             {
                 hits.Add(hit);
+                Debug.DrawLine(transform.position,hit.point);
             }
         }
 

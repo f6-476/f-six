@@ -42,7 +42,6 @@ public class ShipAI : MonoBehaviour
         TargetPoint = targetTransform;
     }
 
-    private float lastPrintTime = 0;
     private void FixedUpdate()
     {
         //var normal = Vector3.zero;
