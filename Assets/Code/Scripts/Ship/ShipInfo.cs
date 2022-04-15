@@ -20,10 +20,15 @@ public class ShipInfo : MonoBehaviour
     [Header("PowerUp Properties")]
     [SerializeField] private Transform _missileSpawn;
     public GameObject CurrentMissile { get; set; }
-
+    [SerializeField] private GameObject greenMissle;
+    [SerializeField] private GameObject redMissle;
+    public bool canShootGreenMissle { get; set; }
+    private int missleCount;
     private void Start()
     {
+        canShootGreenMissle = false;
         LapsCompleted = 1;
+        missleCount = 3;
         _lapTimeList.Add(0);
     }
 
@@ -118,11 +123,32 @@ public class ShipInfo : MonoBehaviour
         CurrentMissile.GetComponent<Missle>()._owner = GetComponent<Ship>();
     }
 
+    public void GrantGreenMissiles()
+    {
+        if (!canShootGreenMissle)
+        {
+            canShootGreenMissle = true;
+            missleCount = 3;
+        }
+        SetMissile(greenMissle);
+    }
+
     public void FireGreenMissile()
     {
-        if (CurrentMissile)
+        //add Missle counter
+        //current missle and count < max missiles
+        if (CurrentMissile && canShootGreenMissle)
         {
             CurrentMissile.GetComponent<Missle>().Fire();
+            missleCount--;
+            if(missleCount > 0)
+            {
+                GrantGreenMissiles();
+            }
+            else
+            {
+                canShootGreenMissle = false;
+            }
         }
     }
 }

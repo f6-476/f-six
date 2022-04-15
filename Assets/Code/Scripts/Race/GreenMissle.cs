@@ -21,7 +21,6 @@ public class GreenMissle : Missle
         Debug.DrawRay(transform.position, transform.forward, Color.red);
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 5, trackLayer))
         {
-            print("Im in here");
             //Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 5)
 
             var normal = SampleCornersAverage();
@@ -43,6 +42,10 @@ public class GreenMissle : Missle
             var quat = rot * Quaternion.Inverse(_missileRigidbody.rotation);
 
             _missileRigidbody.AddTorque(quat.x * 100, quat.y * 100, quat.z * 100, ForceMode.Acceleration);
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
     }
 
@@ -96,5 +99,6 @@ public class GreenMissle : Missle
         _missileRigidbody.isKinematic = false;
         _missileCollider.enabled = true;
         _owner.Info.CurrentMissile = null;
+        thrustersParticles.SetActive(true);
     }
 }

@@ -383,6 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5895e31349470542907be8e0e274a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ship: {fileID: 0}
 --- !u!114 &3317581294562083421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,6 +594,8 @@ MonoBehaviour:
   _stopWatch: 0
   _isCounting: 0
   _missileSpawn: {fileID: 8921005811803299314}
+  greenMissle: {fileID: 122174201285692073, guid: b433abe728ff15746b5ea8cd97151c1f, type: 3}
+  redMissle: {fileID: 0}
 --- !u!114 &6684139329690415598
 MonoBehaviour:
   m_ObjectHideFlags: 0

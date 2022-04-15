@@ -10,7 +10,6 @@ public class PowerUp : MonoBehaviour
 
     [SerializeField] private GameObject shields;
     [SerializeField] private GameObject greenMissilesController;//reg
-    [SerializeField] private GameObject greenMissile;
     [SerializeField] private GameObject redMissilesController;//homing
 
     private void OnTriggerEnter(Collider other)
@@ -32,9 +31,10 @@ public class PowerUp : MonoBehaviour
                     break;
                 case PowerUpType.GREEN_MISSILE:
                     var playerShip = other.gameObject.GetComponent<Ship>();
+                    //if it doesn't already have a missle, set one
                     if (!playerShip.Info.CurrentMissile)
                     {
-                        playerShip.Info.SetMissile(greenMissile);
+                        playerShip.Info.GrantGreenMissiles();
                     }
                     break;
                 case PowerUpType.RED_MISSILE:

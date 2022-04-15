@@ -7,7 +7,7 @@ public abstract class Missle : MonoBehaviour
     public float thrustMultiplier = 1;
     public bool tunePID = false;   
 
-    [SerializeField] protected float missleSpeed = 3f;
+    [SerializeField] protected float missleSpeed = 5f;
     [SerializeField] protected float _gravity = 9.8f;
     [SerializeField][Range(-100f, 100f)] protected float p, i, d;
 
@@ -16,8 +16,13 @@ public abstract class Missle : MonoBehaviour
     [SerializeField] protected Rigidbody _missileRigidbody;
     public Ship _owner { get; set; }
     //some audio source
-    //some particle system to show explosions
+    public GameObject thrustersParticles;
 
+    private void Awake()
+    {
+        //Destroy this missle instance in 10 sec
+        Invoke(nameof(DestroyMe), 15.0f);
+    }
     // Start is called before the first frame update
     public void Start()
     {
@@ -29,6 +34,12 @@ public abstract class Missle : MonoBehaviour
     public abstract void FixedUpdate();
 
     public abstract void Fire();
+
+    private void DestroyMe()
+    {
+        Destroy(gameObject);
+    }
+
 
     public void OnDestroy()
     {
