@@ -384,7 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5895e31349470542907be8e0e274a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ship: {fileID: 0}
+  _ship: {fileID: 1848271416}
 --- !u!114 &3317581294562083421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,15 +449,27 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 5d27f420-82a8-4f02-9b8c-694f8830676b
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+    m_ActionName: UI/Navigate[/Gamepad/leftStick/up,/Gamepad/rightStick/up,/Gamepad/leftStick/down,/Gamepad/rightStick/down,/Gamepad/leftStick/left,/Gamepad/rightStick/left,/Gamepad/leftStick/right,/Gamepad/rightStick/right,/Gamepad/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f020acef-a541-40f6-8b1c-79a31eaa8325
-    m_ActionName: UI/Submit[/Keyboard/enter]
+    m_ActionName: UI/Submit[/Keyboard/enter,/Gamepad/buttonSouth]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: HUD, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 1a5bb119-cd14-4a12-bd03-b6a543e9aa6b
-    m_ActionName: UI/Cancel[/Keyboard/escape]
+    m_ActionName: UI/Cancel[/Keyboard/escape,/Gamepad/buttonEast]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 76cd8c26-a382-4eab-8a51-046a96bb42fa
@@ -487,7 +499,19 @@ MonoBehaviour:
     m_ActionId: 776ab467-e526-4bca-9390-03a39c7906c5
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1848271415}
+        m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
+        m_MethodName: GetFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: a58099de-6113-4fdd-8125-ab9dcb3f2aac
     m_ActionName: Gameplay/Fire[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
@@ -571,10 +595,10 @@ MonoBehaviour:
   trackLayer:
     serializedVersion: 2
     m_Bits: 512
-  hoverHeight: 0.6
+  hoverHeight: 1
+  tunePID: 0
   gravity: 9.8
-  rigidbody: {fileID: 0}
-  p: 85
+  p: 60
   i: 0.5
   d: 3
 --- !u!33 &3317581294562083419
@@ -592,12 +616,12 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3317581294562083414}
-  m_Material: {fileID: 13400000, guid: cb3337526ffad4944afae9cb5a45e36d, type: 2}
+  m_Material: {fileID: 13400000, guid: 2fb72fb79ae0ed54e8bbba3437705707, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.69, y: 0.85, z: 1.3905088}
-  m_Center: {x: 0, y: 0.5, z: -0.78140897}
+  m_Center: {x: 0, y: 0.6, z: -0.7}
 --- !u!54 &3317581294562083415
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -608,7 +632,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 1
-  m_AngularDrag: 1
+  m_AngularDrag: 2
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
@@ -776,13 +800,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3317581295477237567}
-  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
+  m_LocalRotation: {x: -0.0007148087, y: 0.0009403535, z: 0.99999845, w: -0.0013503464}
   m_LocalPosition: {x: 0, y: 0.5, z: 1.764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2990623117576256582}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -179.892, y: 179.918, z: 0.15499878}
 --- !u!198 &3317581295477237506
 ParticleSystem:
   m_ObjectHideFlags: 0
