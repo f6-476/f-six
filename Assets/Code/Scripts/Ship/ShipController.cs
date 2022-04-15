@@ -25,6 +25,12 @@ public class ShipController : Controller
             boost = false;
         }
     }
-    
-    
+
+    public void GetFire(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            _ship.PowerUp.OnActivate();
+        }
+    }
 }
