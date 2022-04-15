@@ -12,6 +12,12 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private GameObject greenMissilesControllerSpawn;//reg
     [SerializeField] private GameObject redMissilesControllerSpawn;//homing
 
+    private void Awake()
+    {
+        // TODO: Random type when everything is working.
+        // this.type = (PowerUpType)Random.Range(0, System.Enum.GetValues(typeof(PowerUpType)).Length);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -41,12 +47,9 @@ public class PowerUp : MonoBehaviour
                     Instantiate(this.redMissilesControllerSpawn, spawnPosition, other.transform.rotation, other.transform);
                     break;
                 default:
-
                     break;
             }
 
         }
     }
-
-
 }
