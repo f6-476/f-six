@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3909087798138677406}
   - component: {fileID: 8295011089218655588}
   - component: {fileID: 426319727262773009}
+  - component: {fileID: 2758036542650745836}
+  - component: {fileID: 314332970054697138}
   m_Layer: 0
   m_Name: Local Managers
   m_TagString: Untagged
@@ -103,4 +105,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lobbyPlayerPrefab: {fileID: 8784439926895942765, guid: 4a8cb659a614e9e1f92d819e511bcbec, type: 3}
   gamePlayerPrefab: {fileID: 2379152826062508379, guid: 363001e0596f0911cb4501be0c9cac29, type: 3}
-  localPlayer: {fileID: 0}
+  LocalPlayer: {fileID: 0}
+--- !u!114 &2758036542650745836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3909087798138677409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e21ccbb46b6ea32a0b2f15651f881249, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popup: {fileID: 0}
+--- !u!114 &314332970054697138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3909087798138677409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae6f22a300b946e69216a306c040a5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ships: []
+  lapCount: 2
+  checkpointCount: 2
+  checkpointPrefab: {fileID: 2024585305990434241, guid: 8211f5b9d3659be4aa7a630e0581b467, type: 3}
+  track: {fileID: 0}

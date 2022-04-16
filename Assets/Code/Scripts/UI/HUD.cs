@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Unity.Netcode;
 
 public class HUD : MonoBehaviour
 {
@@ -50,6 +51,11 @@ public class HUD : MonoBehaviour
             }
         }
         SetShieldBar(shieldBar);
+    }
+
+    public void SetShip(Ship ship)
+    {
+        this.ship = ship;
     }
 
     private void SetRankText(int rank)
