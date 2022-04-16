@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -48,7 +49,7 @@ public class ShipRace : NetworkBehaviour
         // TODO: Check for online/offline.
         // if (!IsOwner) return;
 
-        if (other.TryGetComponent<Checkpoint>(out Checkpoint checkpoint))
+        if (other.TryGetComponent(out Checkpoint checkpoint))
         {
             if (checkpoint.index == 0 && checkpointIndex == RaceManager.Singleton.LastCheckpoint)
             {

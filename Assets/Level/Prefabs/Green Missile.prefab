@@ -4852,8 +4852,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3321c8d65081668dfbe477a6cb39f4bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missileSpeed: 50
+  missileSpeed: 30
   missileRigidbody: {fileID: 7395457240523697172}
+  damage: 0
 --- !u!114 &4546482960954963907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4870,6 +4871,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   hoverHeight: 1.25
+  tunePID: 0
   gravity: 9.8
   p: 85
   i: 0.25

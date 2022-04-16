@@ -1,9 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GreenMissile : Missile
 {
     public override void FixedUpdate()
     {}
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.TryGetComponent(out Ship ship))
+        {
+            ship.Movement.SetThrust();
+            Destroy(gameObject);
+        }
+    }
 }

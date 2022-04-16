@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ShipMovement : MonoBehaviour
@@ -21,5 +22,17 @@ public class ShipMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _ship.Rigidbody.AddForce(transform.forward * (Speed * _ship.ThrustValue * thrustMultiplier), ForceMode.Acceleration);
+    }
+
+    public void SetThrust()
+    {
+        StartCoroutine(DisableShip());
+    }
+
+    private IEnumerator DisableShip()
+    {
+        thrustMultiplier = 0f;
+        yield return new WaitForSeconds(3f);
+        thrustMultiplier = 1f;
     }
 }
