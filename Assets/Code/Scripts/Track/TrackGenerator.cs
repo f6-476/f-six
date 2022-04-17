@@ -22,8 +22,7 @@ public class TrackGenerator : MonoBehaviour
         GenerateMesh();
         GetComponent<MeshFilter>().sharedMesh = mesh;
         segment = GetComponent<BezierSegment>();
-        var collider = GetComponent<MeshCollider>();
-        collider.sharedMesh = mesh;
+        GetComponent<MeshCollider>().sharedMesh = mesh;
     }
     private void Update()
     {
@@ -34,7 +33,14 @@ public class TrackGenerator : MonoBehaviour
     {
         vertices = GenerateVertices();
         
-        //if(drawInEditor) GenerateMesh();
+        if(drawInEditor) 
+        {
+            mesh = new Mesh();
+            mesh.name = "Segment";
+            GenerateMesh();
+            GetComponent<MeshFilter>().sharedMesh = mesh;
+            GetComponent<MeshCollider>().sharedMesh = mesh;
+        }
         
     }
     

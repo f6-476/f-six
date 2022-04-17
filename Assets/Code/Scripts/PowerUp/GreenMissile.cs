@@ -10,7 +10,8 @@ public class GreenMissile : Missile
         if (other.gameObject.TryGetComponent(out Ship ship))
         {
             ship.Movement.SetThrust();
-            Destroy(gameObject);
         }
+
+        Destroy(gameObject);
     }
 }

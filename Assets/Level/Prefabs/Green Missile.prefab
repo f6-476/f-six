@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3196232840520267017}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -0.4}
+  m_LocalPosition: {x: 0, y: 0, z: -1.902}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8249130965809632382}
@@ -4815,8 +4815,8 @@ GameObject:
   - component: {fileID: 8249130965809632382}
   - component: {fileID: 3693783392422743401}
   - component: {fileID: 4546482960954963907}
-  - component: {fileID: 469374491339321547}
   - component: {fileID: 7395457240523697172}
+  - component: {fileID: 6093810905990742180}
   m_Layer: 0
   m_Name: Green Missile
   m_TagString: Untagged
@@ -4854,7 +4854,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missileSpeed: 30
   missileRigidbody: {fileID: 7395457240523697172}
-  damage: 0
 --- !u!114 &4546482960954963907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4870,26 +4869,12 @@ MonoBehaviour:
   trackLayer:
     serializedVersion: 2
     m_Bits: 512
-  hoverHeight: 1.25
+  hoverHeight: 1.5
   tunePID: 0
   gravity: 9.8
   p: 85
   i: 0.25
   d: 3
---- !u!136 &469374491339321547
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6103341554361755878}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.15
-  m_Height: 1
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.1}
 --- !u!54 &7395457240523697172
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4906,6 +4891,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &6093810905990742180
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6103341554361755878}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!1001 &1438821040844426283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4923,15 +4921,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475443391068606, guid: 6241b0afe9b9bda42a5e652c53f56754, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4475443391068606, guid: 6241b0afe9b9bda42a5e652c53f56754, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4475443391068606, guid: 6241b0afe9b9bda42a5e652c53f56754, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4475443391068606, guid: 6241b0afe9b9bda42a5e652c53f56754, type: 3}
       propertyPath: m_LocalPosition.x

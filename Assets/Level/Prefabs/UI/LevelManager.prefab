@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6650520470291550042}
-  - component: {fileID: 5324955304303900278}
   m_Layer: 5
   m_Name: LevelManager
   m_TagString: Untagged
@@ -32,20 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5324955304303900278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108683281923220084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 316e318a83681c296b8f1edc5fa6fee5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _loaderCanvas: {fileID: 7107422916342619313}
-  _progressBar: {fileID: 8422019756176456734}
 --- !u!1 &7107422916342619313
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,14 +341,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5844684855917794415, guid: b23e7993234ef3ae5b6f179be0e5f83b, type: 3}
   m_PrefabInstance: {fileID: 7363726491648620248}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8422019756176456734 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1355636685569870534, guid: b23e7993234ef3ae5b6f179be0e5f83b, type: 3}
-  m_PrefabInstance: {fileID: 7363726491648620248}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
