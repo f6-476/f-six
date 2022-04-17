@@ -50,6 +50,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
             {
                 GameObject playerObject = Instantiate(gamePlayerPrefab, Vector3.zero, Quaternion.identity);
                 playerObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId);
+                RaceManager.Singleton.LoadCheckpoints();
             }
         }
     }

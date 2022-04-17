@@ -27,10 +27,15 @@ public class RaceManager : AbstractManager<RaceManager>
         }
         else
         {
-            foreach(GameObject checkpoint in GameObject.FindGameObjectsWithTag("Checkpoint"))
-            {
-                checkpoints.Add(checkpoint.GetComponent<Checkpoint>());
-            }
+            LoadCheckpoints();
+        }
+    }
+
+    public void LoadCheckpoints()
+    {
+        foreach(GameObject checkpoint in GameObject.FindGameObjectsWithTag("Checkpoint"))
+        {
+            checkpoints.Add(checkpoint.GetComponent<Checkpoint>());
         }
     }
 
