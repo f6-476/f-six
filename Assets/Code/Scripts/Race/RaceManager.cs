@@ -9,10 +9,10 @@ public class RaceManager : AbstractManager<RaceManager>
     public List<Ship> Ships => ships;
     [SerializeField] [Range(2, 64)] private int lapCount = 2;
     public int Laps => lapCount;
-    [SerializeField] [Range(2, 64)] private int checkpointCount = 2;
+    private int checkpointCount = 32;
     private HashSet<Checkpoint> checkpoints = new HashSet<Checkpoint>();
     public HashSet<Checkpoint> Checkpoints => this.checkpoints;
-    public int LastCheckpoint => checkpointCount - 1;
+    public int LastCheckpoint => checkpoints.Count - 1;
     [Range(2, 10)] private int widthToThicknessRatio = 5; // This controls the x scale of the checkpoint relative to the thickness of the track.
     [SerializeField] private GameObject checkpointPrefab;
     [SerializeField] private TrackGenerator track;
@@ -25,6 +25,13 @@ public class RaceManager : AbstractManager<RaceManager>
         {
             SetTrackCheckpoints(track);
         }
+        else
+        {
+            foreach(GameObject checkpoint in GameObject.FindGameObjectsWithTag("Checkpoint"))
+            {
+                checkpoints.Add(checkpoint.GetComponent<Checkpoint>());
+            }
+        }
     }
 
     private void OnCheckpoint(Ship ship)
@@ -35,7 +42,7 @@ public class RaceManager : AbstractManager<RaceManager>
 
     private void UpdatePlayers()
     {
-        ships = ships.OrderBy(ship => ship.Race.Lap * checkpointCount + ship.Race.Checkpoint).ToList();
+        ships = ships.OrderBy(ship => ship.Race.Lap * checkpoints.Count + ship.Race.Checkpoint).ToList();
 
         for(int i = 0; i < ships.Count; i++)
         {
@@ -45,7 +52,7 @@ public class RaceManager : AbstractManager<RaceManager>
 
     private void SetTrackCheckpoints(TrackGenerator track)
     {
-        for (int i = 0; i < checkpointCount; i++)
+        for (int i = 0; i < checkpoints.Count; i++)
         {
             GameObject gameObject = Instantiate(checkpointPrefab, Vector3.zero, Quaternion.identity);
             gameObject.transform.localScale = new Vector3(track.thickness * widthToThicknessRatio, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
@@ -54,7 +61,7 @@ public class RaceManager : AbstractManager<RaceManager>
             Checkpoint checkpoint = gameObject.GetComponent<Checkpoint>();
             checkpoint.index = i;
 
-            float trackOffset = i / (float) checkpointCount;
+            float trackOffset = i / (float) checkpoints.Count;
             OrientedPoint orientedPoint = track.segment.GetOrientedPoint(trackOffset);
  
             float angle = Mathf.PI * -1.5f;

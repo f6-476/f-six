@@ -99,7 +99,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
         if (ready)
         {
             // TODO: Scene picker.
-            NetworkManager.Singleton.SceneManager.LoadScene("Multiplayer", LoadSceneMode.Single);
+            NetworkManager.Singleton.SceneManager.LoadScene("Mars", LoadSceneMode.Single);
         }
     }
 }

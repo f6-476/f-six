@@ -222,7 +222,7 @@ public class BezierSpline : BezierSegment
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(GetOrientedPoint(T).position,1);
-        Handles.PositionHandle(GetOrientedPoint(T).position, GetOrientedPoint(T).rotation);
+        // Gizmos.DrawSphere(GetOrientedPoint(T).position,1);
+        // Handles.PositionHandle(GetOrientedPoint(T).position, GetOrientedPoint(T).rotation);
     }
 }

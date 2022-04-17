@@ -88,12 +88,12 @@ public class HUD : MonoBehaviour
     
     private void SetStopwatchText(float lapTime)
     {
-        stopWatchText.text = SetFloatToTimer(lapTime);
+        stopWatchText.text = FloatToTimerString(lapTime);
     }
 
     private void SetLapTimeText(float lapTimeDifference)
     {
-        timeLapText.text = $"{SetFloatToTimer(lapTimeDifference)}";
+        timeLapText.text = $"{FloatToTimerString(lapTimeDifference)}";
         if (lapTimeDifference < 0f)
         {
             timeLapText.text = $"-{timeLapText.text}";
@@ -126,12 +126,13 @@ public class HUD : MonoBehaviour
         rankingsText.text = playerRankingText;
     }
 
-    private string SetFloatToTimer(float timeFloat)
+    private string FloatToTimerString(float timeFloat)
     {
-        var minutes = Mathf.Abs(Mathf.FloorToInt(timeFloat / 60));
-        var seconds = Mathf.Abs(Mathf.FloorToInt(timeFloat % 60)).ToString("D2");
+        timeFloat = Mathf.Abs(timeFloat);
+        var minutes = (Mathf.FloorToInt(timeFloat / 60)).ToString("D2");
+        var seconds = (Mathf.FloorToInt(timeFloat % 60)).ToString("D2");
         //(n-(int)n)*1000;
-        var milliseconds = Mathf.Abs((int)((timeFloat - (int) timeFloat) * 1000f)).ToString("D3");
+        var milliseconds = ((int)((timeFloat - (int) timeFloat) * 1000f)).ToString("D3");
         return $"{minutes}:{seconds}:{milliseconds}";
     }
 
