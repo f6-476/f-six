@@ -14,13 +14,15 @@ public class Hover : MonoBehaviour
     private float p, i, d;
     private PID hoverPidController;
     public float Rudder { get; set; }
-    private static readonly float MAX_FLOOR_DISTANCE = 5.0f;
+    private static readonly float MAX_FLOOR_DISTANCE = Mathf.Infinity;
     private static readonly float RUDDER_MULTIPLIER = 10.0f;
     private static readonly float ROTATION_MULTIPLIER = 0.4f;
+    private float maxCorrectionForce;
 
     protected virtual void Awake()
     {
         hoverPidController = new PID(p, i, d);
+        maxCorrectionForce = gravity * 10.0f;
     }
 
     protected virtual void Start()
@@ -65,17 +67,16 @@ public class Hover : MonoBehaviour
                 Debug.DrawRay(transform.position,-normal,Color.green);
             }
 
-            Vector3 direction = (transform.position - hit.point).normalized;
-
             RaycastHit hit2;
             if (!Physics.Raycast(transform.position, -normal, out hit2, MAX_FLOOR_DISTANCE, trackLayer)) break;
 
             Quaternion turn = Quaternion.AngleAxis(Rudder * RUDDER_MULTIPLIER, transform.up);
             Quaternion align = Quaternion.FromToRotation(transform.up, normal);
 
-            rigidbody.AddForce(-gravity * direction, ForceMode.Acceleration);
-            rigidbody.AddForce(normal * hoverPidController.GetOutput((hoverHeight - hit2.distance), Time.fixedDeltaTime));
-            Debug.DrawRay(hit2.point - transform.forward,transform.up * hoverHeight,Color.yellow);
+            rigidbody.AddForce(gravity * -normal, ForceMode.Acceleration);
+            rigidbody.AddForce(normal * Mathf.Clamp(hoverPidController.GetOutput(hoverHeight - hit2.distance, Time.fixedDeltaTime), -maxCorrectionForce, maxCorrectionForce), ForceMode.Acceleration);
+
+            Debug.DrawRay(hit2.point - transform.forward, transform.up * hoverHeight, Color.yellow);
             
             Quaternion rot = Quaternion.Slerp(rigidbody.rotation, align * rigidbody.rotation, ROTATION_MULTIPLIER);
             rot = Quaternion.Slerp(rot, turn * rot, ROTATION_MULTIPLIER);

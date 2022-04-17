@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField]
     private List<Transform> targets = new List<Transform>();
-    private Vector3 transformOffset = new Vector3(0.0f, 0.0f, 0.0f);
+    private float heightOffset = 3.0f;
     private Vector2 rotationOffset = new Vector2(0.0f, 25.0f);
     private float distance = 10.0f;
     private float translationSpeed = 10.0f;
@@ -38,7 +38,7 @@ public class CameraController : MonoBehaviour
         return average / targets.Count;
     }
 
-    private Quaternion AverageDirection()
+    private Quaternion AverageDirection(Vector3 normal)
     {
         Vector3 average = Vector3.zero;
 
@@ -49,7 +49,7 @@ public class CameraController : MonoBehaviour
             average += target.forward;
         }
 
-        return Quaternion.LookRotation(average, Vector3.up);
+        return Quaternion.LookRotation(average, normal);
     }
 
     private Vector3 AverageNormal()
@@ -68,15 +68,16 @@ public class CameraController : MonoBehaviour
 
     private void UpdateTransform()
     {
+        Vector3 normal = AverageNormal();
         Vector3 target = AveragePosition();
-        Quaternion direction = AverageDirection() * Quaternion.Euler(rotationOffset.y, rotationOffset.x, 0.0f);
+        Quaternion direction = AverageDirection(normal) * Quaternion.Euler(rotationOffset.y, rotationOffset.x, 0.0f);
         Vector3 offsetDirection = direction * Vector3.back;
         Vector3 offset = offsetDirection * distance;
 
         transform.position = Vector3.Lerp(transform.position, target + offset, Time.deltaTime * translationSpeed);
 
-        Vector3 lookForward = (transformOffset - offset).normalized;
-        transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(lookForward, AverageNormal()), Time.deltaTime * rotationSpeed);
+        Vector3 lookForward = (normal * heightOffset - offset).normalized;
+        transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(lookForward, normal), Time.deltaTime * rotationSpeed);
     }
 
     private void Update() 

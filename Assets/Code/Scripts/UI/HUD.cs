@@ -80,7 +80,10 @@ public class HUD : MonoBehaviour
 
     private void SetLapText(int lap)
     {
-        lapText.text = $"{lap}/{RaceManager.Singleton.Laps} LAPS";
+        int laps = 3;
+        if (RaceManager.Singleton != null) laps = RaceManager.Singleton.Laps;  
+
+        lapText.text = $"{lap}/{laps} LAPS";
     }
     
     private void SetStopwatchText(float lapTime)
