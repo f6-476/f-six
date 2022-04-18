@@ -3,8 +3,9 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     [SerializeField] protected Ship _ship;
-    protected float rudderValue, thrustValue = 0;
+    protected float rudderValue, thrustValue, reverseValue = 0;
     protected bool boost, fire;
+
     public float GetRudderValue()
     {
         return rudderValue;
@@ -13,6 +14,11 @@ public class Controller : MonoBehaviour
     public float GetThrustValue()
     {
         return thrustValue;
+    }
+
+    public float GetReverseValue()
+    {
+        return reverseValue;
     }
 
     public bool GetBoost()
@@ -24,4 +30,5 @@ public class Controller : MonoBehaviour
     {
         return fire;
     }
+
 }

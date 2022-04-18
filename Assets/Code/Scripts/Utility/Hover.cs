@@ -15,9 +15,11 @@ public class Hover : MonoBehaviour
     private PID hoverPidController;
     public float Rudder { get; set; }
     private static readonly float MAX_FLOOR_DISTANCE = Mathf.Infinity;
-    private static readonly float RUDDER_MULTIPLIER = 10.0f;
+    private static readonly float RUDDER_MULTIPLIER = 100.0f;
     private static readonly float ROTATION_MULTIPLIER = 0.4f;
     private float maxCorrectionForce;
+    public float alignSpeed = 100f;
+    public float turnSpeed = 50f;
 
     protected virtual void Awake()
     {
@@ -70,7 +72,7 @@ public class Hover : MonoBehaviour
             RaycastHit hit2;
             if (!Physics.Raycast(transform.position, -normal, out hit2, MAX_FLOOR_DISTANCE, trackLayer)) break;
 
-            Quaternion turn = Quaternion.AngleAxis(Rudder * RUDDER_MULTIPLIER, transform.up);
+            Quaternion turn = Quaternion.AngleAxis(Rudder * turnSpeed, transform.up);
             Quaternion align = Quaternion.FromToRotation(transform.up, normal);
 
             rigidbody.AddForce(gravity * -normal, ForceMode.Acceleration);
@@ -82,7 +84,7 @@ public class Hover : MonoBehaviour
             rot = Quaternion.Slerp(rot, turn * rot, ROTATION_MULTIPLIER);
 
             Quaternion quat = rot * Quaternion.Inverse(rigidbody.rotation);
-            rigidbody.AddTorque(quat.x * 100, quat.y * 100, quat.z * 100, ForceMode.Acceleration);
+            rigidbody.AddTorque(quat.x * alignSpeed, quat.y * alignSpeed, quat.z * alignSpeed, ForceMode.Acceleration);
 
             break;
         }

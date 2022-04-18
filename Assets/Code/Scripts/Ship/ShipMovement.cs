@@ -8,6 +8,9 @@ public class ShipMovement : MonoBehaviour
     public float speed = 20f;
     [Range(0.0f, 2.0f)]
     public float thrustMultiplier = 1.0f;
+    public float reverseMultiplier = 1.0f;
+
+    public float rotationMultiplier = 1.0f;
     public float boost = 1.5f;
 
     public float Speed => _ship.Boost ? speed * boost : speed;
@@ -22,6 +25,7 @@ public class ShipMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _ship.Rigidbody.AddForce(transform.forward * (Speed * _ship.ThrustValue * thrustMultiplier), ForceMode.Acceleration);
+        _ship.Rigidbody.AddForce(-transform.forward * (Speed * _ship.ReverseValue * reverseMultiplier), ForceMode.Acceleration);
     }
 
     public void SetThrust()

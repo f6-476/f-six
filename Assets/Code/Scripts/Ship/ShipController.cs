@@ -13,6 +13,11 @@ public class ShipController : Controller
     {
         thrustValue = ctx.ReadValue<float>();
     }
+    
+    public void GetReverse(InputAction.CallbackContext ctx)
+    {
+        reverseValue = ctx.ReadValue<float>();
+    }
 
     public void GetBoost(InputAction.CallbackContext ctx)
     {
