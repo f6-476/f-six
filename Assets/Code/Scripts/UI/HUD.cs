@@ -15,6 +15,9 @@ public class HUD : MonoBehaviour
     [SerializeField] private Text rankingsText;
     [SerializeField] private Text speedText;
     [SerializeField] private Image shieldBar;
+    [SerializeField] private Image greenMissle1;
+    [SerializeField] private Image greenMissle2;
+    [SerializeField] private Image greenMissle3;
     [SerializeField] private Ship ship;
 
     private void Start()
@@ -48,6 +51,31 @@ public class HUD : MonoBehaviour
             if (shieldPowerUp.Active)
             {
                 shieldBar = (float)shieldPowerUp.HitCount / (float)ShieldPowerUp.MAX_HIT_COUNT;
+            }
+        }
+        else if(ship!=null && ship.PowerUp.PowerUp is MissilePowerUp)
+        {
+            var missile = (MissilePowerUp) ship.PowerUp.PowerUp;
+            int missileCount = missile.Count;
+            switch (missileCount)
+            {
+                case 3:
+                    greenMissle3.color = Color.green;
+                    greenMissle2.color = Color.green;
+                    greenMissle1.color = Color.green;
+                    break;
+                case 2:
+                    greenMissle3.color = Color.white;
+                    break;
+                case 1:
+                    greenMissle2.color = Color.white;
+                    break;
+                case 0:
+                    greenMissle1.color = Color.white;
+                    break;
+                default:
+                    greenMissle1.color = Color.white;
+                    break;
             }
         }
         SetShieldBar(shieldBar);
