@@ -19,6 +19,7 @@ public class ShipMultiplayer : NetworkBehaviour
         {
             // TODO: Set from manager?
             Camera.main.GetComponent<CameraController>().AddTarget(transform);
+            FindObjectOfType<HUD>().SetShip(ship);
         }
         else
         {

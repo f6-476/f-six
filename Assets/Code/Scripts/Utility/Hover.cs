@@ -14,13 +14,15 @@ public class Hover : MonoBehaviour
     private float p, i, d;
     private PID hoverPidController;
     public float Rudder { get; set; }
-    private static readonly float MAX_FLOOR_DISTANCE = 5.0f;
+    private static readonly float MAX_FLOOR_DISTANCE = Mathf.Infinity;
     private static readonly float RUDDER_MULTIPLIER = 10.0f;
     private static readonly float ROTATION_MULTIPLIER = 0.4f;
+    private float maxCorrectionForce;
 
     protected virtual void Awake()
     {
         hoverPidController = new PID(p, i, d);
+        maxCorrectionForce = gravity * 10.0f;
     }
 
     protected virtual void Start()
@@ -45,9 +47,17 @@ public class Hover : MonoBehaviour
 
     protected void UpdatePhysics()
     {
-        Debug.DrawRay(transform.position,-transform.up.normalized * MAX_FLOOR_DISTANCE,Color.red);
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, MAX_FLOOR_DISTANCE, trackLayer))
+        // Cast relative down (should be valid most of the time).
+        // If that fails, cast in other 5 directions to try to flip the ship.
+        Vector3[] castDirections = new Vector3[] { -transform.up, transform.forward, -transform.forward, transform.right, -transform.right, transform.up };
+
+        foreach (Vector3 castDirection in castDirections)
         {
+            Debug.DrawRay(transform.position, castDirection * MAX_FLOOR_DISTANCE, Color.red);
+
+            RaycastHit hit;
+            if (!Physics.Raycast(transform.position, castDirection, out hit, MAX_FLOOR_DISTANCE, trackLayer)) continue;
+
             Vector3? cornerNormal = GetAverageCornerNormal();
 
             Vector3 normal = hit.normal;
@@ -57,24 +67,24 @@ public class Hover : MonoBehaviour
                 Debug.DrawRay(transform.position,-normal,Color.green);
             }
 
-            Vector3 direction = (transform.position - hit.point).normalized;
+            RaycastHit hit2;
+            if (!Physics.Raycast(transform.position, -normal, out hit2, MAX_FLOOR_DISTANCE, trackLayer)) break;
 
-            if (Physics.Raycast(transform.position, -normal, out RaycastHit hit2, MAX_FLOOR_DISTANCE, trackLayer))
-            {
-                Quaternion turn = Quaternion.AngleAxis(Rudder * RUDDER_MULTIPLIER, transform.up);
-                Quaternion align = Quaternion.FromToRotation(transform.up, normal);
-                
-                
-                rigidbody.AddForce(-gravity * direction, ForceMode.Acceleration);
-                rigidbody.AddForce(normal * hoverPidController.GetOutput((hoverHeight - hit2.distance), Time.fixedDeltaTime));
-                Debug.DrawRay(hit2.point - transform.forward,transform.up * hoverHeight,Color.yellow);
-                
-                Quaternion rot = Quaternion.Slerp(rigidbody.rotation, align * rigidbody.rotation, ROTATION_MULTIPLIER);
-                rot = Quaternion.Slerp(rot, turn * rot, ROTATION_MULTIPLIER);
+            Quaternion turn = Quaternion.AngleAxis(Rudder * RUDDER_MULTIPLIER, transform.up);
+            Quaternion align = Quaternion.FromToRotation(transform.up, normal);
 
-                Quaternion quat = rot * Quaternion.Inverse(rigidbody.rotation);
-                rigidbody.AddTorque(quat.x * 100, quat.y * 100, quat.z * 100, ForceMode.Acceleration);
-            }
+            rigidbody.AddForce(gravity * -normal, ForceMode.Acceleration);
+            rigidbody.AddForce(normal * Mathf.Clamp(hoverPidController.GetOutput(hoverHeight - hit2.distance, Time.fixedDeltaTime), -maxCorrectionForce, maxCorrectionForce), ForceMode.Acceleration);
+
+            Debug.DrawRay(hit2.point - transform.forward, transform.up * hoverHeight, Color.yellow);
+            
+            Quaternion rot = Quaternion.Slerp(rigidbody.rotation, align * rigidbody.rotation, ROTATION_MULTIPLIER);
+            rot = Quaternion.Slerp(rot, turn * rot, ROTATION_MULTIPLIER);
+
+            Quaternion quat = rot * Quaternion.Inverse(rigidbody.rotation);
+            rigidbody.AddTorque(quat.x * 100, quat.y * 100, quat.z * 100, ForceMode.Acceleration);
+
+            break;
         }
     }
 

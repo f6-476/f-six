@@ -50,6 +50,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
             {
                 GameObject playerObject = Instantiate(gamePlayerPrefab, Vector3.zero, Quaternion.identity);
                 playerObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId);
+                RaceManager.Singleton.LoadCheckpoints();
             }
         }
     }
@@ -99,7 +100,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
         if (ready)
         {
             // TODO: Scene picker.
-            NetworkManager.Singleton.SceneManager.LoadScene("Multiplayer", LoadSceneMode.Single);
+            NetworkManager.Singleton.SceneManager.LoadScene("Mars", LoadSceneMode.Single);
         }
     }
 }

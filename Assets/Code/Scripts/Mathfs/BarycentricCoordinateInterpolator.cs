@@ -17,12 +17,13 @@ public static class BarycentricCoordinateInterpolator
             return hit.normal;
         }
 
-        return Vector3.up;
+        return hit.normal;
     }
  
     private static Vector3 CalculateInterpolatedMeshNormal(Mesh mesh, RaycastHit hit)
     {
-        if (mesh == null) return Vector3.up;
+        if (mesh == null) return hit.normal;
+        return hit.normal;
 
         Vector3[] normals = mesh.normals;
         int[] triangles = mesh.triangles;
