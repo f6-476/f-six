@@ -45,8 +45,8 @@ Material:
     - Vector1_418bac99ca6c4f79b224de6c7811e6ad: 500
     - Vector1_d6e2ffcebe004698a57540cec01dca2c: 2
     m_Colors:
-    - Color_3dc428afb9644c7a8b8e83f9167b7b9b: {r: 0.009433953, g: 0.7735849, b: 0, a: 0}
-    - Color_7c1555d1eb78473f8f40efcc1e2a0030: {r: 0.31132078, g: 0.27460843, b: 0.18649878, a: 0}
+    - Color_3dc428afb9644c7a8b8e83f9167b7b9b: {r: 0, g: 0.645, b: 1, a: 0}
+    - Color_7c1555d1eb78473f8f40efcc1e2a0030: {r: 0.2830189, g: 0.26092687, b: 0.20692419, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4620254714909050821
 MonoBehaviour:
