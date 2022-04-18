@@ -13,6 +13,7 @@ public class RaceManager : AbstractManager<RaceManager>
     private HashSet<Checkpoint> checkpoints = new HashSet<Checkpoint>();
     public HashSet<Checkpoint> Checkpoints => this.checkpoints;
     public int LastCheckpoint => checkpoints.Count - 1;
+    [Range(3, 200)] public int automaticCheckpointCount = 50;
     [Range(2, 10)] private int widthToThicknessRatio = 5; // This controls the x scale of the checkpoint relative to the thickness of the track.
     [SerializeField] private GameObject checkpointPrefab;
     [SerializeField] private TrackGenerator track;
@@ -57,7 +58,7 @@ public class RaceManager : AbstractManager<RaceManager>
 
     private void SetTrackCheckpoints(TrackGenerator track)
     {
-        for (int i = 0; i < checkpoints.Count; i++)
+        for (int i = 0; i < automaticCheckpointCount; i++)
         {
             GameObject gameObject = Instantiate(checkpointPrefab, Vector3.zero, Quaternion.identity);
             gameObject.transform.localScale = new Vector3(track.thickness * widthToThicknessRatio, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
@@ -66,7 +67,7 @@ public class RaceManager : AbstractManager<RaceManager>
             Checkpoint checkpoint = gameObject.GetComponent<Checkpoint>();
             checkpoint.index = i;
 
-            float trackOffset = i / (float) checkpoints.Count;
+            float trackOffset = i / (float) automaticCheckpointCount;
             OrientedPoint orientedPoint = track.segment.GetOrientedPoint(trackOffset);
  
             float angle = Mathf.PI * -1.5f;
