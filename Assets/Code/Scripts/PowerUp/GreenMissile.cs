@@ -2,8 +2,6 @@
 
 public class GreenMissile : Missile
 {
-    public override void FixedUpdate()
-    {}
 
     private void OnCollisionEnter(Collision other)
     {
