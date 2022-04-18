@@ -22,7 +22,7 @@ public class FollowCamera : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        transform.position += ((_followTransform.position - (_followTransform.forward * depthoffset) + (_followTransform.up * heightoffset)) - transform.position) * 0.05f;
+        transform.position += ((_followTransform.position - (_followTransform.forward * depthoffset) + (_followTransform.up * heightoffset)) - transform.position) * 0.1f;
 
         var look = Quaternion.LookRotation(((_lookTransform.forward * 10 + _lookTransform.position) - transform.position).normalized, _lookTransform.up);
         transform.rotation = Quaternion.Slerp(transform.rotation,look,0.1f);
