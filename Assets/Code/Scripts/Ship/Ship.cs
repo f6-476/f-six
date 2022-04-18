@@ -34,6 +34,7 @@ public class Ship : MonoBehaviour
     public Rigidbody Rigidbody => _rigidbody;
     public float RudderValue  => _controller.GetRudderValue();
     public float ThrustValue => _controller.GetThrustValue();
+    public float ReverseValue => _controller.GetReverseValue();
     public bool Boost => _controller.GetBoost();
     public bool IsMultiplayer => _multiplayer != null;
     public bool IsServer => !IsMultiplayer || _multiplayer.IsServer;

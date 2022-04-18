@@ -26,7 +26,7 @@ public class TrackGenerator : MonoBehaviour
     }
     private void Update()
     {
-        GenerateMesh();
+        //GenerateMesh();
     }
 
     private void OnValidate()

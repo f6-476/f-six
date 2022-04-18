@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e7d77bdaabc17fb9b670fcf05eb5eb9, type: 3}
-  m_Name: Obstacle
+  m_Name: Rail
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5266013875750877368, guid: 2d6a8dfbb2bcb8b4ea3e9a2a534d8fe6, type: 3}
+  prefab: {fileID: 6179768358748245607, guid: e0b06a02a6a5791408645d87ae795d56, type: 3}
   count: 100
   minDistance: 200

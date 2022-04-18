@@ -300,7 +300,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3317581294558630137}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 19.14}
+  m_LocalPosition: {x: 0, y: 10, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3317581294562083420}
@@ -515,6 +515,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a58099de-6113-4fdd-8125-ab9dcb3f2aac
     m_ActionName: Gameplay/Fire[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1848271415}
+        m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
+        m_MethodName: GetReverse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 21c5ecd2-f7a1-404e-a2d0-e59a97cc584f
+    m_ActionName: Gameplay/Reverse[/Keyboard/s]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -535,6 +551,8 @@ MonoBehaviour:
   ship: {fileID: 1848271416}
   speed: 40
   thrustMultiplier: 1
+  reverseMultiplier: 1
+  rotationMultiplier: 1
   boost: 1.5
 --- !u!114 &3317581294562083422
 MonoBehaviour:
@@ -636,7 +654,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 1
-  m_AngularDrag: 2
+  m_AngularDrag: 7
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
