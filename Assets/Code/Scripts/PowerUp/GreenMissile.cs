@@ -2,16 +2,13 @@
 
 public class GreenMissile : Missile
 {
-    public override void FixedUpdate()
-    {}
-
-    private void OnCollisionEnter(Collision other)
+    protected override void Start()
     {
-        if (other.gameObject.TryGetComponent(out Ship ship))
-        {
-            ship.Movement.SetThrust();
-        }
+        base.Start();
 
-        Destroy(gameObject);
+        if (IsServer)
+        {
+            missileRigidbody.velocity = transform.forward * missileSpeed;
+        }
     }
 }

@@ -30,7 +30,7 @@ public class ShipController : Controller
     {
         if (ctx.performed)
         {
-            _ship.PowerUp.OnActivate();
+            ship.PowerUp.ActivatePowerUp();
         }
     }
 }

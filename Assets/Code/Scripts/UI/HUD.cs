@@ -14,12 +14,14 @@ public class HUD : MonoBehaviour
     [SerializeField] private Text timeLapText;
     [SerializeField] private Text rankingsText;
     [SerializeField] private Text speedText;
-    [SerializeField] private Image shieldBar;
+    [SerializeField] private Image powerUpBar;
+    [SerializeField] private Image powerUpImage;
     [SerializeField] private Ship ship;
 
     private void Start()
     {
         quitPopup.Hide();
+        powerUpImage.gameObject.SetActive(false);
     }
 
     public void OnCancel(InputAction.CallbackContext context)
@@ -27,30 +29,36 @@ public class HUD : MonoBehaviour
         quitPopup.Show();
     }
 
+    private void UpdateShipUI()
+    {
+        if (ship == null) return;
+
+        SetRankText(ship.Race.Rank);
+        SetLapText(ship.Race.Lap);
+        SetLapTimeText(ship.Race.GetLapDifference());
+        SetStopwatchText(Time.time - ship.Race.LapTime);
+        SetSpeedText((int)ship.Rigidbody.velocity.magnitude);
+
+        bool active = false;
+        float fill = 0.0f;
+        Color color = Color.white;
+        PowerUpConfig config = ship.PowerUp.Config;
+        if (config != null)
+        {
+            active = true;
+            color = config.color;
+            fill = (float)ship.PowerUp.Count / (float)config.count;
+            SetPowerUpIcon(config.icon);
+        }
+        powerUpImage.gameObject.SetActive(active);
+        SetPowerUpBar(fill);
+        SetColor(color);
+    }
+
     private void Update()
     {
         SetRankingsText();
-        
-        if (ship != null)
-        {
-            SetRankText(ship.Race.Rank);
-            SetLapText(ship.Race.Lap);
-            SetLapTimeText(ship.Race.GetLapDifference());
-            SetStopwatchText(Time.time - ship.Race.LapTime);
-            SetSpeedText((int)ship.Rigidbody.velocity.magnitude);
-        }
-
-        float shieldBar = 0.0f;
-        if (ship != null && ship.PowerUp.PowerUp is ShieldPowerUp)
-        {
-            ShieldPowerUp shieldPowerUp = (ShieldPowerUp)ship.PowerUp.PowerUp;
-
-            if (shieldPowerUp.Active)
-            {
-                shieldBar = (float)shieldPowerUp.HitCount / (float)ShieldPowerUp.MAX_HIT_COUNT;
-            }
-        }
-        SetShieldBar(shieldBar);
+        UpdateShipUI();
     }
 
     public void SetShip(Ship ship)
@@ -115,12 +123,17 @@ public class HUD : MonoBehaviour
     {
         string playerRankingText = "";
 
-        if (RaceManager.Singleton != null && RaceManager.Singleton.Ships != null)
+        if (LobbyManager.Singleton != null && LobbyManager.Singleton.Players != null)
         {
-            foreach (var player in RaceManager.Singleton.Ships)
+            int playerCount = LobbyManager.Singleton.Players.Count;
+            string[] playerRankingLines = new string[playerCount];
+
+            foreach(var player in LobbyManager.Singleton.Players)
             {
-                playerRankingText += $"{player.Race.Rank}. TODO\n";
+                playerRankingLines[player.Rank - 1] = $"{player.Rank}. {player.Username}";
             }
+
+            playerRankingText = string.Join("\n", playerRankingLines);
         }
 
         rankingsText.text = playerRankingText;
@@ -136,9 +149,20 @@ public class HUD : MonoBehaviour
         return $"{minutes}:{seconds}:{milliseconds}";
     }
 
-    private void SetShieldBar(float amount)
+    private void SetColor(Color color)
     {
-        shieldBar.fillAmount = amount;
+        powerUpImage.color = color;
+        powerUpBar.color = color;
+    }
+
+    private void SetPowerUpIcon(Sprite icon)
+    {
+        powerUpImage.sprite = icon;
+    }
+
+    private void SetPowerUpBar(float amount)
+    {
+        powerUpBar.fillAmount = amount;
     }
 
     private void SetSpeedText(int speed)

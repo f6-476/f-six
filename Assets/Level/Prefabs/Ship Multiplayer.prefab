@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: _controller
       value: 
       objectReference: {fileID: 1084831496501621050}
+    - target: {fileID: 1848271416, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
+      propertyPath: _multiplayer
+      value: 
+      objectReference: {fileID: 2128189288052716293}
     - target: {fileID: 1848271417, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: _ship
       value: 
@@ -240,6 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c2d0e6afff65c50844d2bff431d51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ship: {fileID: 1084831496501621045}
 --- !u!1001 &1086257334352082414
 PrefabInstance:
   m_ObjectHideFlags: 0

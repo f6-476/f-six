@@ -41,16 +41,20 @@ public class LobbyManager : AbstractManager<LobbyManager>
 
     private void OnLoadEventComplete(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
-        if (!IsMaster) return;
+        if (!IsServer) return;
 
         // TODO: Naming convention for maps?
         if (!sceneName.Equals("Lobby"))
         {
+            RaceManager.Singleton.LoadCheckpoints();
+            
             foreach (LobbyPlayer player in Players)
             {
                 GameObject playerObject = Instantiate(gamePlayerPrefab, Vector3.zero, Quaternion.identity);
+                Ship ship = playerObject.GetComponent<Ship>();
+                ship.Multiplayer.Lobby = player;
                 playerObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId);
-                RaceManager.Singleton.LoadCheckpoints();
+                RaceManager.Singleton.AddShip(ship);
             }
         }
     }
@@ -59,7 +63,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
     {
         NetworkManager.Singleton.Shutdown();
 
-        if (IsMaster)
+        if (IsServer)
         {
             ServerManager.Singleton.Disconnect();
         }
@@ -69,7 +73,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
 
     private void OnClientConnect(ulong clientId)
     {
-        if (!IsMaster) return;
+        if (!IsServer) return;
 
         GameObject player = Instantiate(lobbyPlayerPrefab, Vector3.zero, Quaternion.identity);
         player.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);

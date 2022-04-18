@@ -4,19 +4,36 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject[] powerUpPrefabs;
+    private new Collider collider;
+
+    private void Awake()
+    {
+        this.collider = GetComponent<Collider>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        var shipPowerUp = other.GetComponent<ShipPowerUp>();
+        if (other.TryGetComponent(out ShipPowerUp shipPowerUp))
+        {
+            shipPowerUp.PickUpPowerUp();
 
-        if (shipPowerUp == null) return;
+            StartCoroutine(ActiveCooldown());
+        }
+    }
 
-        GameObject randomPowerUp = powerUpPrefabs[Random.Range(0, powerUpPrefabs.Length)];
-        shipPowerUp.AttachPowerUp(randomPowerUp);
+    private IEnumerator ActiveCooldown()
+    {
+        SetActive(false);
+        yield return new WaitForSeconds(10.0f);
+        SetActive(true);
+    }
 
-        /// TODO: Cooldown respawn instead of destroy?
-        Destroy(this.gameObject);
+    private void SetActive(bool state)
+    {
+        this.collider.enabled = state;
+        foreach(Transform child in transform)
+        {
+            child.gameObject.SetActive(state);
+        }
     }
 }

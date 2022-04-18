@@ -1,16 +1,42 @@
 using Unity.Netcode;
 using UnityEngine;
+using Unity.Collections;
 
 [RequireComponent(typeof(Ship))]
 public class ShipMultiplayer : NetworkBehaviour 
 {
-    private Ship ship;
+    [SerializeField] private Ship ship;
+    public new bool IsServer => base.IsServer;
+    public LobbyPlayer Lobby { get; set; }
     private NetworkVariable<Vector3> position = new NetworkVariable<Vector3>(Vector3.zero);
     private NetworkVariable<Quaternion> rotation = new NetworkVariable<Quaternion>(Quaternion.identity);
-
-    private void Awake() 
+    private NetworkVariable<int> rank = new NetworkVariable<int>(1);
+    public int Rank
     {
-        ship = GetComponent<Ship>();    
+        get => rank.Value;
+        set
+        {
+            rank.Value = value;
+            if (Lobby) Lobby.Rank = value;
+        }
+    }
+    private NetworkVariable<int> powerUpIndex = new NetworkVariable<int>(0);
+    public int PowerUpIndex
+    {
+        get => powerUpIndex.Value;
+        set => powerUpIndex.Value = value;
+    }
+    private NetworkVariable<int> powerUpCount = new NetworkVariable<int>(0);
+    public int PowerUpCount
+    {
+        get => powerUpCount.Value;
+        set => powerUpCount.Value = value;
+    }
+    private NetworkVariable<bool> shipDisabled = new NetworkVariable<bool>(false);
+    public bool ShipDisabled
+    {
+        get => shipDisabled.Value;
+        set => shipDisabled.Value = value;
     }
 
     private void Start() 
@@ -34,20 +60,29 @@ public class ShipMultiplayer : NetworkBehaviour
         this.rotation.Value = rotation;
     }
 
-    private void LocalUpdate()
+    private void UpdateTransform()
     {
-        UpdateTransformServerRpc(transform.position, transform.rotation);
+        if (IsOwner)
+        {
+            UpdateTransformServerRpc(transform.position, transform.rotation);
+        }
+        else
+        {
+            transform.position = position.Value;
+            transform.rotation = rotation.Value;
+        }
     }
-
-    private void RemoteUpdate()
+    
+    [ServerRpc]
+    public void ActivatePowerUpServerRpc()
     {
-        transform.position = position.Value;
-        transform.rotation = rotation.Value;
+        if (PowerUpCount <= 0) return;
+        ship.PowerUp.Config.SpawnPrefab(ship);
+        PowerUpCount--;
     }
 
     private void Update()
     {
-        if(IsOwner) LocalUpdate(); 
-        else RemoteUpdate();
+        UpdateTransform();
     }
 }

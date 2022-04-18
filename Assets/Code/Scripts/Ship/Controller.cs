@@ -1,10 +1,12 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Ship))]
 public class Controller : MonoBehaviour
 {
-    [SerializeField] protected Ship _ship;
+    [SerializeField] protected Ship ship;
     protected float rudderValue, thrustValue = 0;
     protected bool boost, fire;
+
     public float GetRudderValue()
     {
         return rudderValue;

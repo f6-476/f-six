@@ -372,6 +372,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 3317581294562083415}
   _race: {fileID: 940504599400041749}
   _powerup: {fileID: 2016791849586159485}
+  _multiplayer: {fileID: 0}
 --- !u!114 &1848271415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,7 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5895e31349470542907be8e0e274a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ship: {fileID: 1848271416}
+  ship: {fileID: 1848271416}
 --- !u!114 &3317581294562083421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,6 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410483aec7849234383c2851968dbdad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ship: {fileID: 1848271416}
   speed: 40
   thrustMultiplier: 1
   boost: 1.5
@@ -546,6 +548,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 399e61a19910be54389b642257a5dd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ship: {fileID: 1848271416}
+  _audioSource: {fileID: 3317581294562083423}
   pitchCurve:
     serializedVersion: 2
     m_Curve:
@@ -579,7 +583,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _audioSource: {fileID: 3317581294562083423}
 --- !u!114 &3317581294562083416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,6 +604,7 @@ MonoBehaviour:
   p: 60
   i: 0.5
   d: 3
+  ship: {fileID: 1848271416}
 --- !u!33 &3317581294562083419
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -659,7 +663,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -694,7 +698,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -746,7 +750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e1aa80163a33fed78d062eb01688129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointIndex: 0
+  ship: {fileID: 1848271416}
 --- !u!114 &8905406261744842930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,6 +779,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31651f0cd7fa79cfab300c2f4501b5ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ship: {fileID: 1848271416}
+  configs:
+  - {fileID: 11400000, guid: 5ffe5121f1c127d18aefbcc79f51870f, type: 2}
+  - {fileID: 11400000, guid: a42a35513dd169cfbb05deb60cba1036, type: 2}
 --- !u!1 &3317581295477237567
 GameObject:
   m_ObjectHideFlags: 0
@@ -5589,7 +5597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3840704169729776170}
   m_Layer: 0
-  m_Name: ShieldSpawnPos
+  m_Name: EquipSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5619,7 +5627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8921005811803299314}
   m_Layer: 0
-  m_Name: MissileSpawnPos
+  m_Name: ThrowSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

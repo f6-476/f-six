@@ -21,6 +21,16 @@ public class LobbyPlayer : NetworkBehaviour
         get => username.Value.ToString();
     }
 
+    private NetworkVariable<int> rank = new NetworkVariable<int>(1);
+    public int Rank
+    {
+        get => rank.Value;
+        set
+        {
+            if (IsServer) rank.Value = value;
+        }
+    }
+
     private void Start()
     {
         LobbyManager.Singleton.Players.Add(this);

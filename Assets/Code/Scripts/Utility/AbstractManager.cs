@@ -26,8 +26,8 @@ public abstract class AbstractManager<T>: MonoBehaviour where T: AbstractManager
         if (instance == this) instance = null;
     }
 
-    public bool IsMaster
+    public bool IsServer
     {
-        get => NetworkManager.Singleton != null && (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer);
+        get => NetworkManager.Singleton != null && (NetworkManager.Singleton.IsServer);
     }
 }

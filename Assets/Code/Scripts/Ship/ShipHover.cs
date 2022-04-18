@@ -5,12 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(Ship))]
 public class ShipHover : Hover
 {
-    private Ship ship;
+    [SerializeField] private Ship ship;
 
     protected override void Start()
     {
         base.Start();
-        this.ship = GetComponent<Ship>();
         this.rigidbody = this.ship.Rigidbody;
     }
 

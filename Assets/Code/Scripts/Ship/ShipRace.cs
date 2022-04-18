@@ -6,11 +6,11 @@ using UnityEngine;
 using Unity.Netcode;
 
 [RequireComponent(typeof(Ship))]
-public class ShipRace : NetworkBehaviour
+public class ShipRace : MonoBehaviour
 {
+    [SerializeField] private Ship ship;
     public static Action<Ship> OnCheckpoint;
-    private Ship ship;
-    [SerializeField] private int checkpointIndex = 0;
+    private int checkpointIndex = 0;
     public int Checkpoint => checkpointIndex;
     private List<float> lapTimeList = new List<float>();
     private int lapCount = 0;
@@ -18,12 +18,15 @@ public class ShipRace : NetworkBehaviour
     public bool Finished => lapCount >= RaceManager.Singleton.Laps;
     private float lapTime = 0;
     public float LapTime => lapTime;
-    public int Rank { get; set; }
-
-    private void Start()
+    private int rank = 1;
+    public int Rank 
     {
-        this.Rank = 1;
-        this.ship = GetComponent<Ship>();
+        get => (ship.IsMultiplayer) ? ship.Multiplayer.Rank : rank;
+        set
+        {
+            if (ship.IsMultiplayer) ship.Multiplayer.Rank = value;
+            else rank = value;
+        }
     }
 
     /// Gets the time difference between the previous lap and the best lap.
@@ -46,8 +49,7 @@ public class ShipRace : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // TODO: Check for online/offline.
-        // if (!IsOwner) return;
+        if (!ship.IsServer) return;
 
         if (other.TryGetComponent(out Checkpoint checkpoint))
         {

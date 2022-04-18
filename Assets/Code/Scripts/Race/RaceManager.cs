@@ -2,52 +2,70 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Unity.Netcode;
 
 public class RaceManager : AbstractManager<RaceManager>
 {
-    [SerializeField] private List<Ship> ships = new List<Ship>();
+    private List<Ship> ships;
     public List<Ship> Ships => ships;
     [SerializeField] [Range(2, 64)] private int lapCount = 2;
     public int Laps => lapCount;
     private int checkpointCount = 32;
-    private HashSet<Checkpoint> checkpoints = new HashSet<Checkpoint>();
+    private HashSet<Checkpoint> checkpoints;
     public HashSet<Checkpoint> Checkpoints => this.checkpoints;
     public int LastCheckpoint => checkpoints.Count - 1;
     [Range(2, 10)] private int widthToThicknessRatio = 5; // This controls the x scale of the checkpoint relative to the thickness of the track.
     [SerializeField] private GameObject checkpointPrefab;
     [SerializeField] private TrackGenerator track;
 
+    private void Reset()
+    {
+        ships = new List<Ship>();
+        checkpoints = new HashSet<Checkpoint>();
+    }
+
     private void Start()
     {
-        ShipRace.OnCheckpoint += OnCheckpoint;
+        Reset();
 
+        ShipRace.OnCheckpoint += OnCheckpoint;
+        NetworkManager.Singleton.OnServerStarted += OnServerStarted;
+    }
+
+    private void OnServerStarted()
+    {
+        this.Reset();
+    }
+
+    public void LoadCheckpoints()
+    {
         if (track != null)
         {
             SetTrackCheckpoints(track);
         }
         else
         {
-            LoadCheckpoints();
+            foreach(GameObject checkpoint in GameObject.FindGameObjectsWithTag("Checkpoint"))
+            {
+                checkpoints.Add(checkpoint.GetComponent<Checkpoint>());
+            }
         }
     }
 
-    public void LoadCheckpoints()
+    public void AddShip(Ship ship)
     {
-        foreach(GameObject checkpoint in GameObject.FindGameObjectsWithTag("Checkpoint"))
-        {
-            checkpoints.Add(checkpoint.GetComponent<Checkpoint>());
-        }
+        ships.Add(ship);
     }
 
     private void OnCheckpoint(Ship ship)
     {
-        if(!IsMaster) return;
-        UpdatePlayers();
+        if(!IsServer) return;
+        UpdatePlayerRankings();
     }
 
-    private void UpdatePlayers()
+    private void UpdatePlayerRankings()
     {
-        ships = ships.OrderBy(ship => ship.Race.Lap * checkpoints.Count + ship.Race.Checkpoint).ToList();
+        ships = ships.OrderBy(ship => -(ship.Race.Lap * checkpoints.Count + ship.Race.Checkpoint)).ToList();
 
         for(int i = 0; i < ships.Count; i++)
         {
