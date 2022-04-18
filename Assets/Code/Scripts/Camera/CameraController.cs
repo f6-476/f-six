@@ -5,9 +5,9 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField]
     private List<Transform> targets = new List<Transform>();
-    private float heightOffset = 3.0f;
+    private float heightOffset = 2.0f;
     private Vector2 rotationOffset = new Vector2(0.0f, 25.0f);
-    private float distance = 10.0f;
+    private float distance = 6.0f;
     private float translationSpeed = 10.0f;
     private float rotationSpeed = 5.0f;
 

@@ -7,7 +7,7 @@ public abstract class Missile : NetworkBehaviour, IThrowable
 {
     [SerializeField] protected float missileSpeed = 5f;
     [SerializeField] protected Rigidbody missileRigidbody;
-    [SerializeField] protected AudioSource explosionSound;
+    [SerializeField] protected GameObject explosionPrefab;
     private static readonly float MISSILE_DURATION = 15.0f;
     private NetworkVariable<Vector3> position = new NetworkVariable<Vector3>(Vector3.zero);
     private NetworkVariable<Quaternion> rotation = new NetworkVariable<Quaternion>(Quaternion.identity);
@@ -69,8 +69,12 @@ public abstract class Missile : NetworkBehaviour, IThrowable
         }
         else
         {
-            explosionSound.Play();
-            Destroy(this.gameObject, explosionSound.clip.length);
+            Destroy(this.gameObject);
         }
+    }
+
+    public override void OnDestroy()
+    {
+        Instantiate(explosionPrefab, transform.position, explosionPrefab.transform.rotation);
     }
 }

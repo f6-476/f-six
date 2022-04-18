@@ -8,10 +8,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1848271416, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
-      propertyPath: _controller
-      value: 
-      objectReference: {fileID: 1084831496501621050}
-    - target: {fileID: 1848271416, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: _multiplayer
       value: 
       objectReference: {fileID: 2128189288052716293}
@@ -24,12 +20,8 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1848271417, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
-      propertyPath: speed
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 1848271417, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: thrustMultiplier
-      value: 1.39
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 184533930520375640, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -155,10 +147,6 @@ PrefabInstance:
       propertyPath: MaxDistance
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 3317581294562083423, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3840704169729776170, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -201,17 +189,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7b2294138e158c41a206554e354251b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1084831496501621050 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1848271415, guid: 337b9d41257476c4bb1091bf87a41a89, type: 3}
-  m_PrefabInstance: {fileID: 1084831498144060173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2379152826062508379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5895e31349470542907be8e0e274a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!82 &2379152826062508370 stripped
