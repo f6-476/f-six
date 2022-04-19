@@ -8,8 +8,7 @@ public class RaceManager : AbstractManager<RaceManager>
 {
     private List<Ship> ships;
     public List<Ship> Ships => ships;
-    [SerializeField] [Range(2, 64)] private int lapCount = 2;
-    public int Laps => lapCount;
+    public int Laps { get; set; }
     private int checkpointCount = 32;
     private HashSet<Checkpoint> checkpoints;
     public HashSet<Checkpoint> Checkpoints => this.checkpoints;

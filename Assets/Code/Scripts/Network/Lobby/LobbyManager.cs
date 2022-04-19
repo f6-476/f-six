@@ -46,6 +46,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
 
         if (sceneName.StartsWith("Map"))
         {
+            RaceManager.Singleton.Laps = MapConfig.lapCount;
             RaceManager.Singleton.LoadCheckpoints();
             
             foreach (LobbyPlayer player in Players)

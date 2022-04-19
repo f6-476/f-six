@@ -1,39 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class PowerUp : MonoBehaviour
+public class PowerUp : NetworkBehaviour
 {
-    private new Collider collider;
-
-    private void Awake()
-    {
-        this.collider = GetComponent<Collider>();
-    }
+    [SerializeField] private GameObject[] visuals;
+    [SerializeField] private AudioSource pickUpAudioSource;
+    [SerializeField] private ParticleSystem pickUpParticleSystem;
+    private bool active = true;
 
     private void OnTriggerEnter(Collider other)
     {
+        if (NetworkManager.Singleton != null && !IsServer) return;
+        if (!active) return;
+
         if (other.TryGetComponent(out ShipPowerUp shipPowerUp))
         {
             shipPowerUp.PickUpPowerUp();
 
-            StartCoroutine(ActiveCooldown());
+            StartCoroutine(PickUpCooldown());
         }
     }
 
-    private IEnumerator ActiveCooldown()
+    private IEnumerator PickUpCooldown()
     {
-        SetActive(false);
+        active = false;
+        SetActiveClientRpc(false);
         yield return new WaitForSeconds(10.0f);
-        SetActive(true);
+        active = true;
+        SetActiveClientRpc(true);
     }
 
-    private void SetActive(bool state)
+    [ClientRpc]
+    private void SetActiveClientRpc(bool state)
     {
-        this.collider.enabled = state;
-        foreach(Transform child in transform)
+        if (!state) 
         {
-            child.gameObject.SetActive(state);
+            pickUpAudioSource.Play();
+            pickUpParticleSystem.Play();
+        }
+
+        foreach(GameObject visual in visuals)
+        {
+            visual.SetActive(state);
         }
     }
 }

@@ -9,18 +9,18 @@ public class MusicManager : AbstractManager<MusicManager>
     }
 
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private float maxVolume = 0.05f;
+    [SerializeField] private float maxMusicVolume = 0.05f;
     [SerializeField] private AudioClip[] lobbyMusic;
-    public float Volume 
+    public float MusicVolume 
     {
-        get => audioSource.volume / maxVolume;
-        set => audioSource.volume = value * maxVolume;
+        get => audioSource.volume / maxMusicVolume;
+        set => audioSource.volume = value * maxMusicVolume;
     }
     private State state = State.MENU;
 
     private void Start()
     {
-        audioSource.volume = maxVolume;
+        audioSource.volume = maxMusicVolume;
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
