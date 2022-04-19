@@ -44,8 +44,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
     {
         if (!IsServer) return;
 
-        // TODO: Naming convention for maps?
-        if (!sceneName.Equals("Lobby"))
+        if (sceneName.StartsWith("Map"))
         {
             RaceManager.Singleton.LoadCheckpoints();
             

@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Level/Scenes/Menus/OptionsMenu.unity
     guid: 6727b0dc08f912095a1292f850d0cc76
   - enabled: 1
-    path: Assets/Level/Scenes/Maps/Mars.unity
+    path: Assets/Level/Scenes/Maps/MapMars.unity
     guid: 69a07cfefe3ed8acf8ecb41737db13a2
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: ddb9a59c6b435f00081a3958198d7281, type: 2}

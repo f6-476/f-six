@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd2ed53283320b94ac8f75081bb654e, type: 3}
   m_Name: Mars
   m_EditorClassIdentifier: 
+  sceneName: MapMars
   displayName: Rusty Giant
   lapCount: 3
   preview: {fileID: 21300000, guid: c7a84aee20975f8b1884a7df25f834d7, type: 3}
-  sceneName: Mars
+  music: {fileID: 8300000, guid: a555de2d41ccb9b07adb0bb1116923c4, type: 3}
