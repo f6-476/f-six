@@ -18,9 +18,13 @@ public class HUD : MonoBehaviour
     [SerializeField] private Image powerUpImage;
     [SerializeField] private Ship ship;
 
+    private static readonly float POWER_UP_BAR_SPEED = 8.0f;
+    private static readonly float POWER_UP_BAR_MIN_DELTA = 0.005f;
+
     private void Start()
     {
         quitPopup.Hide();
+        powerUpImage.fillAmount = 0;
         powerUpImage.gameObject.SetActive(false);
     }
 
@@ -41,18 +45,16 @@ public class HUD : MonoBehaviour
 
         bool active = false;
         float fill = 0.0f;
-        Color color = Color.white;
         PowerUpConfig config = ship.PowerUp.Config;
         if (config != null)
         {
             active = true;
-            color = config.color;
             fill = (float)ship.PowerUp.Count / (float)config.count;
             SetPowerUpIcon(config.icon);
+            SetColor(config.color);
         }
         powerUpImage.gameObject.SetActive(active);
         SetPowerUpBar(fill);
-        SetColor(color);
     }
 
     private void Update()
@@ -162,7 +164,14 @@ public class HUD : MonoBehaviour
 
     private void SetPowerUpBar(float amount)
     {
-        powerUpBar.fillAmount = amount;
+        if (Mathf.Abs(powerUpBar.fillAmount - amount) < POWER_UP_BAR_MIN_DELTA)
+        {
+            powerUpBar.fillAmount = amount;
+        }
+        else
+        {
+            powerUpBar.fillAmount = Mathf.Lerp(powerUpBar.fillAmount, amount, POWER_UP_BAR_SPEED * Time.deltaTime);
+        }
     }
 
     private void SetSpeedText(int speed)

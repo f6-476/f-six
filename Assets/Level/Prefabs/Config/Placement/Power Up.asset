@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e7d77bdaabc17fb9b670fcf05eb5eb9, type: 3}
   m_Name: Power Up
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5266013875750877368, guid: 30801de40d3957d43bb98c447e7a7120, type: 3}
+  prefab: {fileID: 8196653405157197383, guid: b906400d36c88d22cb73f48a4e264045, type: 3}
   count: 100
   minDistance: 200

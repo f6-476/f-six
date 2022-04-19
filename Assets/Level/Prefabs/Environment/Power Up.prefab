@@ -48,9 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9379d34ae2b544ea51be063c5c7cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 54888593679987139}
-  visuals:
-  - {fileID: 8196653405887169271}
+  model: {fileID: 8196653405887169271}
   pickUpAudioSource: {fileID: 4722322791031452821}
   pickUpParticleSystem: {fileID: 6714987671313898566}
 --- !u!135 &54888593679987139

@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 public class PowerUp : NetworkBehaviour
 {
-    [SerializeField] private GameObject[] visuals;
+    [SerializeField] private GameObject model;
     [SerializeField] private AudioSource pickUpAudioSource;
     [SerializeField] private ParticleSystem pickUpParticleSystem;
     private bool active = true;
@@ -41,9 +41,6 @@ public class PowerUp : NetworkBehaviour
             pickUpParticleSystem.Play();
         }
 
-        foreach(GameObject visual in visuals)
-        {
-            visual.SetActive(state);
-        }
+        model.SetActive(state);
     }
 }

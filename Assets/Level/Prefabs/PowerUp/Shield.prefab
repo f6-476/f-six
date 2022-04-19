@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6699833627855391038
+--- !u!1 &2029131788757702889
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,51 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4534331398252950050}
-  - component: {fileID: 8507230679341299388}
-  - component: {fileID: 2249785464404894546}
-  - component: {fileID: 1116231022403763145}
-  - component: {fileID: 4300549877891418678}
-  - component: {fileID: -2379493605796997235}
-  - component: {fileID: 6955670547224833834}
+  - component: {fileID: 1733201082194709784}
+  - component: {fileID: 1448395556687067416}
+  - component: {fileID: 4042408787349002395}
   m_Layer: 29
-  m_Name: Shield
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4534331398252950050
+--- !u!4 &1733201082194709784
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6699833627855391038}
+  m_GameObject: {fileID: 2029131788757702889}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 4534331398252950050}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8507230679341299388
+--- !u!33 &1448395556687067416
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6699833627855391038}
+  m_GameObject: {fileID: 2029131788757702889}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &2249785464404894546
+--- !u!23 &4042408787349002395
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6699833627855391038}
+  m_GameObject: {fileID: 2029131788757702889}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -63,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eae0b7d8e4019d3c8a6d902b92a24d7e, type: 2}
+  - {fileID: 2100000, guid: 4470d1f58fdf3fa428376b10c58a4e7c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,6 +81,41 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6699833627855391038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4534331398252950050}
+  - component: {fileID: 1116231022403763145}
+  - component: {fileID: 4300549877891418678}
+  - component: {fileID: -2379493605796997235}
+  - component: {fileID: 6955670547224833834}
+  m_Layer: 29
+  m_Name: Shield
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4534331398252950050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6699833627855391038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1733201082194709784}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1116231022403763145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7fafc5f61b7cbe65aa0d6cd14e848e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 2029131788757702889}
 --- !u!114 &4300549877891418678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +156,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.50000006
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &6955670547224833834
 AudioSource:
