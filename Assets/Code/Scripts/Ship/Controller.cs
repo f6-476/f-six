@@ -4,7 +4,7 @@ public class Controller : MonoBehaviour
 {
     [SerializeField] protected Ship _ship;
     protected float rudderValue, thrustValue, reverseValue = 0;
-    protected bool boost, fire;
+    protected bool boost;
 
     public float GetRudderValue()
     {
@@ -17,7 +17,7 @@ public class Controller : MonoBehaviour
     }
 
     public float GetReverseValue()
-    {
+    {   
         return reverseValue;
     }
 
@@ -25,10 +25,6 @@ public class Controller : MonoBehaviour
     {
         return boost;
     }
-
-    public bool GetFire()
-    {
-        return fire;
-    }
+    
 
 }

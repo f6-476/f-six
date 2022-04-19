@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4767574594983410650}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rail
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 5986715556964827335}
   - component: {fileID: 3556488542925763633}
   - component: {fileID: 7172040171476727687}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: rail_middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
