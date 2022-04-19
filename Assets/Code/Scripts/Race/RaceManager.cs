@@ -10,9 +10,8 @@ public class RaceManager : AbstractManager<RaceManager>
     [SerializeField] [Range(2, 64)] private int lapCount = 2;
     public int Laps => lapCount;
     private int checkpointCount = 32;
-    private HashSet<Checkpoint> checkpoints = new HashSet<Checkpoint>();
-    public HashSet<Checkpoint> Checkpoints => this.checkpoints;
-    public int LastCheckpoint => checkpoints.Count - 1;
+    private Checkpoint[] checkpoints;
+    public int LastCheckpointIndex => checkpoints.Length - 1;
     [Range(3, 200)] public int automaticCheckpointCount = 50;
     [Range(2, 10)] private int widthToThicknessRatio = 5; // This controls the x scale of the checkpoint relative to the thickness of the track.
     [SerializeField] private GameObject checkpointPrefab;
@@ -34,10 +33,21 @@ public class RaceManager : AbstractManager<RaceManager>
 
     public void LoadCheckpoints()
     {
-        foreach(GameObject checkpoint in GameObject.FindGameObjectsWithTag("Checkpoint"))
+        GameObject[] checkpointObjects = GameObject.FindGameObjectsWithTag("Checkpoint");
+        checkpoints = new Checkpoint[checkpointObjects.Length];
+
+        foreach(GameObject checkpointObject in checkpointObjects)
         {
-            checkpoints.Add(checkpoint.GetComponent<Checkpoint>());
+            Checkpoint checkpoint = checkpointObject.GetComponent<Checkpoint>();
+            checkpoints[checkpoint.index] = checkpoint;
         }
+    }
+
+    public Checkpoint GetNextCheckpoint(int checkpointIndex)
+    {
+        /// TODO: Consider no checkpoints?
+        if (checkpointIndex + 1 >= checkpoints.Length) return checkpoints[0];
+        else return checkpoints[checkpointIndex + 1];
     }
 
     private void OnCheckpoint(Ship ship)
@@ -48,7 +58,7 @@ public class RaceManager : AbstractManager<RaceManager>
 
     private void UpdatePlayers()
     {
-        ships = ships.OrderBy(ship => ship.Race.Lap * checkpoints.Count + ship.Race.Checkpoint).ToList();
+        ships = ships.OrderBy(ship => ship.Race.Lap * checkpoints.Length + ship.Race.CheckpointIndex).ToList();
 
         for(int i = 0; i < ships.Count; i++)
         {
@@ -58,6 +68,7 @@ public class RaceManager : AbstractManager<RaceManager>
 
     private void SetTrackCheckpoints(TrackGenerator track)
     {
+        checkpoints = new Checkpoint[automaticCheckpointCount];
         for (int i = 0; i < automaticCheckpointCount; i++)
         {
             GameObject gameObject = Instantiate(checkpointPrefab, Vector3.zero, Quaternion.identity);
@@ -75,7 +86,7 @@ public class RaceManager : AbstractManager<RaceManager>
             gameObject.transform.position = projectedPoint;
             gameObject.transform.rotation = Quaternion.Euler(0, orientedPoint.rotation.eulerAngles.y, orientedPoint.rotation.eulerAngles.z);
 
-            checkpoints.Add(checkpoint);
+            checkpoints[i] = checkpoint;
         }
     }
 }
