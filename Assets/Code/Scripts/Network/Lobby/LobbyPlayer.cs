@@ -12,6 +12,7 @@ public class LobbyPlayer : NetworkBehaviour
         set
         {
             if (IsOwner) UpdateReadyServerRpc(value); 
+            else ready.Value = value;
         }
     }
 

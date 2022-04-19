@@ -3,16 +3,27 @@ using UnityEngine;
 
 public class TrackCamera : MonoBehaviour 
 {
-    [SerializeField]
-    private List<Transform> targets = new List<Transform>();
+    private HashSet<Transform> targets = new HashSet<Transform>();
     private float heightOffset = 2.0f;
     private Vector2 rotationOffset = new Vector2(0.0f, 25.0f);
     private float distance = 6.0f;
     private float translationSpeed = 10.0f;
     private float rotationSpeed = 5.0f;
 
-    private void Start()
-    {}
+    private void Awake()
+    {
+        Ship.OnLocalShip += AttachLocalShip;
+    }
+
+    private void OnDestroy()
+    {
+        Ship.OnLocalShip -= AttachLocalShip;
+    }
+
+    private void AttachLocalShip(Ship ship)
+    {
+        targets.Add(ship.transform);
+    }
 
     public void AddTarget(Transform target) 
     {
@@ -32,7 +43,7 @@ public class TrackCamera : MonoBehaviour
 
         foreach(Transform target in targets) 
         {
-            average += target.position;
+            if (target != null) average += target.position;
         }
 
         return average / targets.Count;
@@ -46,7 +57,7 @@ public class TrackCamera : MonoBehaviour
 
         foreach(Transform target in targets) 
         {
-            average += target.forward;
+            if (target != null) average += target.forward;
         }
 
         return Quaternion.LookRotation(average, normal);
@@ -60,7 +71,7 @@ public class TrackCamera : MonoBehaviour
 
         foreach(Transform target in targets)
         {
-            average += target.transform.up;
+            if (target != null) average += target.transform.up;
         }
 
         return average.normalized;
@@ -69,6 +80,9 @@ public class TrackCamera : MonoBehaviour
     private void UpdateTransform()
     {
         Vector3 normal = AverageNormal();
+
+        if (normal.sqrMagnitude == 0) return;
+
         Vector3 target = AveragePosition();
         Quaternion direction = AverageDirection(normal) * Quaternion.Euler(rotationOffset.y, rotationOffset.x, 0.0f);
         Vector3 offsetDirection = direction * Vector3.back;
@@ -77,7 +91,7 @@ public class TrackCamera : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, target + offset, Time.deltaTime * translationSpeed);
 
         Vector3 lookForward = (normal * heightOffset - offset).normalized;
-        transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(lookForward, normal), Time.deltaTime * rotationSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(lookForward, normal), Time.deltaTime * rotationSpeed);
     }
 
     private void Update() 

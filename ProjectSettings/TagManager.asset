@@ -8,6 +8,7 @@ TagManager:
   - FinishLine
   - AI
   - Obstacle
+  - Spawn
   layers:
   - Default
   - TransparentFX

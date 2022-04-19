@@ -27,6 +27,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
     {
         this.Reset();
 
+        SceneManager.sceneLoaded += OnLocalSceneLoaded;
         NetworkManager.Singleton.OnServerStarted += OnServerStarted;
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnect;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
@@ -40,21 +41,45 @@ public class LobbyManager : AbstractManager<LobbyManager>
         NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
     }
 
-    private void OnLoadEventComplete(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    private Spawn[] GetSpawns()
     {
-        if (!IsServer) return;
+        GameObject[] spawnObjects = GameObject.FindGameObjectsWithTag("Spawn");
+        Spawn[] spawns = new Spawn[spawnObjects.Length];
 
-        if (sceneName.StartsWith("Map"))
+        foreach (GameObject spawnObject in spawnObjects)
+        {
+            Spawn spawn = spawnObject.GetComponent<Spawn>();
+            spawns[spawn.index] = spawn;
+        }
+
+        return spawns;
+    }
+
+    private void OnLocalSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name.StartsWith("Map"))
         {
             RaceManager.Singleton.Laps = MapConfig.lapCount;
-            RaceManager.Singleton.LoadCheckpoints();
-            
+            RaceManager.Singleton.OnGameStarted();
+        }
+    }
+
+    private void OnLoadEventComplete(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    {
+        if (sceneName.StartsWith("Map"))
+        {
+            /// TODO: What to do when spawn count < player count?
+            Spawn[] spawns = GetSpawns();
+            int spawnIndex = 0;
+
             foreach (LobbyPlayer player in Players)
             {
-                GameObject playerObject = Instantiate(gamePlayerPrefab, Vector3.zero, Quaternion.identity);
+                player.Ready = false;
+                Spawn spawn = spawns[spawnIndex++];
+                GameObject playerObject = Instantiate(gamePlayerPrefab, spawn.transform.position, spawn.transform.rotation);
                 Ship ship = playerObject.GetComponent<Ship>();
                 ship.Multiplayer.Lobby = player;
-                playerObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId);
+                playerObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId, true);
                 RaceManager.Singleton.AddShip(ship);
             }
         }
@@ -90,21 +115,18 @@ public class LobbyManager : AbstractManager<LobbyManager>
         }
     }
 
-    public void OnPlayerUpdate(LobbyPlayer updatedPlayer)
+    private void LoadMapIfReady()
     {
-        bool ready = true;
         foreach (LobbyPlayer player in LobbyManager.Singleton.Players)
         {
-            if (!player.Ready)
-            {
-                ready = false;
-                break;
-            }
+            if (!player.Ready) return;
         }
 
-        if (ready)
-        {
-            NetworkManager.Singleton.SceneManager.LoadScene(MapConfig.sceneName, LoadSceneMode.Single);
-        }
+        NetworkManager.Singleton.SceneManager.LoadScene(MapConfig.sceneName, LoadSceneMode.Single);
+    }
+
+    public void OnPlayerUpdate(LobbyPlayer updatedPlayer)
+    {
+        LoadMapIfReady();
     }
 }

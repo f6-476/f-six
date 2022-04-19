@@ -11,6 +11,8 @@ using UnityEngine;
 ]
 public class Ship : MonoBehaviour
 {
+    public static System.Action<Ship> OnLocalShip;
+
     [SerializeField] private Controller _controller;
     [SerializeField] private ShipMovement _movement;
     [SerializeField] private ShipHover _hover;

@@ -65,7 +65,8 @@ public abstract class Missile : NetworkBehaviour, IThrowable
     {
         if (TryGetComponent(out NetworkObject networkObject))
         {
-            networkObject.Despawn();
+            if (networkObject.IsSpawned) networkObject.Despawn();
+            else Destroy(this.gameObject);
         }
         else
         {

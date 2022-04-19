@@ -21,11 +21,26 @@ public class HUD : MonoBehaviour
     private static readonly float POWER_UP_BAR_SPEED = 8.0f;
     private static readonly float POWER_UP_BAR_MIN_DELTA = 0.005f;
 
+    private void Awake()
+    {
+        Ship.OnLocalShip += AttachLocalShip;
+    }
+
+    private void OnDestroy()
+    {
+        Ship.OnLocalShip -= AttachLocalShip;
+    }
+
     private void Start()
     {
         quitPopup.Hide();
-        powerUpImage.fillAmount = 0;
+        powerUpBar.fillAmount = 0;
         powerUpImage.gameObject.SetActive(false);
+    }
+
+    private void AttachLocalShip(Ship ship)
+    {
+        this.ship = ship;
     }
 
     public void OnCancel(InputAction.CallbackContext context)
@@ -38,7 +53,7 @@ public class HUD : MonoBehaviour
         if (ship == null) return;
 
         SetRankText(ship.Race.Rank);
-        SetLapText(ship.Race.Lap);
+        SetLapText(ship.Race.Lap + 1);
         SetLapTimeText(ship.Race.GetLapDifference());
         SetStopwatchText(Time.time - ship.Race.LapTime);
         SetSpeedText((int)ship.Rigidbody.velocity.magnitude);
@@ -61,11 +76,6 @@ public class HUD : MonoBehaviour
     {
         SetRankingsText();
         UpdateShipUI();
-    }
-
-    public void SetShip(Ship ship)
-    {
-        this.ship = ship;
     }
 
     private void SetRankText(int rank)

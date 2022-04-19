@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.SceneManagement;
 
 public class RaceManager : AbstractManager<RaceManager>
 {
@@ -37,7 +38,7 @@ public class RaceManager : AbstractManager<RaceManager>
         this.Reset();
     }
 
-    public void LoadCheckpoints()
+    private void LoadCheckpoints()
     {
         if (track != null)
         {
@@ -52,6 +53,11 @@ public class RaceManager : AbstractManager<RaceManager>
         }
     }
 
+    public void OnGameStarted()
+    {
+        LoadCheckpoints();   
+    }
+
     public void AddShip(Ship ship)
     {
         ships.Add(ship);
@@ -60,7 +66,14 @@ public class RaceManager : AbstractManager<RaceManager>
     private void OnCheckpoint(Ship ship)
     {
         if(!IsServer) return;
+
         UpdatePlayerRankings();
+
+        if (RaceComplete())
+        {
+            NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+            this.Reset();
+        }
     }
 
     private void UpdatePlayerRankings()
@@ -71,6 +84,16 @@ public class RaceManager : AbstractManager<RaceManager>
         {
             ships[i].Race.Rank = i + 1;
         }
+    }
+
+    private bool RaceComplete()
+    {
+        foreach (Ship ship in ships)
+        {
+            if (ship.Race.Lap < Laps) return false;
+        }
+
+        return true;
     }
 
     private void SetTrackCheckpoints(TrackGenerator track)
