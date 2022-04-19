@@ -41,9 +41,9 @@ public class ShipMultiplayer : NetworkBehaviour
 
     private void Start() 
     {
-        if(IsOwner)
+        if (IsOwner)
         {
-            if (Ship.OnLocalShip != null) Ship.OnLocalShip(ship);
+            if (Ship.OnLocal != null) Ship.OnLocal(ship);
         }
         else
         {

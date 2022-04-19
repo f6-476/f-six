@@ -6,10 +6,11 @@ using Unity.Netcode;
 using UnityEngine.SceneManagement;
 
 public class LobbyManager : AbstractManager<LobbyManager>
-{
+{   
     [SerializeField] private GameObject lobbyPlayerPrefab;
 
-    [SerializeField] private GameObject gamePlayerPrefab;
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject spectatorPrefab;
     [SerializeField] private MapConfig[] mapConfigs;
     private int mapIndex = 0;
     public MapConfig MapConfig => mapConfigs[mapIndex];
@@ -17,10 +18,12 @@ public class LobbyManager : AbstractManager<LobbyManager>
     public LobbyPlayer LocalPlayer;
 
     public HashSet<LobbyPlayer> Players { get; set; }
+    private Dictionary<ulong, ClientMode> clientIdModeDictionary;
 
     private void Reset()
     {
         Players = new HashSet<LobbyPlayer>();
+        clientIdModeDictionary = new Dictionary<ulong, ClientMode>();
     }
 
     protected void Start()
@@ -31,6 +34,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
         NetworkManager.Singleton.OnServerStarted += OnServerStarted;
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnect;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
+        NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
     }
 
     private void OnServerStarted()
@@ -39,6 +43,30 @@ public class LobbyManager : AbstractManager<LobbyManager>
 
         NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnLoadEventComplete;
         NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+    }
+
+    private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback)
+    {
+        bool approve = true;
+        if (ConnectionData.TryRead(connectionData, out string password, out ClientMode clientMode))
+        {
+            // TODO: Prevent timing attack?
+            if (!ServerManager.Singleton.config.password.Equals(password)) approve = false;
+
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (!(sceneName.Equals("RaceMenu") || sceneName.Equals("Lobby"))) approve = false;
+
+            if (approve)
+            {
+                clientIdModeDictionary[clientId] = clientMode;
+            }
+        }
+        else
+        {
+            approve = false;
+        }
+
+        callback(false, null, approve, Vector3.zero, Quaternion.identity);
     }
 
     private Spawn[] GetSpawns()
@@ -75,12 +103,22 @@ public class LobbyManager : AbstractManager<LobbyManager>
             foreach (LobbyPlayer player in Players)
             {
                 player.Ready = false;
-                Spawn spawn = spawns[spawnIndex++];
-                GameObject playerObject = Instantiate(gamePlayerPrefab, spawn.transform.position, spawn.transform.rotation);
-                Ship ship = playerObject.GetComponent<Ship>();
-                ship.Multiplayer.Lobby = player;
-                playerObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId, true);
-                RaceManager.Singleton.AddShip(ship);
+
+                switch(player.ClientMode)
+                {
+                    case ClientMode.PLAYER:
+                        Spawn playerSpawn = spawns[spawnIndex++];
+                        GameObject playerObject = Instantiate(playerPrefab, playerSpawn.transform.position, playerSpawn.transform.rotation);
+                        Ship ship = playerObject.GetComponent<Ship>();
+                        ship.Multiplayer.Lobby = player;
+                        playerObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId, true);
+                        break;
+                    case ClientMode.SPECTATOR:
+                        Spawn spectatorSpawn = spawns[spawns.Length - 1];
+                        GameObject specatorObject = Instantiate(spectatorPrefab, spectatorSpawn.transform.position, spectatorSpawn.transform.rotation);
+                        specatorObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId, true);
+                        break;
+                }
             }
         }
     }
@@ -102,7 +140,9 @@ public class LobbyManager : AbstractManager<LobbyManager>
         if (!IsServer) return;
 
         GameObject player = Instantiate(lobbyPlayerPrefab, Vector3.zero, Quaternion.identity);
+
         player.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
+        player.GetComponent<LobbyPlayer>().ClientMode = clientIdModeDictionary[clientId];
 
         ServerManager.Singleton.UpdatePlayerCount(NetworkManager.Singleton.ConnectedClientsIds.Count);
     }
@@ -117,10 +157,20 @@ public class LobbyManager : AbstractManager<LobbyManager>
 
     private void LoadMapIfReady()
     {
+        bool hasPlayers = false;
+
         foreach (LobbyPlayer player in LobbyManager.Singleton.Players)
         {
-            if (!player.Ready) return;
+            switch(player.ClientMode)
+            {
+                case ClientMode.PLAYER:
+                    if (!player.Ready) return;
+                    hasPlayers = true;
+                    break;
+            }
         }
+
+        if (!hasPlayers) return;
 
         NetworkManager.Singleton.SceneManager.LoadScene(MapConfig.sceneName, LoadSceneMode.Single);
     }

@@ -7,6 +7,7 @@ using Unity.Netcode;
 
 public class HUD : MonoBehaviour
 {
+    [SerializeField] private GameObject parent;
     [SerializeField] private QuitPopup quitPopup;
     [SerializeField] private Text rankText;
     [SerializeField] private Text lapText;
@@ -23,12 +24,14 @@ public class HUD : MonoBehaviour
 
     private void Awake()
     {
-        Ship.OnLocalShip += AttachLocalShip;
+        Ship.OnLocal += AttachLocalShip;
+        Spectator.OnLocal += AttachLocalSpectator;
     }
 
     private void OnDestroy()
     {
-        Ship.OnLocalShip -= AttachLocalShip;
+        Ship.OnLocal -= AttachLocalShip;
+        Spectator.OnLocal -= AttachLocalSpectator;
     }
 
     private void Start()
@@ -43,6 +46,12 @@ public class HUD : MonoBehaviour
         this.ship = ship;
     }
 
+    private void AttachLocalSpectator(Spectator spectator)
+    {
+        spectator.OnSelect += AttachLocalShip;
+        spectator.OnDeselect += () => this.ship = null;
+    }
+
     public void OnCancel(InputAction.CallbackContext context)
     {
         quitPopup.Show();
@@ -50,8 +59,13 @@ public class HUD : MonoBehaviour
 
     private void UpdateShipUI()
     {
-        if (ship == null) return;
+        if (ship == null)
+        {
+            parent.SetActive(false);
+            return;
+        }
 
+        parent.SetActive(true);
         SetRankText(ship.Race.Rank);
         SetLapText(ship.Race.Lap + 1);
         SetLapTimeText(ship.Race.GetLapDifference());
@@ -80,22 +94,24 @@ public class HUD : MonoBehaviour
 
     private void SetRankText(int rank)
     {
-        if (rank == 1)
+        string suffix;
+        switch (rank)
         {
-            rankText.text = $"{rank}st";
+            case 1:
+                suffix = "st";
+                break;
+            case 2:
+                suffix = "nd";
+                break;
+            case 3:
+                suffix = "rd";
+                break;
+            default:
+                suffix = "th";
+                break;
         }
-        else if (rank == 2)
-        {
-            rankText.text = $"{rank}nd";
-        }
-        else if (rank == 3)
-        {
-            rankText.text = $"{rank}rd";
-        }
-        else
-        {
-            rankText.text = $"{rank}th";
-        }
+
+        rankText.text = $"{rank}{suffix}";
     }
 
     private void SetLapText(int lap)

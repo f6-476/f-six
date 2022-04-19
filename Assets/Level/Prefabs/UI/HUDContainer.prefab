@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8079cc945cb48ff5a9315a4897126942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 3664645193179534909}
   quitPopup: {fileID: 1901714818936919488}
   rankText: {fileID: 1539384199787113215}
   lapText: {fileID: 628592482290589260}

@@ -11,7 +11,7 @@ using UnityEngine;
 ]
 public class Ship : MonoBehaviour
 {
-    public static System.Action<Ship> OnLocalShip;
+    public static System.Action<Ship> OnLocal;
 
     [SerializeField] private Controller _controller;
     [SerializeField] private ShipMovement _movement;
@@ -41,4 +41,9 @@ public class Ship : MonoBehaviour
     public bool IsMultiplayer => _multiplayer != null;
     public bool IsServer => !IsMultiplayer || _multiplayer.IsServer;
     public bool IsOwner => !IsMultiplayer || _multiplayer.IsOwner;
+
+    private void Start()
+    {
+        if (RaceManager.Singleton != null) RaceManager.Singleton.AddShip(this);
+    }
 }

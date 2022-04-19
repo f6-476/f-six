@@ -31,15 +31,25 @@ public class JoinPopup : UIPopup
         }
     }
 
-    public void Join()
+    private void JoinMode(ClientMode clientMode)
     {
         if (entry)
         {
-            ServerManager.Singleton.JoinServer(entry.server.id, passwordField.text);
+            ServerManager.Singleton.JoinServer(entry.server.id, passwordField.text, clientMode);
         }
         else
         {
-            ServerManager.Singleton.JoinUnlistedServer(hostField.text, passwordField.text);
+            ServerManager.Singleton.JoinUnlistedServer(hostField.text, passwordField.text, clientMode);
         }
+    }
+
+    public void JoinSpectate()
+    {
+        JoinMode(ClientMode.SPECTATOR);
+    }
+
+    public void Join()
+    {
+        JoinMode(ClientMode.PLAYER);
     }
 }

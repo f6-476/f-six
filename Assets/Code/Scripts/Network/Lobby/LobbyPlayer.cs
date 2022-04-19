@@ -11,16 +11,13 @@ public class LobbyPlayer : NetworkBehaviour
         get => ready.Value;
         set
         {
-            if (IsOwner) UpdateReadyServerRpc(value); 
+            if (IsOwner) UpdateReadyServerRpc(value);
             else ready.Value = value;
         }
     }
 
     private NetworkVariable<FixedString64Bytes> username = new NetworkVariable<FixedString64Bytes>("");
-    public string Username
-    {
-        get => username.Value.ToString();
-    }
+    public string Username => username.Value.ToString();
 
     private NetworkVariable<int> rank = new NetworkVariable<int>(1);
     public int Rank
@@ -30,6 +27,13 @@ public class LobbyPlayer : NetworkBehaviour
         {
             if (IsServer) rank.Value = value;
         }
+    }
+
+    private NetworkVariable<ClientMode> clientMode = new NetworkVariable<ClientMode>(ClientMode.PLAYER);
+    public ClientMode ClientMode
+    {
+        get => clientMode.Value;
+        set => clientMode.Value = value;
     }
 
     private void Start()

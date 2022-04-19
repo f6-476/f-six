@@ -12,17 +12,24 @@ public class TrackCamera : MonoBehaviour
 
     private void Awake()
     {
-        Ship.OnLocalShip += AttachLocalShip;
+        Ship.OnLocal += AttachLocalShip;
+        Spectator.OnLocal += AttachLocalSpectator;
     }
 
     private void OnDestroy()
     {
-        Ship.OnLocalShip -= AttachLocalShip;
+        Ship.OnLocal -= AttachLocalShip;
+        Spectator.OnLocal -= AttachLocalSpectator;
     }
 
     private void AttachLocalShip(Ship ship)
     {
         targets.Add(ship.transform);
+    }
+
+    private void AttachLocalSpectator(Spectator spectator)
+    {
+        targets.Add(spectator.transform);
     }
 
     public void AddTarget(Transform target) 
@@ -79,10 +86,9 @@ public class TrackCamera : MonoBehaviour
 
     private void UpdateTransform()
     {
+        if (targets.Count == 0) return;
+
         Vector3 normal = AverageNormal();
-
-        if (normal.sqrMagnitude == 0) return;
-
         Vector3 target = AveragePosition();
         Quaternion direction = AverageDirection(normal) * Quaternion.Euler(rotationOffset.y, rotationOffset.x, 0.0f);
         Vector3 offsetDirection = direction * Vector3.back;

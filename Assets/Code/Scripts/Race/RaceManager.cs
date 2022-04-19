@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class RaceManager : AbstractManager<RaceManager>
 {
-    private List<Ship> ships;
+    private List<Ship> ships = new List<Ship>();
     public List<Ship> Ships => ships;
     public int Laps { get; set; }
     private int checkpointCount = 32;

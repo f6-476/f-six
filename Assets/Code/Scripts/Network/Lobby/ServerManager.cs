@@ -20,25 +20,6 @@ public class ServerManager : AbstractManager<ServerManager>
     [HideInInspector]
     public Config config;
 
-    protected void Start()
-    {
-        NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
-    }
-
-    private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback)
-    {
-        string password = System.Text.Encoding.ASCII.GetString(connectionData);
-
-        // TODO: Check timing attack.
-        bool approve = true;
-        if (!ServerManager.Singleton.config.password.Equals(password)) approve = false;
-
-        string sceneName = SceneManager.GetActiveScene().name;
-        if (!(sceneName.Equals("RaceMenu") || sceneName.Equals("Lobby"))) approve = false;
-
-        callback(false, null, approve, Vector3.zero, Quaternion.identity);
-    }
-
     private bool ValidateIPv4(string ipString)
     {
         if (ipString == null || ipString.Trim().Length == 0)
@@ -63,13 +44,13 @@ public class ServerManager : AbstractManager<ServerManager>
         return true;
     }
 
-    private bool SetConfig(Config config)
+    private bool SetConfig(Config config, ClientMode clientMode=ClientMode.PLAYER)
     {
         if (!ValidateIPv4(config.host)) return false;
 
         this.config = config;
 
-        NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.ASCII.GetBytes(config.password);
+        NetworkManager.Singleton.NetworkConfig.ConnectionData = ConnectionData.Write(config, clientMode);
         Unity.Netcode.NetworkTransport transport = NetworkManager.Singleton.NetworkConfig.NetworkTransport;
 
         if (transport is Unity.Netcode.Transports.UNET.UNetTransport)
@@ -97,11 +78,11 @@ public class ServerManager : AbstractManager<ServerManager>
         return NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer;
     }
 
-    private bool JoinLobby(Config config)
+    private bool JoinLobby(Config config, ClientMode clientMode=ClientMode.PLAYER)
     {
         if (IsConnecting()) return false;
 
-        if (!SetConfig(config)) return false;
+        if (!SetConfig(config, clientMode)) return false;
 
         if(NetworkManager.Singleton.StartClient()) return true;
 
@@ -110,11 +91,11 @@ public class ServerManager : AbstractManager<ServerManager>
         return false;
     }
 
-    private bool HostLobby(Config config)
+    private bool HostLobby(Config config, ClientMode clientMode=ClientMode.PLAYER)
     {
         if (IsConnecting()) return false;
 
-        if (!SetConfig(config)) return false;
+        if (!SetConfig(config, clientMode)) return false;
 
         if (NetworkManager.Singleton.StartHost()) return true;
  
@@ -123,7 +104,7 @@ public class ServerManager : AbstractManager<ServerManager>
         return false;
     }
 
-    public void JoinUnlistedServer(string host, string password)
+    public void JoinUnlistedServer(string host, string password, ClientMode clientMode=ClientMode.PLAYER)
     {
         if (host.Trim().Length == 0)
         {
@@ -136,10 +117,10 @@ public class ServerManager : AbstractManager<ServerManager>
             host = host,
             port = 7777,
             password = password
-        });
+        }, clientMode);
     }
 
-    public void HostUnlistedServer(string password)
+    public void HostUnlistedServer(string password, ClientMode clientMode=ClientMode.PLAYER)
     {
         HostLobby(new Config
         {
@@ -147,10 +128,10 @@ public class ServerManager : AbstractManager<ServerManager>
             host = "127.0.0.1",
             port = 7777,
             password = password
-        });
+        }, clientMode);
     }
 
-    public void JoinServer(string id, string password)
+    public void JoinServer(string id, string password, ClientMode clientMode=ClientMode.PLAYER)
     {
         if (RegistryManager.Singleton.IsConnected)
         {
@@ -169,13 +150,13 @@ public class ServerManager : AbstractManager<ServerManager>
                         host = response.host,
                         port = response.port,
                         password = password
-                    });
+                    }, clientMode);
                 }
             );
         }
     }
 
-    public void HostServer(string password, bool online)
+    public void HostServer(string password, bool online, ClientMode clientMode=ClientMode.PLAYER)
     {
         if (RegistryManager.Singleton.IsConnected && online)
         {
@@ -198,17 +179,17 @@ public class ServerManager : AbstractManager<ServerManager>
                         host = response.host,
                         port = response.port,
                         password = password
-                    });
+                    }, clientMode);
                 },
                 () =>
                 {
-                    HostUnlistedServer(password);
+                    HostUnlistedServer(password, clientMode);
                 }
             );
         }
         else
         {
-            HostUnlistedServer(password);
+            HostUnlistedServer(password, clientMode);
         }
     }
 

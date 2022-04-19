@@ -25,6 +25,11 @@ public class HostPopup : UIPopup
         base.Show();
     }
 
+    public void HostSpectate()
+    {
+        ServerManager.Singleton.HostServer(passwordField.text, onlineField.isOn, ClientMode.SPECTATOR);
+    }
+
     public void Host()
     {
         ServerManager.Singleton.HostServer(passwordField.text, onlineField.isOn);
