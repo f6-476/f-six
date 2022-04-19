@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour 
+public class TrackCamera : MonoBehaviour 
 {
     [SerializeField]
     private List<Transform> targets = new List<Transform>();

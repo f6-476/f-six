@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Throwable PowerUp", menuName = "PowerUp/Throwable")]
+[CreateAssetMenu(fileName = "Throwable PowerUp", menuName = "FSix/PowerUp/Throwable")]
 public class ThrowablePowerUp : PowerUpConfig
 {
     protected override GameObject MakePrefab(Ship ship)

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Placement Config", menuName = "Placement Config")]
+[CreateAssetMenu(fileName = "Placement Config", menuName = "FSix/Config/Placement")]
 public class PlacementConfig : ScriptableObject
 {
     [SerializeField] private GameObject prefab;

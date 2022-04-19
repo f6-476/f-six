@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Equipable PowerUp", menuName = "PowerUp/Equipable")]
+[CreateAssetMenu(fileName = "Equipable PowerUp", menuName = "FSix/PowerUp/Equipable")]
 public class EquipablePowerUp : PowerUpConfig
 {
     protected override GameObject MakePrefab(Ship ship)

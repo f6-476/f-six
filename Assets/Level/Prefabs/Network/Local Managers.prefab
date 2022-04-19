@@ -105,6 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lobbyPlayerPrefab: {fileID: 8784439926895942765, guid: 4a8cb659a614e9e1f92d819e511bcbec, type: 3}
   gamePlayerPrefab: {fileID: 2379152826062508379, guid: 363001e0596f0911cb4501be0c9cac29, type: 3}
+  mapConfigs:
+  - {fileID: 11400000, guid: d090cd7de0abc3e329cc1d61e1077cda, type: 2}
   LocalPlayer: {fileID: 0}
 --- !u!114 &2758036542650745836
 MonoBehaviour:
@@ -131,8 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae6f22a300b946e69216a306c040a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ships: []
   lapCount: 2
-  checkpointCount: 2
+  automaticCheckpointCount: 50
   checkpointPrefab: {fileID: 2024585305990434241, guid: 8211f5b9d3659be4aa7a630e0581b467, type: 3}
   track: {fileID: 0}

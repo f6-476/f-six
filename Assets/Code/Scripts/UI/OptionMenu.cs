@@ -8,12 +8,12 @@ public class OptionMenu : UIMenu
 
     private void Start() 
     {
-        nameField.text = AuthManager.Singleton.Username;    
+        if (AuthManager.Singleton != null) nameField.text = AuthManager.Singleton.Username;    
     }
 
     public override void Back()
     {
-        AuthManager.Singleton.Username = nameField.text;
+        if (AuthManager.Singleton != null) AuthManager.Singleton.Username = nameField.text;
         LoadScene("MainMenu");
     }
 }

@@ -44,7 +44,7 @@ public class ShipMultiplayer : NetworkBehaviour
         if(IsOwner)
         {
             // TODO: Set from manager?
-            Camera.main.GetComponent<CameraController>().AddTarget(transform);
+            Camera.main.GetComponent<TrackCamera>().AddTarget(transform);
             FindObjectOfType<HUD>().SetShip(ship);
         }
         else

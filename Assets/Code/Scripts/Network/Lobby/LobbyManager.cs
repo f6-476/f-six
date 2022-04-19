@@ -7,11 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : AbstractManager<LobbyManager>
 {
-    [SerializeField]
-    private GameObject lobbyPlayerPrefab;
+    [SerializeField] private GameObject lobbyPlayerPrefab;
 
-    [SerializeField]
-    private GameObject gamePlayerPrefab;
+    [SerializeField] private GameObject gamePlayerPrefab;
+    [SerializeField] private MapConfig[] mapConfigs;
+    private int mapIndex = 0;
+    public MapConfig MapConfig => mapConfigs[mapIndex];
 
     public LobbyPlayer LocalPlayer;
 
@@ -103,8 +104,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
 
         if (ready)
         {
-            // TODO: Scene picker.
-            NetworkManager.Singleton.SceneManager.LoadScene("Mars", LoadSceneMode.Single);
+            NetworkManager.Singleton.SceneManager.LoadScene(MapConfig.sceneName, LoadSceneMode.Single);
         }
     }
 }

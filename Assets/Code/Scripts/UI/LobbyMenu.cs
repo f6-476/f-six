@@ -21,8 +21,8 @@ public class LobbyMenu : MonoBehaviour
         {
             foreach (LobbyPlayer player in LobbyManager.Singleton.Players)
             {
-                string readyIcon = player.Ready ? "+" : "X";
-                playerNames += $"{readyIcon} - {player.Username}\n";
+                string readyIcon = player.Ready ? "<color=#45BF55FF>\u2713</color>" : "<color=#FF0054FF>X</color>";
+                playerNames += $"{readyIcon}\t{player.Username}\n";
             }
         }
 

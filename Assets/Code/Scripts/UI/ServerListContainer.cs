@@ -27,12 +27,12 @@ public class ServerListContainer : MonoBehaviour
 
     private void Start() 
     {
-        RegistryManager.Singleton.RefreshRegistry(UpdateEntries);
+        if (RegistryManager.Singleton != null) RegistryManager.Singleton.RefreshRegistry(UpdateEntries);
     }
 
     public void Refresh()
     {
-        RegistryManager.Singleton.RefreshServers(UpdateEntries);
+        if (RegistryManager.Singleton != null) RegistryManager.Singleton.RefreshServers(UpdateEntries);
     }
 
     private void UpdateEntries()
