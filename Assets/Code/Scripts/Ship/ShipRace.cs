@@ -11,7 +11,7 @@ public class ShipRace : MonoBehaviour
     [SerializeField] private Ship ship;
     public static Action<Ship> OnCheckpoint;
     private int checkpointIndex = 0;
-    public int Checkpoint => checkpointIndex;
+    public int CheckpointIndex => checkpointIndex;
     private List<float> lapTimeList = new List<float>();
     private int lapCount = 0;
     public int Lap => lapCount;
@@ -54,7 +54,7 @@ public class ShipRace : MonoBehaviour
 
         if (other.TryGetComponent(out Checkpoint checkpoint))
         {
-            if (checkpoint.index == 0 && checkpointIndex == RaceManager.Singleton.LastCheckpoint)
+            if (checkpoint.index == 0 && checkpointIndex == RaceManager.Singleton.LastCheckpointIndex)
             {
                 lapCount++;
                 checkpointIndex = 0;
@@ -69,5 +69,10 @@ public class ShipRace : MonoBehaviour
 
             if(OnCheckpoint != null) OnCheckpoint(ship);
         }
+    }
+
+    public Checkpoint GetNextCheckpoint()
+    {
+        return RaceManager.Singleton.GetNextCheckpoint(checkpointIndex);
     }
 }
