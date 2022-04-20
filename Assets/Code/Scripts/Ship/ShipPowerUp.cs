@@ -39,6 +39,7 @@ public class ShipPowerUp : MonoBehaviour
         }
     }
     public PowerUpConfig Config => (Count > 0) ? configs[Index] : null;
+    public bool IsEmpty => Count == 0;
 
     private static readonly float DISABLE_DURATION = 3.0f;
 

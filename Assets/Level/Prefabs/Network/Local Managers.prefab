@@ -106,8 +106,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyPlayerPrefab: {fileID: 8784439926895942765, guid: 4a8cb659a614e9e1f92d819e511bcbec, type: 3}
-  playerPrefab: {fileID: 2379152826062508379, guid: 363001e0596f0911cb4501be0c9cac29, type: 3}
+  playerPrefab: {fileID: 4269636588733671277, guid: 2766599acc664c6f093dae6b1b973c55, type: 3}
   spectatorPrefab: {fileID: 913370644491847518, guid: 38e91f475b280d58ba9f616f5ab93de0, type: 3}
+  aiPrefab: {fileID: 4049409439090784400, guid: 248938dd72bd4186dbfceedfa767552e, type: 3}
   mapConfigs:
   - {fileID: 11400000, guid: d090cd7de0abc3e329cc1d61e1077cda, type: 2}
   LocalPlayer: {fileID: 0}

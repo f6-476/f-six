@@ -13,22 +13,10 @@ public class ShipController : Controller
     {
         thrustValue = ctx.ReadValue<float>();
     }
-    
+
     public void GetReverse(InputAction.CallbackContext ctx)
     {
         reverseValue = ctx.ReadValue<float>();
-    }
-
-    public void GetBoost(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            boost = true;
-        }
-        else if (ctx.canceled)
-        {
-            boost = false;
-        }
     }
 
     public void GetFire(InputAction.CallbackContext ctx)

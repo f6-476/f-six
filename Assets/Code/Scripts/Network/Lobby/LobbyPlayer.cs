@@ -5,7 +5,7 @@ using Unity.Collections;
 
 public class LobbyPlayer : NetworkBehaviour
 {
-    private NetworkVariable<bool> ready = new NetworkVariable<bool>(false);
+    public NetworkVariable<bool> ready = new NetworkVariable<bool>(false);
     public bool Ready
     {
         get => ready.Value;
@@ -40,10 +40,22 @@ public class LobbyPlayer : NetworkBehaviour
     {
         LobbyManager.Singleton.Players.Add(this);
 
-        if (IsOwner)
+        switch (this.ClientMode)
         {
-            LobbyManager.Singleton.LocalPlayer = this;
-            UpdateUsernameServerRpc(AuthManager.Singleton.Username);
+            case ClientMode.PLAYER:
+            case ClientMode.SPECTATOR:
+                if (IsOwner)
+                {
+                    LobbyManager.Singleton.LocalPlayer = this;
+                    UpdateUsernameServerRpc(AuthManager.Singleton.Username);
+                }
+                break;
+            case ClientMode.AI:
+                if (IsOwnedByServer)
+                {
+                    username.Value = "AI";
+                }
+                break;
         }
     }
 

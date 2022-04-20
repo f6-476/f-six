@@ -6,13 +6,15 @@ using Unity.Netcode;
 using UnityEngine.SceneManagement;
 
 public class LobbyManager : AbstractManager<LobbyManager>
-{   
+{
     [SerializeField] private GameObject lobbyPlayerPrefab;
 
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject spectatorPrefab;
+    [SerializeField] private GameObject aiPrefab;
     [SerializeField] private MapConfig[] mapConfigs;
     private int mapIndex = 0;
+    private int aiCount = 0;
     public MapConfig MapConfig => mapConfigs[mapIndex];
 
     public LobbyPlayer LocalPlayer;
@@ -22,6 +24,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
 
     private void Reset()
     {
+        aiCount = 0;
         Players = new HashSet<LobbyPlayer>();
         clientIdModeDictionary = new Dictionary<ulong, ClientMode>();
     }
@@ -85,40 +88,51 @@ public class LobbyManager : AbstractManager<LobbyManager>
 
     private void OnLocalSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name.StartsWith("Map"))
-        {
-            RaceManager.Singleton.Laps = MapConfig.lapCount;
-            RaceManager.Singleton.OnGameStarted();
-        }
+        if (scene.name.StartsWith("Map")) InitializeClientMap();
     }
 
     private void OnLoadEventComplete(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
-        if (sceneName.StartsWith("Map"))
+        if (sceneName.StartsWith("Map")) InitializeServerMap();
+    }
+
+    private void InitializeClientMap()
+    {
+        RaceManager.Singleton.Laps = MapConfig.lapCount;
+        RaceManager.Singleton.OnGameStarted();
+    }
+
+    private void InitializeServerMap()
+    {
+        /// TODO: What to do when spawn count < player count?
+        Spawn[] spawns = GetSpawns();
+        int spawnIndex = 0;
+
+        foreach (LobbyPlayer player in Players)
         {
-            /// TODO: What to do when spawn count < player count?
-            Spawn[] spawns = GetSpawns();
-            int spawnIndex = 0;
-
-            foreach (LobbyPlayer player in Players)
+            switch (player.ClientMode)
             {
-                player.Ready = false;
-
-                switch(player.ClientMode)
-                {
-                    case ClientMode.PLAYER:
-                        Spawn playerSpawn = spawns[spawnIndex++];
-                        GameObject playerObject = Instantiate(playerPrefab, playerSpawn.transform.position, playerSpawn.transform.rotation);
-                        Ship ship = playerObject.GetComponent<Ship>();
-                        ship.Multiplayer.Lobby = player;
-                        playerObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId, true);
-                        break;
-                    case ClientMode.SPECTATOR:
-                        Spawn spectatorSpawn = spawns[spawns.Length - 1];
-                        GameObject specatorObject = Instantiate(spectatorPrefab, spectatorSpawn.transform.position, spectatorSpawn.transform.rotation);
-                        specatorObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId, true);
-                        break;
-                }
+                case ClientMode.PLAYER:
+                    player.Ready = false;
+                    Spawn playerSpawn = spawns[spawnIndex++];
+                    GameObject playerObject = Instantiate(playerPrefab, playerSpawn.transform.position, playerSpawn.transform.rotation);
+                    Ship playerShip = playerObject.GetComponent<Ship>();
+                    playerShip.Multiplayer.Lobby = player;
+                    playerObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId, true);
+                    break;
+                case ClientMode.SPECTATOR:
+                    player.Ready = false;
+                    Spawn spectatorSpawn = spawns[spawns.Length - 1];
+                    GameObject specatorObject = Instantiate(spectatorPrefab, spectatorSpawn.transform.position, spectatorSpawn.transform.rotation);
+                    specatorObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId, true);
+                    break;
+                case ClientMode.AI:
+                    Spawn aiSpawn = spawns[spawnIndex++];
+                    GameObject aiObject = Instantiate(aiPrefab, aiSpawn.transform.position, aiSpawn.transform.rotation);
+                    Ship aiShip = aiObject.GetComponent<Ship>();
+                    aiShip.Multiplayer.Lobby = player;
+                    aiObject.GetComponent<NetworkObject>().Spawn(true);
+                    break;
             }
         }
     }
@@ -135,16 +149,35 @@ public class LobbyManager : AbstractManager<LobbyManager>
         SceneManager.LoadScene("RaceMenu", LoadSceneMode.Single);
     }
 
+    private void AddClientLobbyPlayer(ulong clientId)
+    {
+        if (!IsServer) return;
+
+        GameObject lobbyGameObject = Instantiate(lobbyPlayerPrefab, Vector3.zero, Quaternion.identity);
+
+        lobbyGameObject.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
+        lobbyGameObject.GetComponent<LobbyPlayer>().ClientMode = clientIdModeDictionary[clientId];
+
+        ServerManager.Singleton.UpdatePlayerCount(NetworkManager.Singleton.ConnectedClientsIds.Count);
+    }
+
+    public void AddAILobbyPlayer()
+    {
+        if (!IsServer) return;
+
+        GameObject lobbyGameObject = Instantiate(lobbyPlayerPrefab, Vector3.zero, Quaternion.identity);
+
+        lobbyGameObject.GetComponent<NetworkObject>().Spawn();
+        LobbyPlayer lobbyPlayer = lobbyGameObject.GetComponent<LobbyPlayer>();
+        lobbyPlayer.ClientMode = ClientMode.AI;
+        lobbyPlayer.ready.Value = true;
+    }
+
     private void OnClientConnect(ulong clientId)
     {
         if (!IsServer) return;
 
-        GameObject player = Instantiate(lobbyPlayerPrefab, Vector3.zero, Quaternion.identity);
-
-        player.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
-        player.GetComponent<LobbyPlayer>().ClientMode = clientIdModeDictionary[clientId];
-
-        ServerManager.Singleton.UpdatePlayerCount(NetworkManager.Singleton.ConnectedClientsIds.Count);
+        AddClientLobbyPlayer(clientId);
     }
 
     private void OnClientDisconnect(ulong clientId)
@@ -157,20 +190,20 @@ public class LobbyManager : AbstractManager<LobbyManager>
 
     private void LoadMapIfReady()
     {
-        bool hasPlayers = false;
+        bool hasReadyPlayers = false;
 
         foreach (LobbyPlayer player in LobbyManager.Singleton.Players)
         {
-            switch(player.ClientMode)
+            switch (player.ClientMode)
             {
                 case ClientMode.PLAYER:
                     if (!player.Ready) return;
-                    hasPlayers = true;
+                    hasReadyPlayers = true;
                     break;
             }
         }
 
-        if (!hasPlayers) return;
+        if (!hasReadyPlayers) return;
 
         NetworkManager.Singleton.SceneManager.LoadScene(MapConfig.sceneName, LoadSceneMode.Single);
     }

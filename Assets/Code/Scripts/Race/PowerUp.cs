@@ -9,6 +9,7 @@ public class PowerUp : NetworkBehaviour
     [SerializeField] private AudioSource pickUpAudioSource;
     [SerializeField] private ParticleSystem pickUpParticleSystem;
     private bool active = true;
+    public bool Active => active;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -24,16 +25,13 @@ public class PowerUp : NetworkBehaviour
     }
 
     private IEnumerator PickUpCooldown()
-    {
-        active = false;
-        SetActiveClientRpc(false);
+    {   
+        SetActive(false);
         yield return new WaitForSeconds(10.0f);
-        active = true;
-        SetActiveClientRpc(true);
+        SetActive(true);
     }
 
-    [ClientRpc]
-    private void SetActiveClientRpc(bool state)
+    private void SetActiveBase(bool state)
     {
         if (!state) 
         {
@@ -42,5 +40,24 @@ public class PowerUp : NetworkBehaviour
         }
 
         model.SetActive(state);
+    }
+
+    private void SetActive(bool state)
+    {
+        active = state;
+        if (NetworkManager.Singleton == null)
+        {
+            SetActiveBase(state);
+        }
+        else
+        {
+            SetActiveClientRpc(state);
+        }
+    }
+
+    [ClientRpc]
+    private void SetActiveClientRpc(bool state)
+    {
+        SetActiveBase(state);
     }
 }

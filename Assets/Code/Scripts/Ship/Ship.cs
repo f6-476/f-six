@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Unity.Netcode;
 
 [
     RequireComponent(typeof(ShipMovement)),
@@ -34,16 +35,21 @@ public class Ship : MonoBehaviour
 
     // Properties
     public Rigidbody Rigidbody => _rigidbody;
-    public float RudderValue  => _controller.GetRudderValue();
-    public float ThrustValue => _controller.GetThrustValue();
-    public float ReverseValue => _controller.GetReverseValue();
-    public bool Boost => _controller.GetBoost();
-    public bool IsMultiplayer => _multiplayer != null;
+    public float RudderValue  => (_controller != null) ? _controller.GetRudderValue() : 0;
+    public float ThrustValue => (_controller != null) ? _controller.GetThrustValue() : 0;
+    public float ReverseValue => (_controller != null) ? _controller.GetReverseValue() : 0;
+    public bool IsMultiplayer => _multiplayer != null && NetworkManager.Singleton != null;
     public bool IsServer => !IsMultiplayer || _multiplayer.IsServer;
     public bool IsOwner => !IsMultiplayer || _multiplayer.IsOwner;
+    public bool IsAI => _controller is ShipAIController;
 
     private void Start()
     {
         if (RaceManager.Singleton != null) RaceManager.Singleton.AddShip(this);
+    }
+
+    private void Update()
+    {
+        this.Movement.enabled = !this.PowerUp.Disabled;
     }
 }

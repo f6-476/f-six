@@ -30,11 +30,22 @@ public class LobbyMenu : MonoBehaviour
                     case ClientMode.SPECTATOR:
                         playerNames += $"<color=#2D007AFF>~</color>\t{player.Username}\n";
                         break;
+                    case ClientMode.AI:
+                        playerNames += $"<color=#45BF55FF>\u2713</color>\t{player.Username}\n";
+                        break;
+                    default:
+                        playerNames += $"?\t{player.Username}\n";
+                        break;
                 }
             }
         }
 
         lobbyNames.text = playerNames.TrimEnd();
+    }
+
+    public void AddAI()
+    {
+        LobbyManager.Singleton.AddAILobbyPlayer();
     }
 
     public void ToggleReady()

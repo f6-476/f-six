@@ -50,6 +50,7 @@ public class ShipRace : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!ship.IsServer) return;
+        if (RaceManager.Singleton == null) return;
 
         if (other.TryGetComponent(out Checkpoint checkpoint))
         {

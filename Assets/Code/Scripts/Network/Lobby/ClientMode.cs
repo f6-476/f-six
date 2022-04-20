@@ -1,5 +1,5 @@
 [System.Serializable]
 public enum ClientMode
 {
-    PLAYER, SPECTATOR    
+    PLAYER, SPECTATOR, AI
 }

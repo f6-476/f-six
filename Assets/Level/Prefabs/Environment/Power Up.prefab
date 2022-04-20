@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 54888593679987139}
   - component: {fileID: 4722322791031452821}
   - component: {fileID: 4975938717408631840}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Power Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &4722322791031452821
 AudioSource:
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 8196653405887169035}
   - component: {fileID: 8196653405887169032}
   - component: {fileID: 4895625207273180306}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,6 +324,10 @@ PrefabInstance:
     - target: {fileID: 4477357938262373904, guid: a7e5579ba39691421a03032a8d6b598c, type: 3}
       propertyPath: m_Name
       value: Confetti
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477357938262373904, guid: a7e5579ba39691421a03032a8d6b598c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6454345601595316657, guid: a7e5579ba39691421a03032a8d6b598c, type: 3}
       propertyPath: playOnAwake

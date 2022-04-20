@@ -1,0 +1,238 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8750502216377130291
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -6738172569438779696, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104206881268758340, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104206881268758340, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104206881268758340, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104206881268758340, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104206881268758340, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104206881268758340, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104206881268758340, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104206881268758340, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104206881268758340, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104206881268758340, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104206881268758340, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4769537114454260318, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783347032511866589, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+      propertyPath: _controller
+      value: 
+      objectReference: {fileID: 4331068032602577033}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+--- !u!1 &4269636588733671277 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4769537114454260318, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+  m_PrefabInstance: {fileID: 8750502216377130291}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1545868835764616174 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7783347032511866589, guid: fd915773d9b741f3583aeff2830e1962, type: 3}
+  m_PrefabInstance: {fileID: 8750502216377130291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269636588733671277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7b2294138e158c41a206554e354251b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4331068032602577033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269636588733671277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5895e31349470542907be8e0e274a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ship: {fileID: 1545868835764616174}
+--- !u!114 &1609297080755633354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269636588733671277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 09e5e4b58bf43c14da6c378ee188ee66, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4331068032602577033}
+        m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
+        m_MethodName: GetThrust
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fa13247d-5e1c-4cf5-8cc2-27b664878bfe
+    m_ActionName: Gameplay/Thrust[/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4331068032602577033}
+        m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
+        m_MethodName: GetFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a58099de-6113-4fdd-8125-ab9dcb3f2aac
+    m_ActionName: Gameplay/Fire[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4331068032602577033}
+        m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
+        m_MethodName: GetRudder
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 37da676e-1c9b-4aba-91f5-27143cc33d33
+    m_ActionName: Gameplay/Rudder[/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 05629039-02ab-485c-bde3-78c1fc6c898c
+    m_ActionName: Gameplay/Boost[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4331068032602577033}
+        m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
+        m_MethodName: GetReverse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 21c5ecd2-f7a1-404e-a2d0-e59a97cc584f
+    m_ActionName: Gameplay/Reverse[/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6ad5d121-11e8-4aa0-9e76-62d0af5641b5
+    m_ActionName: Gameplay/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5d27f420-82a8-4f02-9b8c-694f8830676b
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f020acef-a541-40f6-8b1c-79a31eaa8325
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1a5bb119-cd14-4a12-bd03-b6a543e9aa6b
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 76cd8c26-a382-4eab-8a51-046a96bb42fa
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e66a87c4-e88c-45c3-8295-de917da85b1b
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 858968e7-65dd-4fcb-b872-acf5753f8e9a
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e41420dd-44cb-4752-8db1-a509ec604374
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2fbe375e-2cf3-4bfb-8baf-883b719f48ed
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d6290bbe-d969-4425-8bc3-ee5cf8cb8e99
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 776ab467-e526-4bca-9390-03a39c7906c5
+    m_ActionName: UI/TrackedDeviceOrientation
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
