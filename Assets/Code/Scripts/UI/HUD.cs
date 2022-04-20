@@ -18,7 +18,7 @@ public class HUD : MonoBehaviour
     [SerializeField] private Image powerUpBar;
     [SerializeField] private Image powerUpImage;
     [SerializeField] private Ship ship;
-
+    [SerializeField] private CountdownTimer countdownTimer;
     private static readonly float POWER_UP_BAR_SPEED = 8.0f;
     private static readonly float POWER_UP_BAR_MIN_DELTA = 0.005f;
 
@@ -39,6 +39,9 @@ public class HUD : MonoBehaviour
         quitPopup.Hide();
         powerUpBar.fillAmount = 0;
         powerUpImage.gameObject.SetActive(false);
+
+        // THERE is PROBABLY SOMETHING BETTER THAN THIS
+        countdownTimer.StartCountdown();
     }
 
     private void AttachLocalShip(Ship ship)

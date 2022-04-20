@@ -3,10 +3,31 @@ using UnityEngine.UI;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class LobbyMenu : MonoBehaviour
 {
     [SerializeField] private Text lobbyNames;
+
+    [SerializeField]
+    private RankingPopup rankingPopup;
+
+    void Start()
+    {
+        rankingPopup.Hide();
+
+        // // To Set Ranking Text, just make a list of strings with player names in order.
+        // List<string> test = new List<string>(
+        //     new string[] {
+        //         "Test",
+        //         "Test 2",
+        //         "JSON GUY",
+        //         "HOLA MATSUI SR."
+        //     }
+        // );
+        // rankingPopup.SetPlayers(test);
+        // rankingPopup.Show();
+    }
 
     public void Back()
     {

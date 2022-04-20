@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RaceMenu : UIMenu
 {
@@ -12,11 +13,20 @@ public class RaceMenu : UIMenu
 
     [SerializeField]
     private JoinPopup joinPopup;
+    
     [SerializeField]
     private HostPopup hostPopup;
+    
+    [SerializeField]
+    private UIField nameField;
 
     private void Start()
     {
+        if (AuthManager.Singleton != null) {
+            nameField.text = AuthManager.Singleton.Username;
+            nameField.GetComponentInChildren<InputField>().onValueChanged.AddListener(UpdateUsername);
+        }
+        
         joinPopup.Hide();
         hostPopup.Hide();
     }
@@ -24,6 +34,11 @@ public class RaceMenu : UIMenu
     public override void Back()
     {
         LoadScene("MainMenu");
+    }
+
+    void UpdateUsername(string username)
+    {
+        AuthManager.Singleton.Username = username;
     }
 
     public void JoinPopup()
