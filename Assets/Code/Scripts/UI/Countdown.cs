@@ -6,6 +6,7 @@ public class Countdown : MonoBehaviour
 {
     [SerializeField] public Text number;
     public float duration = 3.0f;
+    public int startNumber = 3;
 
     private void Awake()
     {
@@ -19,12 +20,12 @@ public class Countdown : MonoBehaviour
 
     private IEnumerator StartCountdownAsync()
     {
-        number.text = "3";
-        yield return new WaitForSeconds(duration / 3.0f);
-        number.text = "2";
-        yield return new WaitForSeconds(duration / 3.0f);
-        number.text = "1";
-        yield return new WaitForSeconds(duration / 3.0f);
+        for (int i = startNumber; i > 0; i--)
+        {
+            number.text = $"{i}";
+            yield return new WaitForSeconds(duration / (float)startNumber);
+        }
+
         number.text = "GO!";
         yield return new WaitForSeconds(1.0f);
         number.text = "";
