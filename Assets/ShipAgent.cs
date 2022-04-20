@@ -6,17 +6,17 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
-[RequireComponent(typeof(ShipAIController))]
+[RequireComponent(typeof(ShipAIAgentController))]
 public class ShipAgent : Agent
 {
-   private ShipAIController controller;
+   private ShipAIAgentController agentController;
    private Ship _ship;
    private Vector3 startPosition;
    private Quaternion startRotation;
 
    public void Awake()
    {
-      controller = GetComponent<ShipAIController>();
+      agentController = GetComponent<ShipAIAgentController>();
       _ship = GetComponent<Ship>();
       startPosition = transform.position;
       startRotation = transform.rotation;
@@ -47,10 +47,10 @@ public class ShipAgent : Agent
 
    public override void OnActionReceived(ActionBuffers actions)
    {
-      controller.SetThrust(actions.DiscreteActions[0]);
-      controller.SetReverse(actions.DiscreteActions[1]);
+      agentController.SetThrust(actions.DiscreteActions[0]);
+      agentController.SetReverse(actions.DiscreteActions[1]);
       
-      controller.SetRudder(actions.ContinuousActions[0]);
+      agentController.SetRudder(actions.ContinuousActions[0]);
    }
 
    public override void CollectObservations(VectorSensor sensor)
