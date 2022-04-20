@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RockPillars
   m_EditorClassIdentifier: 
   prefab: {fileID: 4677550160434492782, guid: 00c5a1433d5e2d24da20926dcbf58198, type: 3}
-  count: 100
+  count: 70
   minDistance: 200

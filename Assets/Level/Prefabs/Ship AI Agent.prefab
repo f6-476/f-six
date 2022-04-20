@@ -76,16 +76,16 @@ MonoBehaviour:
   - Obstacle
   m_RaysPerDirection: 3
   m_MaxRayDegrees: 70
-  m_SphereCastRadius: 1
-  m_RayLength: 40
+  m_SphereCastRadius: 3
+  m_RayLength: 50
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 128
   m_ObservationStacks: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  m_StartVerticalOffset: 0.5
-  m_EndVerticalOffset: -0.5
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: 0
 --- !u!1 &3317581293992380599
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,7 +489,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 1200
+  MaxStep: 4000
 --- !u!114 &7444137216421140539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,17 +503,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 2
+    VectorObservationSize: 1
     NumStackedVectorObservations: 1
-    VectorActionSize: 02000000
+    m_ActionSpec:
+      m_NumContinuousActions: 1
+      BranchSizes: 0200000002000000
+    VectorActionSize: 
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 0}
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 5022602860645237092, guid: bf36561505d95d6449574a675d66adf5, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: TraverseTrack
   TeamId: 0
   m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 2
 --- !u!114 &6010643741853561761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,7 +549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 40
   thrustMultiplier: 1
-  reverseMultiplier: 1
+  reverseMultiplier: 0.5
   rotationMultiplier: 1
   boost: 1.5
 --- !u!114 &3317581294562083416
@@ -581,6 +588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpointIndex: 0
+  nextCheckpoint: {fileID: 0}
 --- !u!114 &8905406261744842930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,7 +674,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.69, y: 0.85, z: 1.3905088}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.6, z: -0.7}
 --- !u!33 &3317581294562083419
 MeshFilter:
@@ -683,7 +691,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3317581294562083414}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cd2aaf30c6d017db6b1b4383f2a0cfcd, type: 3}
@@ -782,12 +790,12 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 1
-  m_AngularDrag: 2
+  m_AngularDrag: 7
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &3317581295477237567
 GameObject:
   m_ObjectHideFlags: 0

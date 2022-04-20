@@ -440,6 +440,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7904303135530190821}
+        m_TargetAssemblyTypeName: Bank, Assembly-CSharp
+        m_MethodName: GetRudder
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 37da676e-1c9b-4aba-91f5-27143cc33d33
     m_ActionName: Gameplay/Rudder[/XInputControllerWindows/leftStick]
   - m_PersistentCalls:
@@ -767,6 +779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpointIndex: 0
+  nextCheckpoint: {fileID: 0}
 --- !u!114 &8905406261744842930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5745,3 +5758,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ebaa86a11bb5e7a4f883cb4b23b30f13, type: 3}
   m_PrefabInstance: {fileID: 3317581294204443565}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2507101251079268092 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ebaa86a11bb5e7a4f883cb4b23b30f13, type: 3}
+  m_PrefabInstance: {fileID: 3317581294204443565}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7904303135530190821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2507101251079268092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c541d5d3d1a047b4bb729f576625b656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rudderScale: 0.2

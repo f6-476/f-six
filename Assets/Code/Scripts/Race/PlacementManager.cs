@@ -63,4 +63,14 @@ public class PlacementManager : AbstractManager<PlacementManager>
 
         return (randomizedPosition, direction);
     }
+
+    public void ResetObjects()
+    {
+        foreach (var obj in objectList)
+        {
+            Destroy(obj);
+        }
+        objectList.Clear();
+        InitializeObjects();
+    }
 }

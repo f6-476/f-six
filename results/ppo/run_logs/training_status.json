@@ -1,0 +1,56 @@
+{
+    "TraverseTrack": {
+        "checkpoints": [
+            {
+                "steps": 10560,
+                "file_path": "results\\ppo\\TraverseTrack\\TraverseTrack-10560.onnx",
+                "reward": null,
+                "creation_time": 1650389729.0211148,
+                "auxillary_file_paths": [
+                    "results\\ppo\\TraverseTrack\\TraverseTrack-10560.pt"
+                ]
+            },
+            {
+                "steps": 22080,
+                "file_path": "results\\ppo\\TraverseTrack\\TraverseTrack-22080.onnx",
+                "reward": null,
+                "creation_time": 1650396956.7794828,
+                "auxillary_file_paths": [
+                    "results\\ppo\\TraverseTrack\\TraverseTrack-22080.pt"
+                ]
+            },
+            {
+                "steps": 33600,
+                "file_path": "results\\ppo\\TraverseTrack\\TraverseTrack-33600.onnx",
+                "reward": null,
+                "creation_time": 1650396982.8263404,
+                "auxillary_file_paths": [
+                    "results\\ppo\\TraverseTrack\\TraverseTrack-33600.pt"
+                ]
+            },
+            {
+                "steps": 45120,
+                "file_path": "results\\ppo\\TraverseTrack\\TraverseTrack-45120.onnx",
+                "reward": null,
+                "creation_time": 1650397065.1490626,
+                "auxillary_file_paths": [
+                    "results\\ppo\\TraverseTrack\\TraverseTrack-45120.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 45120,
+            "file_path": "results\\ppo\\TraverseTrack.onnx",
+            "reward": null,
+            "creation_time": 1650397065.1490626,
+            "auxillary_file_paths": [
+                "results\\ppo\\TraverseTrack\\TraverseTrack-45120.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

@@ -20,6 +20,8 @@ public class ShipRace : NetworkBehaviour
     public float LapTime => lapTime;
     public int Rank { get; set; }
 
+    public Checkpoint nextCheckpoint;
+
     private void Start()
     {
         this.Rank = 1;
@@ -44,6 +46,11 @@ public class ShipRace : NetworkBehaviour
         return lapTimeList[lapTimeList.Count - 1] - minTime;
     }
 
+    public void ResetCheckpointIndex()
+    {
+        checkpointIndex = 0;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // TODO: Check for online/offline.
@@ -58,18 +65,40 @@ public class ShipRace : NetworkBehaviour
 
                 lapTimeList.Add(Time.time - lapTime);
                 lapTime = Time.time;
+                if(TryGetComponent<ShipAgent>(out ShipAgent shipAgent))
+                    shipAgent.AddReward(5);
             } 
             else if (checkpointIndex + 1 == checkpoint.index)
             {
+                if(TryGetComponent<ShipAgent>(out ShipAgent shipAgent))
+                    shipAgent.AddReward(.5f);
                 checkpointIndex = checkpoint.index;
+                
+            }
+            else
+            {
+                if(TryGetComponent<ShipAgent>(out ShipAgent shipAgent))
+                    shipAgent.SetReward(-1);
             }
 
             if(OnCheckpoint != null) OnCheckpoint(ship);
         }
     }
+    
+    
 
     public Checkpoint GetNextCheckpoint()
     {
-        return RaceManager.Singleton.GetNextCheckpoint(checkpointIndex);
+        nextCheckpoint = RaceManager.Singleton.GetNextCheckpoint(checkpointIndex);
+        return nextCheckpoint;
+    }
+
+    public void OnDrawGizmos()
+    {
+        if(nextCheckpoint != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(transform.position, nextCheckpoint.transform.position);
+        }
     }
 }

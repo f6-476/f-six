@@ -1,0 +1,65 @@
+{
+    "TraverseTrack": {
+        "checkpoints": [
+            {
+                "steps": 13499990,
+                "file_path": "results\\testParameters2\\TraverseTrack\\TraverseTrack-13499990.onnx",
+                "reward": -33.92659516632557,
+                "creation_time": 1650418524.862784,
+                "auxillary_file_paths": [
+                    "results\\testParameters2\\TraverseTrack\\TraverseTrack-13499990.pt"
+                ]
+            },
+            {
+                "steps": 13999943,
+                "file_path": "results\\testParameters2\\TraverseTrack\\TraverseTrack-13999943.onnx",
+                "reward": -35.68759575486183,
+                "creation_time": 1650418926.8178813,
+                "auxillary_file_paths": [
+                    "results\\testParameters2\\TraverseTrack\\TraverseTrack-13999943.pt"
+                ]
+            },
+            {
+                "steps": 14499981,
+                "file_path": "results\\testParameters2\\TraverseTrack\\TraverseTrack-14499981.onnx",
+                "reward": -23.1546978270635,
+                "creation_time": 1650419326.1412568,
+                "auxillary_file_paths": [
+                    "results\\testParameters2\\TraverseTrack\\TraverseTrack-14499981.pt"
+                ]
+            },
+            {
+                "steps": 14999942,
+                "file_path": "results\\testParameters2\\TraverseTrack\\TraverseTrack-14999942.onnx",
+                "reward": -6.093601638451219,
+                "creation_time": 1650419727.0534022,
+                "auxillary_file_paths": [
+                    "results\\testParameters2\\TraverseTrack\\TraverseTrack-14999942.pt"
+                ]
+            },
+            {
+                "steps": 15000006,
+                "file_path": "results\\testParameters2\\TraverseTrack\\TraverseTrack-15000006.onnx",
+                "reward": -6.093601638451219,
+                "creation_time": 1650419727.136421,
+                "auxillary_file_paths": [
+                    "results\\testParameters2\\TraverseTrack\\TraverseTrack-15000006.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 15000006,
+            "file_path": "results\\testParameters2\\TraverseTrack.onnx",
+            "reward": -6.093601638451219,
+            "creation_time": 1650419727.136421,
+            "auxillary_file_paths": [
+                "results\\testParameters2\\TraverseTrack\\TraverseTrack-15000006.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
