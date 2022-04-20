@@ -17,6 +17,10 @@ public class RaceManager : AbstractManager<RaceManager>
     [Range(2, 10)] private int widthToThicknessRatio = 5; // This controls the x scale of the checkpoint relative to the thickness of the track.
     [SerializeField] private GameObject checkpointPrefab;
     [SerializeField] private TrackGenerator track;
+    private float startTime;
+    public float GameTime => Time.time - startTime;
+    private bool started = false;
+    public bool Started => started;
 
     private void Reset()
     {
@@ -29,11 +33,21 @@ public class RaceManager : AbstractManager<RaceManager>
 
         ShipRace.OnCheckpoint += OnCheckpoint;
         NetworkManager.Singleton.OnServerStarted += OnServerStarted;
+        SceneManager.sceneLoaded += OnLocalSceneLoaded;
     }
 
     private void OnServerStarted()
     {
         this.Reset();
+    }
+
+    private void OnLocalSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name.StartsWith("Map"))
+        {
+            this.Laps = LobbyManager.Singleton.MapConfig.lapCount;
+            LoadCheckpoints();
+        }
     }
 
     private void LoadCheckpoints()
@@ -55,9 +69,10 @@ public class RaceManager : AbstractManager<RaceManager>
         }
     }
 
-    public void OnGameStarted()
+    public void OnRaceStart()
     {
-        LoadCheckpoints();   
+        started = true;
+        startTime = Time.time;
     }
 
     public void AddShip(Ship ship)
@@ -72,14 +87,25 @@ public class RaceManager : AbstractManager<RaceManager>
         else return checkpoints[checkpointIndex + 1];
     }
 
+    private bool IsRaceDone()
+    {
+        foreach (Ship ship in ships)
+        {
+            if (ship.Race.Lap < Laps) return false;
+        }
+
+        return true;
+    }
+
     private void OnCheckpoint(Ship ship)
     {
         if(!IsServer) return;
 
         UpdatePlayerRankings();
 
-        if (RaceComplete())
+        if (IsRaceDone())
         {
+            started = false;
             NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
             this.Reset();
         }
@@ -93,16 +119,6 @@ public class RaceManager : AbstractManager<RaceManager>
         {
             ships[i].Race.Rank = i + 1;
         }
-    }
-
-    private bool RaceComplete()
-    {
-        foreach (Ship ship in ships)
-        {
-            if (ship.Race.Lap < Laps) return false;
-        }
-
-        return true;
     }
 
     private void SetTrackCheckpoints(TrackGenerator track)

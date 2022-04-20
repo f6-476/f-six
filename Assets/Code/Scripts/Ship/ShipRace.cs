@@ -16,8 +16,6 @@ public class ShipRace : MonoBehaviour
     private int lapCount = 0;
     public int Lap => lapCount;
     public bool Finished => lapCount >= RaceManager.Singleton.Laps;
-    private float lapTime = 0;
-    public float LapTime => lapTime;
     private int rank = 1;
     public int Rank 
     {
@@ -32,19 +30,18 @@ public class ShipRace : MonoBehaviour
     /// Gets the time difference between the previous lap and the best lap.
     public float GetLapDifference()
     {
-        if (lapTimeList.Count == 0) return 0;
+        if (lapTimeList.Count < 2) return 0;
 
-        float minTime = lapTimeList[0];
+        float bestTime = lapTimeList[0];
         for (int i = 1; i < lapTimeList.Count - 1; i++)
         {
-            float time = lapTimeList[i];
-            if (time < minTime)
-            {
-                minTime = time;
-            }
+            float lapTime = lapTimeList[i] - lapTimeList[i - 1];
+
+            if (lapTime < bestTime) bestTime = lapTime;
         }
 
-        return lapTimeList[lapTimeList.Count - 1] - minTime;
+        float lastLapTime = lapTimeList[lapTimeList.Count - 1] - lapTimeList[lapTimeList.Count - 2];
+        return lastLapTime - bestTime;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -59,8 +56,7 @@ public class ShipRace : MonoBehaviour
                 lapCount++;
                 checkpointIndex = 0;
 
-                lapTimeList.Add(Time.time - lapTime);
-                lapTime = Time.time;
+                lapTimeList.Add(RaceManager.Singleton.GameTime);
             } 
             else if (checkpointIndex + 1 == checkpoint.index)
             {

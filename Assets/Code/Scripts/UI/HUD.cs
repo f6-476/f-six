@@ -59,17 +59,11 @@ public class HUD : MonoBehaviour
 
     private void UpdateShipUI()
     {
-        if (ship == null)
-        {
-            parent.SetActive(false);
-            return;
-        }
+        if (ship == null) return;
 
-        parent.SetActive(true);
         SetRankText(ship.Race.Rank);
         SetLapText(ship.Race.Lap + 1);
         SetLapTimeText(ship.Race.GetLapDifference());
-        SetStopwatchText(Time.time - ship.Race.LapTime);
         SetSpeedText((int)ship.Rigidbody.velocity.magnitude);
 
         bool active = false;
@@ -88,7 +82,10 @@ public class HUD : MonoBehaviour
 
     private void Update()
     {
+        parent.SetActive(ship != null && (RaceManager.Singleton == null || RaceManager.Singleton.Started));
+
         SetRankingsText();
+        if (RaceManager.Singleton != null) SetStopwatchText(RaceManager.Singleton.GameTime);
         UpdateShipUI();
     }
 

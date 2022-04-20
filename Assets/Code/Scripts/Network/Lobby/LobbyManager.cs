@@ -33,7 +33,6 @@ public class LobbyManager : AbstractManager<LobbyManager>
     {
         this.Reset();
 
-        SceneManager.sceneLoaded += OnLocalSceneLoaded;
         NetworkManager.Singleton.OnServerStarted += OnServerStarted;
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnect;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
@@ -86,20 +85,9 @@ public class LobbyManager : AbstractManager<LobbyManager>
         return spawns;
     }
 
-    private void OnLocalSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name.StartsWith("Map")) InitializeClientMap();
-    }
-
     private void OnLoadEventComplete(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
         if (sceneName.StartsWith("Map")) InitializeServerMap();
-    }
-
-    private void InitializeClientMap()
-    {
-        RaceManager.Singleton.Laps = MapConfig.lapCount;
-        RaceManager.Singleton.OnGameStarted();
     }
 
     private void InitializeServerMap()
