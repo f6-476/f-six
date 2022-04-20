@@ -38,7 +38,10 @@ public class LobbyPlayer : NetworkBehaviour
 
     private void Start()
     {
-        LobbyManager.Singleton.Players.Add(this);
+        if (!LobbyManager.Singleton.Players.Contains(this))
+        {
+            LobbyManager.Singleton.Players.Add(this);
+        }
 
         switch (this.ClientMode)
         {
@@ -51,9 +54,9 @@ public class LobbyPlayer : NetworkBehaviour
                 }
                 break;
             case ClientMode.AI:
-                if (IsOwnedByServer)
+                if (IsServer)
                 {
-                    username.Value = "AI";
+                    username.Value = AuthManager.GenerateUsername();
                 }
                 break;
         }
@@ -64,6 +67,12 @@ public class LobbyPlayer : NetworkBehaviour
         if (LobbyManager.Singleton != null) LobbyManager.Singleton.Players.Remove(this);
 
         base.OnNetworkDespawn();
+    }
+
+    public void DestroyMe()
+    {
+        if (!IsServer) return;
+        GetComponent<NetworkObject>().Despawn();
     }
 
     [ServerRpc]

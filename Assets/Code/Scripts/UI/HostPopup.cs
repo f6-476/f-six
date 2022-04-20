@@ -15,36 +15,32 @@ public class HostPopup : UIPopup
     private UIField twitchField;
 
     [SerializeField]
-    private Button hostButton;
+    private GameObject hostButton;
 
     [SerializeField]
-    private Button spectateButton;
-
-    public void OnTwitchChannelChanged(string channel)
-    {
-        Debug.Log(channel);
-    }
+    private GameObject spectateButton;
 
     void Start()
     {
-        twitchField.GetComponentInChildren<InputField>().onValueChanged.AddListener(UpdateTwitchSetting); 
-        
-        hostButton.interactable = true;
-        spectateButton.interactable = false;
+        if (AuthManager.Singleton != null)
+        {
+            twitchField.text = AuthManager.Singleton.TwitchChannel;
+            twitchField.GetComponentInChildren<InputField>().onValueChanged.AddListener(UpdateTwitchSetting); 
+        }
+
+        SetButtons(true);
+    }
+
+    private void SetButtons(bool isHost)
+    {
+        hostButton.SetActive(isHost);
+        spectateButton.SetActive(!isHost);
     }
 
     void UpdateTwitchSetting(string channel)
     {
-        if (channel.Length > 0)
-        {
-            hostButton.interactable = false;
-            spectateButton.interactable = true;
-        }
-        else
-        {
-            hostButton.interactable = true;
-            spectateButton.interactable = false;
-        }
+        AuthManager.Singleton.TwitchChannel = channel;
+        SetButtons(channel.Length == 0);
     }
 
     public override void Show()

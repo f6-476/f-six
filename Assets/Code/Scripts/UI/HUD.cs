@@ -61,7 +61,7 @@ public class HUD : MonoBehaviour
         if (ship == null) return;
 
         SetRankText(ship.Race.Rank);
-        SetLapText(ship.Race.Lap + 1);
+        SetLapText(ship.Race.LapCount + 1);
         SetLapTimeText(ship.Race.GetLapDifference());
         SetSpeedText((int)ship.Rigidbody.velocity.magnitude);
 
@@ -113,8 +113,9 @@ public class HUD : MonoBehaviour
     private void SetLapText(int lap)
     {
         int laps = 3;
-        if (RaceManager.Singleton != null) laps = RaceManager.Singleton.Laps;  
-
+        if (RaceManager.Singleton != null) laps = RaceManager.Singleton.Laps;
+        
+        lap = Mathf.Min(lap, laps);
         lapText.text = $"{lap}/{laps} LAPS";
     }
     

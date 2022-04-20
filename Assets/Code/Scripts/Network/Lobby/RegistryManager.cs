@@ -161,7 +161,7 @@ public class RegistryManager : AbstractManager<RegistryManager>
         {
             string json = $"{{\"password\":\"{data.password}\"}}";
 
-            UnityWebRequest request = new UnityWebRequest($"{selectedRegistry}/servers/{data.password}", "POST");
+            UnityWebRequest request = new UnityWebRequest($"{selectedRegistry}/servers/{data.id}", "POST");
             byte[] requestBody = new System.Text.UTF8Encoding().GetBytes(json);
             request.uploadHandler = new UploadHandlerRaw(requestBody);
             request.downloadHandler = new DownloadHandlerBuffer();
@@ -173,7 +173,7 @@ public class RegistryManager : AbstractManager<RegistryManager>
             {
                 GetServerResponse response = JsonUtility.FromJson<GetServerResponse>(request.downloadHandler.text);
 
-                if (response.host.Trim() == "" || response.port == 0)
+                if (response.host == null || response.host.Trim() == "" || response.port == 0)
                 {
                     if (fail != null) fail();
                 }

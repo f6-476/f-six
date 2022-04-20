@@ -91,7 +91,7 @@ public class RaceManager : AbstractManager<RaceManager>
     {
         foreach (Ship ship in ships)
         {
-            if (ship.Race.Lap < Laps) return false;
+            if (ship.Race.LapCount < Laps) return false;
         }
 
         return true;
@@ -113,7 +113,7 @@ public class RaceManager : AbstractManager<RaceManager>
 
     private void UpdatePlayerRankings()
     {
-        ships = ships.OrderBy(ship => -(ship.Race.Lap * checkpoints.Length + ship.Race.CheckpointIndex)).ToList();
+        ships = ships.OrderBy(ship => -(ship.Race.LapCount * checkpoints.Length + ship.Race.CheckpointIndex)).ToList();
 
         for(int i = 0; i < ships.Count; i++)
         {

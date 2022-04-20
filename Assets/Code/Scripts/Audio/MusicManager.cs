@@ -47,7 +47,7 @@ public class MusicManager : AbstractManager<MusicManager>
         switch (state)
         {
             case State.MENU:
-                music = lobbyMusic[Random.Range(0, lobbyMusic.Length - 1)];
+                music = lobbyMusic[Random.Range(0, lobbyMusic.Length)];
                 break;
             case State.GAME:
                 music = LobbyManager.Singleton.MapConfig.music;

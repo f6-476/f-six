@@ -156,6 +156,7 @@ MonoBehaviour:
   maxMusicVolume: 0.05
   lobbyMusic:
   - {fileID: 8300000, guid: 53a80a8e4d83721ef9ab528c40714019, type: 3}
+  - {fileID: 8300000, guid: 5c31b300175de23a4be7cf385be54b84, type: 3}
 --- !u!82 &9170074196578929736
 AudioSource:
   m_ObjectHideFlags: 0

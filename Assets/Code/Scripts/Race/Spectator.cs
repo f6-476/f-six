@@ -45,6 +45,7 @@ public class Spectator : NetworkBehaviour
     public void GetNext(InputAction.CallbackContext ctx)
     {
         if (!IsOwner) return;
+        if (!ctx.performed) return;
 
         selectedIndex = (selectedIndex + 1) % (RaceManager.Singleton.Ships.Count + 1);
 

@@ -115,7 +115,7 @@ public class ShipAIController : Controller
             path[waypoint.Index] = waypoint;
         }
 
-        UpdatePathIndex();
+        pathIndex = 0;
     }
 
     private void UpdateNearbyPowerUp(float range = 20.0f)

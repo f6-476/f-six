@@ -1,6 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
-using Unity.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Ship))]
 public class ShipMultiplayer : NetworkBehaviour 
@@ -37,6 +37,18 @@ public class ShipMultiplayer : NetworkBehaviour
     {
         get => shipDisabled.Value;
         set => shipDisabled.Value = value;
+    }
+    private NetworkVariable<int> lapCount = new NetworkVariable<int>(0);
+    public int LapCount
+    {
+        get => lapCount.Value;
+        set => lapCount.Value = value;
+    }
+    public NetworkList<float> LapTimeList;
+
+    private void Awake()
+    {
+        LapTimeList = new NetworkList<float>();
     }
 
     private void Start() 

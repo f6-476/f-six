@@ -7,20 +7,21 @@ public class AuthManager : AbstractManager<AuthManager>
     public string Username
     {
         get => username;
-        set
-        {
-            username = value;
-        }
+        set => username = value;
     }
 
     private string serverToken;
     public string ServerToken
     {
         get => serverToken;
-        set
-        {
-            serverToken = value;
-        }
+        set => serverToken = value;
+    }
+
+    private string twitchChannel = "";
+    public string TwitchChannel
+    {
+        get => twitchChannel;
+        set => twitchChannel = value;
     }
 
     private static readonly string[] ADJECTIVES = new string[]{

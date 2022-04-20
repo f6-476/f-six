@@ -14,8 +14,15 @@ public class ShipRace : MonoBehaviour
     public int CheckpointIndex => checkpointIndex;
     private List<float> lapTimeList = new List<float>();
     private int lapCount = 0;
-    public int Lap => lapCount;
-    public bool Finished => lapCount >= RaceManager.Singleton.Laps;
+    public int LapCount 
+    {
+        get => (ship.IsMultiplayer) ? ship.Multiplayer.LapCount : lapCount;
+        set {
+            if (ship.IsMultiplayer) ship.Multiplayer.LapCount = value;
+            else lapCount = value;
+        }
+    }
+    public bool Finished => LapCount >= RaceManager.Singleton.Laps;
     private int rank = 1;
     public int Rank 
     {
@@ -30,6 +37,14 @@ public class ShipRace : MonoBehaviour
     /// Gets the time difference between the previous lap and the best lap.
     public float GetLapDifference()
     {
+        List<float> lapTimeList;
+        if (ship.IsMultiplayer) 
+        {
+            lapTimeList = new List<float>();
+            foreach(float time in ship.Multiplayer.LapTimeList) lapTimeList.Add(time);
+        }
+        else lapTimeList = this.lapTimeList;
+
         if (lapTimeList.Count < 2) return 0;
 
         float bestTime = lapTimeList[0];
@@ -53,10 +68,11 @@ public class ShipRace : MonoBehaviour
         {
             if (checkpoint.index == 0 && checkpointIndex == RaceManager.Singleton.LastCheckpointIndex)
             {
-                lapCount++;
+                LapCount++;
                 checkpointIndex = 0;
 
-                lapTimeList.Add(RaceManager.Singleton.GameTime);
+                if (ship.IsMultiplayer) ship.Multiplayer.LapTimeList.Add(RaceManager.Singleton.GameTime);
+                else lapTimeList.Add(RaceManager.Singleton.GameTime);
             } 
             else if (checkpointIndex + 1 == checkpoint.index)
             {

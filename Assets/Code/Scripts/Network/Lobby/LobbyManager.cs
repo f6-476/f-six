@@ -13,6 +13,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
     [SerializeField] private GameObject spectatorPrefab;
     [SerializeField] private GameObject aiPrefab;
     [SerializeField] private MapConfig[] mapConfigs;
+    private int maxPlayers = 8;
     private int mapIndex = 0;
     private int aiCount = 0;
     public MapConfig MapConfig => mapConfigs[mapIndex];
@@ -54,9 +55,8 @@ public class LobbyManager : AbstractManager<LobbyManager>
         {
             // TODO: Prevent timing attack?
             if (!ServerManager.Singleton.config.password.Equals(password)) approve = false;
-
-            string sceneName = SceneManager.GetActiveScene().name;
-            if (!(sceneName.Equals("RaceMenu") || sceneName.Equals("Lobby"))) approve = false;
+            if (IsInGame()) approve = false;
+            if (clientMode == ClientMode.PLAYER && !HasSpaceForNewPlayer()) approve = false;
 
             if (approve)
             {
@@ -87,12 +87,15 @@ public class LobbyManager : AbstractManager<LobbyManager>
 
     private void OnLoadEventComplete(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
+        if (!IsServer) return;
+
         if (sceneName.StartsWith("Map")) InitializeServerMap();
     }
 
     private void InitializeServerMap()
     {
-        /// TODO: What to do when spawn count < player count?
+        FillMissingSlotsWithAIs();
+
         Spawn[] spawns = GetSpawns();
         int spawnIndex = 0;
 
@@ -149,7 +152,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
         ServerManager.Singleton.UpdatePlayerCount(NetworkManager.Singleton.ConnectedClientsIds.Count);
     }
 
-    public void AddAILobbyPlayer()
+    private void AddAILobbyPlayer()
     {
         if (!IsServer) return;
 
@@ -159,6 +162,23 @@ public class LobbyManager : AbstractManager<LobbyManager>
         LobbyPlayer lobbyPlayer = lobbyGameObject.GetComponent<LobbyPlayer>();
         lobbyPlayer.ClientMode = ClientMode.AI;
         lobbyPlayer.ready.Value = true;
+
+        if (!this.Players.Contains(lobbyPlayer)) this.Players.Add(lobbyPlayer);
+    }
+
+    private void FillMissingSlotsWithAIs()
+    {
+        int playerCount = 0;
+
+        foreach (LobbyPlayer player in Players)
+        {
+            if (player.ClientMode == ClientMode.PLAYER || player.ClientMode == ClientMode.AI) playerCount++;
+        }
+
+        for (int i = 0; i < maxPlayers - playerCount; i++)
+        {
+            AddAILobbyPlayer();
+        }
     }
 
     private void OnClientConnect(ulong clientId)
@@ -176,24 +196,60 @@ public class LobbyManager : AbstractManager<LobbyManager>
         }
     }
 
-    private void LoadMapIfReady()
+    private bool IsAllPlayersReady()
     {
-        bool hasReadyPlayers = false;
+        bool oneHumanReady = false;
 
         foreach (LobbyPlayer player in LobbyManager.Singleton.Players)
         {
             switch (player.ClientMode)
             {
                 case ClientMode.PLAYER:
-                    if (!player.Ready) return;
-                    hasReadyPlayers = true;
+                    if (player.Ready) oneHumanReady = true;
+                    else return false;
+                    break;
+                case ClientMode.SPECTATOR:
+                    if (player.Ready) oneHumanReady = true;
                     break;
             }
         }
 
-        if (!hasReadyPlayers) return;
+        return oneHumanReady;
+    }
+
+    private bool HasSpaceForNewPlayer()
+    {
+        LobbyPlayer aiPlayer = null;
+        int playerCount = 0;
+
+        foreach (LobbyPlayer player in Players)
+        {
+            if (aiPlayer == null && player.ClientMode == ClientMode.AI) aiPlayer = player;
+            if (player.ClientMode == ClientMode.PLAYER || player.ClientMode == ClientMode.AI) playerCount++;
+        }
+
+        if (playerCount < maxPlayers) return true;
+        if (aiPlayer != null)
+        {
+            aiPlayer.DestroyMe();
+            return true;
+        }
+
+        return false;
+    }
+
+    private void LoadMapIfReady()
+    {
+        if (IsInGame()) return;
+        if (!IsAllPlayersReady()) return;
 
         NetworkManager.Singleton.SceneManager.LoadScene(MapConfig.sceneName, LoadSceneMode.Single);
+    }
+
+    private bool IsInGame()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        return sceneName.StartsWith("Map");
     }
 
     public void OnPlayerUpdate(LobbyPlayer updatedPlayer)

@@ -50,6 +50,6 @@ public class Ship : MonoBehaviour
 
     private void Update()
     {
-        this.Movement.enabled = !this.PowerUp.Disabled && (RaceManager.Singleton == null || RaceManager.Singleton.Started);
+        this.Movement.enabled = (IsAI || !this.PowerUp.Disabled) && (RaceManager.Singleton == null || RaceManager.Singleton.Started);
     }
 }
