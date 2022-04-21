@@ -97,7 +97,16 @@ public class ServerManager : AbstractManager<ServerManager>
 
         if (!SetConfig(config, clientMode)) return false;
 
-        if (NetworkManager.Singleton.StartHost()) return true;
+        if (NetworkManager.Singleton.StartHost()) {
+            Debug.Log("Host Lobby successful");
+
+            if (AuthManager.Singleton.TwitchChannel != "")
+            {
+                IntegrationManager.Singleton.Connect();
+            }
+            
+            return true;
+        }
  
         NetworkManager.Singleton.Shutdown();
 
@@ -200,6 +209,7 @@ public class ServerManager : AbstractManager<ServerManager>
 
     public void Disconnect()
     {
+        IntegrationManager.Singleton.Disconnect();
         RegistryManager.Singleton.DeleteServer(config.id);
     }
 }

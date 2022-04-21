@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+using System;
 
 public class RaceManager : AbstractManager<RaceManager>
 {
@@ -15,6 +17,10 @@ public class RaceManager : AbstractManager<RaceManager>
     private List<Ship> ships = new List<Ship>();
     public List<Ship> Ships => ships;
     public int Laps { get; set; }
+
+    private int _currentLap = -1;
+    public int currentLap { get => _currentLap; private set => _currentLap = value; }
+
     private Checkpoint[] checkpoints;
     public Checkpoint[] Checkpoints => checkpoints;
     public int LastCheckpointIndex => checkpoints.Length - 1;
@@ -22,6 +28,11 @@ public class RaceManager : AbstractManager<RaceManager>
     public float GameTime => Time.time - startTime;
     private bool started = false;
     public bool Started => started;
+
+    public static Action OnRaceBegin;
+    public static Action<int> OnNewLap;
+    public static Action<string> OnRaceWon;
+    public static Action OnRaceOver;
 
     private void Reset()
     {
@@ -35,6 +46,7 @@ public class RaceManager : AbstractManager<RaceManager>
         ShipRace.OnCheckpoint += OnCheckpoint;
         NetworkManager.Singleton.OnServerStarted += OnServerStarted;
         SceneManager.sceneLoaded += OnLocalSceneLoaded;
+        ShipRace.OnLapFinish += OnLapFinish;
     }
 
     private void OnServerStarted()
@@ -67,6 +79,24 @@ public class RaceManager : AbstractManager<RaceManager>
     {
         started = true;
         startTime = Time.time;
+        OnRaceBegin();
+    }
+
+    public void OnLapFinish(int lap)
+    {
+        if (currentLap < lap)
+        {
+            currentLap = lap;
+
+            OnNewLap(currentLap);
+
+            if (currentLap >= Laps)
+            {
+                ships = ships.OrderBy(ship => -(ship.Race.LapCount.Value * checkpoints.Length + ship.Race.CheckpointIndex)).ToList();
+                OnRaceWon(ships[0].Multiplayer.Lobby.Username);
+            }
+        }
+        
     }
 
     public void AddShip(Ship ship)
@@ -100,7 +130,12 @@ public class RaceManager : AbstractManager<RaceManager>
         if (IsRaceDone())
         {
             started = false;
+
+            OnRaceOver();
+            
             NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+            
+            
             this.Reset();
         }
     }

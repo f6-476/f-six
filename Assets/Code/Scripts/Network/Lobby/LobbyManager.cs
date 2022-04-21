@@ -278,4 +278,9 @@ public class LobbyManager : AbstractManager<LobbyManager>
 
         return MapIndex;
     }
+
+    public MapConfig[] GetMaps()
+    {
+        return mapConfigs;
+    }
 }

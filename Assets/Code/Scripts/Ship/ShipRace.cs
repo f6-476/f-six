@@ -17,6 +17,8 @@ public class ShipRace : MonoBehaviour
     public bool Finished => LapCount.Value >= RaceManager.Singleton.Laps;
     public SyncVariable<int> Rank = new SyncVariable<int>(1);
 
+    public static Action<int> OnLapFinish;
+
     /// Gets the time difference between the previous lap and the best lap.
     public float GetLapDifference()
     {
@@ -52,6 +54,8 @@ public class ShipRace : MonoBehaviour
             if (checkpoint.Index == 0 && checkpointIndex == RaceManager.Singleton.LastCheckpointIndex)
             {
                 LapCount.Value++;
+                OnLapFinish(LapCount.Value);
+                
                 checkpointIndex = 0;
 
                 if (ship.IsMultiplayer) ship.Multiplayer.LapTimeList.Add(RaceManager.Singleton.GameTime);

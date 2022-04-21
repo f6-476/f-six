@@ -10,10 +10,13 @@ public class TrackCamera : MonoBehaviour
     private float translationSpeed = 10.0f;
     private float rotationSpeed = 5.0f;
 
+    private Camera camera;
+
     private void Awake()
     {
         Ship.OnLocal += AttachLocalShip;
         Spectator.OnLocal += AttachLocalSpectator;
+        camera = GetComponent<Camera>();
     }
 
     private void OnDestroy()
@@ -84,6 +87,27 @@ public class TrackCamera : MonoBehaviour
         return average.normalized;
     }
 
+    private float AverageSpeed()
+    {
+        float average = 0;
+
+        if (targets.Count == 0) return 0;
+
+        foreach (Transform target in targets)
+        {
+            if (target != null)
+            {
+                Ship ship = target.GetComponent<Ship>();
+                
+                if (ship != null) average += ship.Rigidbody.velocity.magnitude;
+            }
+        }
+
+        average = average / targets.Count;
+
+        return average;
+    }
+
     private void UpdateTransform()
     {
         if (targets.Count == 0) return;
@@ -98,6 +122,9 @@ public class TrackCamera : MonoBehaviour
 
         Vector3 lookForward = (normal * heightOffset - offset).normalized;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(lookForward, normal), Time.deltaTime * rotationSpeed);
+    
+        float speed = AverageSpeed();
+        camera.fieldOfView = 60 + Mathf.Min(speed, 60);
     }
 
     private void Update() 

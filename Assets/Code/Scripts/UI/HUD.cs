@@ -63,7 +63,7 @@ public class HUD : MonoBehaviour
         SetRankText(ship.Race.Rank.Value);
         SetLapText(ship.Race.LapCount.Value + 1);
         SetLapTimeText(ship.Race.GetLapDifference());
-        SetSpeedText((int)ship.Rigidbody.velocity.magnitude);
+        SetSpeedText((int)Mathf.Min(ship.Rigidbody.velocity.magnitude * 10, 999));
 
         bool active = false;
         float fill = 0.0f;
