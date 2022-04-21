@@ -4,17 +4,21 @@ using System;
 
 public class IntegrationManager : AbstractManager<IntegrationManager>
 {
+    private bool isConnected = false;
     private static readonly Integration[] INTEGRATIONS = new Integration[]
     {
         new TwitchIntegration(),
-        new DebugIntegration()
+        new TestIntegration()
     };
 
     public struct CommandHandler
     {
         public string key;
+        public string args;
         public string instructions;
         public System.Func<Integration.OnCommandArgs, string> respond;
+
+        public string HelpMessage => $"!{this.key} {this.args} - {this.instructions}";
     }
 
     private void Start()
@@ -41,8 +45,20 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
         RaceManager.OnRaceOver += OnRaceOver;
     }
 
+    private void Update()
+    {
+        if (!isConnected) return;
+
+        foreach (Integration integration in INTEGRATIONS)
+        {
+            integration.Update();
+        }
+    }
+
     public void Connect()
     {
+        isConnected = true;
+
         Integration.OnConnected += OnConnected;
         Integration.OnDisconnected += OnDisconnected;
         Integration.OnCommand += OnCommand;
@@ -55,6 +71,8 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     public void Disconnect()
     {
+        isConnected = false;
+
         Integration.OnConnected -= OnConnected;
         Integration.OnDisconnected -= OnDisconnected;
         Integration.OnCommand -= OnCommand;
@@ -81,8 +99,10 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
         {
             args.integration.SendReply(args.messageId, handler.respond(args));
         }
-
-        args.integration.SendReply(args.messageId, $"Unknown command {args.command} - use !help to list available commands.");
+        else 
+        {
+            args.integration.SendReply(args.messageId, $"Unknown command {args.command} - use !help to list available commands.");
+        }
     }
 
     public void SendMessageAll(string message)
@@ -95,11 +115,14 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     CommandHandler help = new CommandHandler {
         key = "help",
-        instructions = "!help <command> - displays more info on a specific command.",
+        args = "<command>",
+        instructions = "displays more info on a specific command.",
         respond = (Integration.OnCommandArgs command) => {
-            if(command.arguments.Count > 0)
+            if(command.arguments.Count > 0 && commands.ContainsKey(command.arguments[0]))
             {
-                return commands[command.arguments[0]].instructions;
+                CommandHandler handler = commands[command.arguments[0]];
+
+                return handler.HelpMessage;
             }
             else
             {
@@ -117,7 +140,8 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     CommandHandler players = new CommandHandler {
         key = "players",
-        instructions = "!players - lists all players in the game.",
+        args = "",
+        instructions = "lists all players in the game.",
         respond = (Integration.OnCommandArgs command) => {
             List<string> players = new List<string>();
 
@@ -132,13 +156,15 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     CommandHandler credits = new CommandHandler {
         key = "credits",
-        instructions = "!credits - displays the amount of credits you have",
+        args = "",
+        instructions = "displays the amount of credits you have",
         respond = (Integration.OnCommandArgs command) => "You have C" + bank.GetBalance(command.username)
     };
 
     CommandHandler bet = new CommandHandler {
         key = "bet",
-        instructions = "!bet <player-name> <amount> - if you guess the winner correctly you will double your stake!",
+        args = "<player-name> <amount>",
+        instructions = "if you guess the winner correctly you will double your stake!",
         respond = (Integration.OnCommandArgs command) => {
             if (command.arguments.Count < 2)
             {
@@ -196,7 +222,8 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     CommandHandler powerups = new CommandHandler {
         key = "powerups",
-        instructions = "!powerups - lists available powerups.",
+        args = "",
+        instructions = "lists available powerups.",
         respond = (Integration.OnCommandArgs command) =>
         {
             PowerUpConfig[] configs = RaceManager.Singleton.PowerUpConfigs;
@@ -214,7 +241,8 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     CommandHandler sponsor = new CommandHandler {
         key = "sponsor",
-        instructions = "!sponsor <player-name> <powerup> - award give a player a power-up in exchange for C50.",
+        args = "<player-name> <powerup>",
+        instructions = "award give a player a power-up in exchange for C50.",
         respond = (Integration.OnCommandArgs command) => {
             if (command.arguments.Count < 2)
             {
@@ -271,7 +299,8 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     CommandHandler maps = new CommandHandler {
         key = "maps",
-        instructions = "!maps - lists available maps.",
+        args = "",
+        instructions = "lists available maps.",
         respond = (Integration.OnCommandArgs command) => {
             MapConfig[] maps = LobbyManager.Singleton.GetMaps();
 
@@ -289,7 +318,8 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     CommandHandler vote = new CommandHandler {
         key = "vote",
-        instructions = "!vote <map-name> - vote for the next map.",
+        args = "<map-name>",
+        instructions = "vote for the next map.",
         respond = (Integration.OnCommandArgs command) => {
             if (command.arguments.Count < 1)
             {

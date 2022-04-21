@@ -26,6 +26,7 @@ public abstract class Integration
 
     public abstract void Connect();
     public abstract void Disconnect();
+    public virtual void Update() {}
     public abstract void SendMessage(string message);
     public abstract void SendReply(string messageId, string message);
 
