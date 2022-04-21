@@ -90,7 +90,7 @@ public class RaceManager : AbstractManager<RaceManager>
 
             if (currentLap >= Laps)
             {
-                ships = ships.OrderBy(ship => -(ship.Race.LapCount * checkpoints.Length + ship.Race.CheckpointIndex)).ToList();
+                ships = ships.OrderBy(ship => -(ship.Race.LapCount.Value * checkpoints.Length + ship.Race.CheckpointIndex)).ToList();
                 OnRaceWon(ships[0].Multiplayer.Lobby.Username);
             }
         }

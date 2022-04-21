@@ -125,7 +125,16 @@ public class TwitchIntegration : Integration
         instructions = "!powerups - lists available powerups.",
         respond = (ChatCommand command) =>
         {
-            return "Available powerups: shield, missiles, boost.";
+            PowerUpConfig[] configs = RaceManager.Singleton.PowerUpConfigs;
+
+            List<string> powerupsName = new List<string>();
+
+            foreach (var config in configs)
+            {
+                powerupsName.Add(config.name.ToLower().Replace(" ", "-"));
+            }
+
+            return $"Available powerups: {String.Join(", ", powerupsName)}";
         }
     };
 
@@ -139,26 +148,38 @@ public class TwitchIntegration : Integration
             }
 
             string beneficiary = command.ArgumentsAsList[0];
+            Ship ship = null;
 
-            bool playerExists = false;
-
-            foreach (LobbyPlayer player in LobbyManager.Singleton.Players)
+            foreach (Ship someShip in RaceManager.Singleton.Ships)
             {
-                if (beneficiary == player.Username && player.ClientMode != ClientMode.SPECTATOR)
+                if (beneficiary == someShip.Multiplayer.Lobby.Username)
                 {
-                    playerExists = true;
+                    ship = someShip;
                     break;
                 }
             }
 
-            if (!playerExists)
+            if (ship == null)
             {
                 return $"Cannot find player {beneficiary}.";
             }
 
             string powerup = command.ArgumentsAsList[1];
 
-            if (!(powerup == "shield" || powerup == "missiles" || powerup == "boost"))
+            PowerUpConfig[] configs = RaceManager.Singleton.PowerUpConfigs;
+
+            int i = 0;
+            foreach (var config in configs)
+            {
+                if (powerup == config.name.ToLower().Replace(" ", "-"))
+                {
+                    break;
+                }
+                
+                i++;
+            }
+
+            if (i >= configs.Length)
             {
                 return $"Invalid powerup {powerup}";
             }
@@ -168,7 +189,9 @@ public class TwitchIntegration : Integration
                 return "You need at least C50 to sponsor a player";
             }
 
-            return $"TODO: give {beneficiary} {powerup}";
+            ship.PowerUp.PickUpPowerUp(i);
+
+            return $"A fresh {powerup} was given to {beneficiary}.";
         }
     };    
 

@@ -17,6 +17,19 @@ public class ShipPowerUp : MonoBehaviour
     private static readonly float DISABLE_DURATION = 3.0f;
     private static readonly float BOOST_DURATION = 2.0f;
 
+    public void PickUpPowerUp(int index)
+    {
+        if (index < 0 || index >= RaceManager.Singleton.PowerUpConfigs.Length)
+        {
+            return;
+        }
+
+        if (!ship.IsServer) return;
+        
+        Index.Value = index; 
+        var config = RaceManager.Singleton.PowerUpConfigs[index];
+        Count.Value = config.count;
+    }
     public void PickUpPowerUp()
     {
         if (!ship.IsServer) return;
