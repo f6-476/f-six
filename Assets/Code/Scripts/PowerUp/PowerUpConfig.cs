@@ -16,6 +16,7 @@ public abstract class PowerUpConfig : ScriptableObject
     public GameObject SpawnPrefab(Ship ship)
     {
         GameObject gameObject = MakePrefab(ship);
+        gameObject.GetComponent<IPowerUp>().Attach(ship);
 
         if (gameObject.TryGetComponent(out NetworkObject networkObject))
         {

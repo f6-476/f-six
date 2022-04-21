@@ -16,4 +16,4 @@ MonoBehaviour:
   displayName: Loopty Loop
   lapCount: 3
   preview: {fileID: 21300000, guid: bffd127c89dcb656ebcc6d3ddb706fd6, type: 3}
-  music: {fileID: 8300000, guid: 5c31b300175de23a4be7cf385be54b84, type: 3}
+  music: {fileID: 8300000, guid: 5c58be45c313697009f95b6e1056c8a5, type: 3}

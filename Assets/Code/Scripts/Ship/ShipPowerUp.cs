@@ -7,61 +7,35 @@ using Unity.Netcode;
 public class ShipPowerUp : MonoBehaviour
 {
     [SerializeField] private Ship ship;
-    [SerializeField] private PowerUpConfig[] configs;
-    private int index = 0;
-    public int Index 
-    { 
-        get => (ship.IsMultiplayer) ? ship.Multiplayer.PowerUpIndex : index;
-        set
-        {
-            if (ship.IsMultiplayer) ship.Multiplayer.PowerUpIndex = value;
-            else index = value;
-        }
-    }
-    private int count = 0;
-    public int Count 
-    { 
-        get => (ship.IsMultiplayer) ? ship.Multiplayer.PowerUpCount : count;
-        set
-        {
-            if (ship.IsMultiplayer) ship.Multiplayer.PowerUpCount = value;
-            else count = value;
-        }
-    }
-    private bool disabled = false;
-    public bool Disabled
-    { 
-        get => (ship.IsMultiplayer) ? ship.Multiplayer.ShipDisabled : disabled;
-        set
-        {
-            if (ship.IsMultiplayer) ship.Multiplayer.ShipDisabled = value;
-            else disabled = value;
-        }
-    }
-    public PowerUpConfig Config => (Count > 0) ? configs[Index] : null;
-    public bool IsEmpty => Count == 0;
+    public SyncVariable<int> Index = new SyncVariable<int>(0);
+    public SyncVariable<int> Count = new SyncVariable<int>(0);
+    public SyncVariable<bool> Disabled = new SyncVariable<bool>(false);
+    public SyncVariable<bool> Boost = new SyncVariable<bool>(false);
+    public PowerUpConfig Config => (Count.Value > 0) ? RaceManager.Singleton.PowerUpConfigs[Index.Value] : null;
+    public bool IsEmpty => Count.Value == 0;
 
     private static readonly float DISABLE_DURATION = 3.0f;
+    private static readonly float BOOST_DURATION = 2.0f;
 
     public void PickUpPowerUp()
     {
         if (!ship.IsServer) return;
-        if (Count > 0) return;
+        if (Count.Value > 0) return;
 
-        int index = Random.Range(0, configs.Length);
-        Index = index; 
-        var config = configs[index];
-        Count = config.count;
+        int index = Random.Range(0, RaceManager.Singleton.PowerUpConfigs.Length);
+        Index.Value = index; 
+        var config = RaceManager.Singleton.PowerUpConfigs[index];
+        Count.Value = config.count;
     }
 
     public void ActivatePowerUp()
     {
         if (!ship.IsMultiplayer)
         {
-            if (Count <= 0) return;
-            var config = configs[Index];
+            if (Count.Value <= 0) return;
+            PowerUpConfig config = RaceManager.Singleton.PowerUpConfigs[Index.Value];
             config.SpawnPrefab(ship);
-            Count--;
+            Count.Value--;
         }
         else
         {
@@ -78,8 +52,21 @@ public class ShipPowerUp : MonoBehaviour
 
     private IEnumerator DisableShipAsync()
     {
-        Disabled = true;
+        Disabled.Value = true;
         yield return new WaitForSeconds(DISABLE_DURATION);
-        Disabled = false;
+        Disabled.Value = false;
+    }
+
+    public void BoostShip()
+    {
+        if (!ship.IsServer) return;
+        StartCoroutine(BoostShipAsync());   
+    }
+
+    private IEnumerator BoostShipAsync()
+    {
+        Boost.Value = true;
+        yield return new WaitForSeconds(BOOST_DURATION);
+        Boost.Value = false;
     }
 }

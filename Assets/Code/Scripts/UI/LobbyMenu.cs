@@ -14,19 +14,36 @@ public class LobbyMenu : MonoBehaviour
 
     void Start()
     {
-        rankingPopup.Hide();
+        StartRankingPopup();
+    }
 
-        // // To Set Ranking Text, just make a list of strings with player names in order.
-        // List<string> test = new List<string>(
-        //     new string[] {
-        //         "Test",
-        //         "Test 2",
-        //         "JSON GUY",
-        //         "HOLA MATSUI SR."
-        //     }
-        // );
-        // rankingPopup.SetPlayers(test);
-        // rankingPopup.Show();
+    private void StartRankingPopup()
+    {
+        if (LobbyManager.Singleton == null || LobbyManager.Singleton.Players.Count < LobbyManager.Singleton.MaxPlayers)
+        {
+            rankingPopup.Hide();
+            return;
+        }
+
+        string[] playerRanking = new string[LobbyManager.Singleton.Players.Count];
+        foreach (LobbyPlayer player in LobbyManager.Singleton.Players)
+        {
+            switch (player.ClientMode)
+            {
+                case ClientMode.PLAYER:
+                case ClientMode.AI:
+                    playerRanking[player.Rank - 1] = player.Username;
+                    break;
+                case ClientMode.SPECTATOR:
+                    break;
+                default:
+                    Debug.LogError("Unhandled ClientMode.");
+                    break;
+            }
+        }
+
+        rankingPopup.SetPlayers(new List<string>(playerRanking));
+        rankingPopup.Show();
     }
 
     public void Back()

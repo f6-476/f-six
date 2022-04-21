@@ -24,6 +24,9 @@ public abstract class Missile : NetworkBehaviour, IThrowable
         }
     }
 
+    public void Attach(Ship ship)
+    {}
+
     private void ServerUpdate()
     {
         position.Value = transform.position;

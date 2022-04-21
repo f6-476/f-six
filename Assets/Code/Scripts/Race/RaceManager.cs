@@ -9,6 +9,9 @@ using System;
 
 public class RaceManager : AbstractManager<RaceManager>
 {
+    [SerializeField] private PowerUpConfig[] powerUpConfigs;
+    public PowerUpConfig[] PowerUpConfigs => powerUpConfigs;
+
     private List<Ship> ships = new List<Ship>();
     public List<Ship> Ships => ships;
     public int Laps { get; set; }
@@ -110,7 +113,7 @@ public class RaceManager : AbstractManager<RaceManager>
     {
         foreach (Ship ship in ships)
         {
-            if (ship.Race.LapCount < Laps) return false;
+            if (ship.Race.LapCount.Value < Laps) return false;
         }
 
         return true;
@@ -137,11 +140,11 @@ public class RaceManager : AbstractManager<RaceManager>
 
     private void UpdatePlayerRankings()
     {
-        ships = ships.OrderBy(ship => -(ship.Race.LapCount * checkpoints.Length + ship.Race.CheckpointIndex)).ToList();
+        ships = ships.OrderBy(ship => -(ship.Race.LapCount.Value * checkpoints.Length + ship.Race.CheckpointIndex)).ToList();
 
         for(int i = 0; i < ships.Count; i++)
         {
-            ships[i].Race.Rank = i + 1;
+            ships[i].Race.Rank.Value = i + 1;
         }
     }
 }

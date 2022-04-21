@@ -13,26 +13,9 @@ public class ShipRace : MonoBehaviour
     private int checkpointIndex = 0;
     public int CheckpointIndex => checkpointIndex;
     private List<float> lapTimeList = new List<float>();
-    private int lapCount = 0;
-    public int LapCount 
-    {
-        get => (ship.IsMultiplayer) ? ship.Multiplayer.LapCount : lapCount;
-        set {
-            if (ship.IsMultiplayer) ship.Multiplayer.LapCount = value;
-            else lapCount = value;
-        }
-    }
-    public bool Finished => LapCount >= RaceManager.Singleton.Laps;
-    private int rank = 1;
-    public int Rank 
-    {
-        get => (ship.IsMultiplayer) ? ship.Multiplayer.Rank : rank;
-        set
-        {
-            if (ship.IsMultiplayer) ship.Multiplayer.Rank = value;
-            else rank = value;
-        }
-    }
+    public SyncVariable<int> LapCount = new SyncVariable<int>(0);
+    public bool Finished => LapCount.Value >= RaceManager.Singleton.Laps;
+    public SyncVariable<int> Rank = new SyncVariable<int>(1);
 
     public static Action<int> OnLapFinish;
 
@@ -70,10 +53,9 @@ public class ShipRace : MonoBehaviour
         {
             if (checkpoint.Index == 0 && checkpointIndex == RaceManager.Singleton.LastCheckpointIndex)
             {
-                LapCount++;
+                LapCount.Value++;
+                OnLapFinish(LapCount.Value);
                 
-                OnLapFinish(LapCount);
-
                 checkpointIndex = 0;
 
                 if (ship.IsMultiplayer) ship.Multiplayer.LapTimeList.Add(RaceManager.Singleton.GameTime);

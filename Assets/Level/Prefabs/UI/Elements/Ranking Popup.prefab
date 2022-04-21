@@ -53,7 +53,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -185,9 +185,9 @@ MonoBehaviour:
     m_Top: 80
     m_Bottom: 80
   m_ChildAlignment: 4
-  m_Spacing: 80
+  m_Spacing: 0
   m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
+  m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
@@ -258,6 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b40bdac9b42d9b2e1b763d6064bbb2bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  namesContainer: {fileID: 0}
   entryPrefab: {fileID: 6505661983451823291, guid: 7c581235a72a28df1bcbd246fdad5d81, type: 3}
 --- !u!1 &8796110041773520856
 GameObject:

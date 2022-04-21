@@ -23,6 +23,9 @@ public class Shield : NetworkBehaviour, IEquipable
         if (IsServer) StartCoroutine(DelayedDestroy());
     }
 
+    public void Attach(Ship ship)
+    {}
+
     private void Update()
     {
         Vector3 targetScale = originalScale * ((float)hitCount / (float)MAX_HIT_COUNT);
