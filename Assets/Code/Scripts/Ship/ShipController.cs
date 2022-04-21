@@ -21,9 +21,13 @@ public class ShipController : Controller
 
     public void GetFire(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            ship.PowerUp.ActivatePowerUp();
-        }
+        if (!ctx.performed) return;
+        ship.PowerUp.ActivatePowerUp();
+    }
+
+    public void GetRespawn(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+        if (ship.IsMultiplayer) ship.Multiplayer.Respawn();
     }
 }

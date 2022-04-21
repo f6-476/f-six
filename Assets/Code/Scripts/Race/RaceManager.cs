@@ -12,6 +12,7 @@ public class RaceManager : AbstractManager<RaceManager>
     public int Laps { get; set; }
     private int checkpointCount = 32;
     private Checkpoint[] checkpoints;
+    public Checkpoint[] Checkpoints => checkpoints;
     public int LastCheckpointIndex => checkpoints.Length - 1;
     [Range(3, 200)] public int automaticCheckpointCount = 50;
     [Range(2, 10)] private int widthToThicknessRatio = 5; // This controls the x scale of the checkpoint relative to the thickness of the track.

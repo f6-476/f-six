@@ -6,6 +6,7 @@ public class Hover : MonoBehaviour
 {
     [SerializeField] private LayerMask trackLayer;
     [SerializeField] private float hoverHeight = 4;
+    public float Height => hoverHeight;
     public bool tunePID = false;
     [SerializeField] private float gravity = 9.8f;
     protected new Rigidbody rigidbody;

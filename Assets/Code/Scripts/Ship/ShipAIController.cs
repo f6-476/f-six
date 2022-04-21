@@ -13,17 +13,43 @@ public class ShipAIController : Controller
     private float powerUpAngle = 15.0f;
     private float slowdownSpeed = 10.0f;
     private PowerUp nearbyPowerUp = null;
+    private float lastMoveTime = -1;
+    private float respawnVelocity = 2.0f;
+    private float respawnTime = 5.0f;
 
     private void Start()
     {
         UpdateManualPath();
         StartCoroutine(RandomIntervalPowerUp());
+        if (ship.IsMultiplayer) ship.Multiplayer.OnRespawn += OnRespawn;
     }
 
     public void Update()
     {
         UpdateNearbyPowerUp();
         UpdateMovement();
+        UpdateRespawn();
+    }
+
+    private void UpdateRespawn()
+    {
+        if (!ship.IsMultiplayer) return;
+        if (!RaceManager.Singleton.Started) return;
+        if (lastMoveTime < 0 || ship.Rigidbody.velocity.magnitude > respawnVelocity) 
+        {
+            lastMoveTime = Time.time;
+            return;
+        }
+        if (Time.time - lastMoveTime > respawnTime)
+        {
+            lastMoveTime = Time.time;
+            ship.Multiplayer.Respawn();
+        }
+    }
+
+    private void OnRespawn()
+    {
+        UpdatePathIndex();
     }
 
     private IEnumerator RandomIntervalPowerUp() 

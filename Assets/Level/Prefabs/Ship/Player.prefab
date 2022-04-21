@@ -81,19 +81,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b2294138e158c41a206554e354251b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4331068032602577033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4269636588733671277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5895e31349470542907be8e0e274a60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ship: {fileID: 1545868835764616174}
 --- !u!114 &1609297080755633354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,7 +175,19 @@ MonoBehaviour:
     m_ActionId: 21c5ecd2-f7a1-404e-a2d0-e59a97cc584f
     m_ActionName: Gameplay/Reverse[/Keyboard/s]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4331068032602577033}
+        m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
+        m_MethodName: GetRespawn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6ad5d121-11e8-4aa0-9e76-62d0af5641b5
     m_ActionName: Gameplay/Interact[/Keyboard/e]
   - m_PersistentCalls:
@@ -236,3 +235,16 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4331068032602577033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269636588733671277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5895e31349470542907be8e0e274a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ship: {fileID: 1545868835764616174}

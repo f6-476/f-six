@@ -5,6 +5,8 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Ship))]
 public class ShipMultiplayer : NetworkBehaviour 
 {
+    public System.Action OnRespawn;
+
     [SerializeField] private Ship ship;
     public new bool IsServer => base.IsServer;
     public LobbyPlayer Lobby { get; set; }
@@ -72,6 +74,33 @@ public class ShipMultiplayer : NetworkBehaviour
     private void UpdateTransformServerRpc(Vector3 position, Quaternion rotation) {
         this.position.Value = position;
         this.rotation.Value = rotation;
+    }
+
+    public void Respawn()
+    {
+        if (!IsOwner) return;
+        RespawnServerRpc();
+    }
+
+    [ServerRpc]
+    private void RespawnServerRpc()
+    {
+        if (!RaceManager.Singleton.Started) return;
+        Checkpoint checkpoint = RaceManager.Singleton.Checkpoints[ship.Race.CheckpointIndex];
+        Vector3 position = checkpoint.transform.position + Vector3.up * ship.Hover.Height;
+        RespawnClientRpc(position, checkpoint.transform.rotation);
+    }
+
+    [ClientRpc]
+    private void RespawnClientRpc(Vector3 position, Quaternion rotation)
+    {
+        if (!IsOwner) return;
+
+        transform.position = position;
+        transform.rotation = rotation;
+        ship.Rigidbody.velocity = Vector3.zero;
+
+        if (OnRespawn != null) OnRespawn();
     }
 
     private void UpdateTransform()
