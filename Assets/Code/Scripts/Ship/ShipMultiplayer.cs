@@ -17,7 +17,6 @@ public class ShipMultiplayer : NetworkBehaviour
     private NetworkVariable<int> rank = new NetworkVariable<int>(1);
     private NetworkVariable<int> powerUpIndex = new NetworkVariable<int>(0);
     private NetworkVariable<int> powerUpCount = new NetworkVariable<int>(0);
-    private NetworkVariable<bool> shipDisabled = new NetworkVariable<bool>(false);
     private NetworkVariable<bool> shipBoost = new NetworkVariable<bool>(false);
     private NetworkVariable<int> lapCount = new NetworkVariable<int>(0);
     private NetworkVariable<int> modelIndex = new NetworkVariable<int>(0);
@@ -62,7 +61,6 @@ public class ShipMultiplayer : NetworkBehaviour
     {
         AttachVariable(ship.PowerUp.Index, powerUpIndex);
         AttachVariable(ship.PowerUp.Count, powerUpCount);
-        AttachVariable(ship.PowerUp.Disabled, shipDisabled);
         AttachVariable(ship.PowerUp.Boost, shipBoost);
         AttachVariable(ship.Race.Rank, rank);
         AttachVariable(ship.Race.LapCount, lapCount);
@@ -94,7 +92,7 @@ public class ShipMultiplayer : NetworkBehaviour
 
     public void Respawn()
     {
-        if (!IsOwner) return;
+        if (!IsOwner && !IsServer) return;
         RespawnServerRpc();
     }
 

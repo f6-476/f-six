@@ -52,7 +52,7 @@ public class Ship : MonoBehaviour
 
     private void Update()
     {
-        this.Movement.enabled = (IsAI || !this.PowerUp.Disabled.Value) && (RaceManager.Singleton == null || RaceManager.Singleton.Started);
+        this.Movement.enabled = RaceManager.Singleton == null || RaceManager.Singleton.Started;
         if (this.Movement.enabled) this.Movement.Boost = this.PowerUp.Boost.Value;
     }
 }

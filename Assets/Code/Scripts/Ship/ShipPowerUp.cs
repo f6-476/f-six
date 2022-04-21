@@ -9,7 +9,6 @@ public class ShipPowerUp : MonoBehaviour
     [SerializeField] private Ship ship;
     public SyncVariable<int> Index = new SyncVariable<int>(0);
     public SyncVariable<int> Count = new SyncVariable<int>(0);
-    public SyncVariable<bool> Disabled = new SyncVariable<bool>(false);
     public SyncVariable<bool> Boost = new SyncVariable<bool>(false);
     public PowerUpConfig Config => (Count.Value > 0) ? RaceManager.Singleton.PowerUpConfigs[Index.Value] : null;
     public bool IsEmpty => Count.Value == 0;
@@ -57,17 +56,14 @@ public class ShipPowerUp : MonoBehaviour
         }
     }
 
-    public void DisableShip()
+    private void OnTriggerEnter(Collider other)
     {
         if (!ship.IsServer) return;
-        StartCoroutine(DisableShipAsync());
-    }
 
-    private IEnumerator DisableShipAsync()
-    {
-        Disabled.Value = true;
-        yield return new WaitForSeconds(DISABLE_DURATION);
-        Disabled.Value = false;
+        if (other.TryGetComponent<Missile>(out Missile missile))
+        {
+            if (missile.DestroySafe()) ship.Multiplayer.Respawn();
+        }
     }
 
     public void BoostShip()
