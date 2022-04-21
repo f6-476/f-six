@@ -138,9 +138,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae6f22a300b946e69216a306c040a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  automaticCheckpointCount: 50
-  checkpointPrefab: {fileID: 2024585305990434241, guid: 8211f5b9d3659be4aa7a630e0581b467, type: 3}
-  track: {fileID: 0}
+  powerUpConfigs:
+  - {fileID: 11400000, guid: 5ffe5121f1c127d18aefbcc79f51870f, type: 2}
+  - {fileID: 11400000, guid: a42a35513dd169cfbb05deb60cba1036, type: 2}
+  - {fileID: 11400000, guid: c8ec8b6f47488b421bd52ff2498664f4, type: 2}
 --- !u!114 &3727840628864145062
 MonoBehaviour:
   m_ObjectHideFlags: 0

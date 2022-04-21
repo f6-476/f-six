@@ -1,9 +1,10 @@
 using Unity.Netcode;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.Collections;
 
 [RequireComponent(typeof(Ship))]
-public class ShipMultiplayer : NetworkBehaviour 
+public class ShipMultiplayer : NetworkBehaviour
 {
     public System.Action OnRespawn;
 
@@ -11,41 +12,14 @@ public class ShipMultiplayer : NetworkBehaviour
     public new bool IsServer => base.IsServer;
     public LobbyPlayer Lobby { get; set; }
     private NetworkVariable<Vector3> position = new NetworkVariable<Vector3>(Vector3.zero);
+    private NetworkVariable<Vector3> velocity = new NetworkVariable<Vector3>(Vector3.zero);
     private NetworkVariable<Quaternion> rotation = new NetworkVariable<Quaternion>(Quaternion.identity);
     private NetworkVariable<int> rank = new NetworkVariable<int>(1);
-    public int Rank
-    {
-        get => rank.Value;
-        set
-        {
-            rank.Value = value;
-            if (Lobby) Lobby.Rank = value;
-        }
-    }
     private NetworkVariable<int> powerUpIndex = new NetworkVariable<int>(0);
-    public int PowerUpIndex
-    {
-        get => powerUpIndex.Value;
-        set => powerUpIndex.Value = value;
-    }
     private NetworkVariable<int> powerUpCount = new NetworkVariable<int>(0);
-    public int PowerUpCount
-    {
-        get => powerUpCount.Value;
-        set => powerUpCount.Value = value;
-    }
     private NetworkVariable<bool> shipDisabled = new NetworkVariable<bool>(false);
-    public bool ShipDisabled
-    {
-        get => shipDisabled.Value;
-        set => shipDisabled.Value = value;
-    }
+    private NetworkVariable<bool> shipBoost = new NetworkVariable<bool>(false);
     private NetworkVariable<int> lapCount = new NetworkVariable<int>(0);
-    public int LapCount
-    {
-        get => lapCount.Value;
-        set => lapCount.Value = value;
-    }
     public NetworkList<float> LapTimeList;
 
     private void Awake()
@@ -53,7 +27,7 @@ public class ShipMultiplayer : NetworkBehaviour
         LapTimeList = new NetworkList<float>();
     }
 
-    private void Start() 
+    private void Start()
     {
         if (NetworkManager.Singleton == null)
         {
@@ -68,12 +42,36 @@ public class ShipMultiplayer : NetworkBehaviour
             ship.Movement.enabled = false;
             ship.Hover.enabled = false;
         }
+
+        AttachVariables();
+    }
+
+    private void AttachVariable<T>(SyncVariable<T> syncVariable, NetworkVariable<T> networkVariable) where T : unmanaged
+    {
+        syncVariable.OnValueChanged += (T previous, T next) => { if (IsServer) networkVariable.Value = next; };
+        networkVariable.OnValueChanged += (T previous, T next) => syncVariable.Sync(next);
+    }
+
+    private void AttachVariables()
+    {
+        AttachVariable(ship.PowerUp.Index, powerUpIndex);
+        AttachVariable(ship.PowerUp.Count, powerUpCount);
+        AttachVariable(ship.PowerUp.Disabled, shipDisabled);
+        AttachVariable(ship.PowerUp.Boost, shipBoost);
+        AttachVariable(ship.Race.Rank, rank);
+        ship.Race.Rank.OnValueChanged += (int previous, int next) => { if (IsServer && Lobby != null) Lobby.Rank = next; };
+        AttachVariable(ship.Race.LapCount, lapCount);
+
+        position.OnValueChanged += (Vector3 previous, Vector3 next) => { if (!IsOwner) transform.position = next; };
+        rotation.OnValueChanged += (Quaternion previous, Quaternion next) => { if (!IsOwner) transform.rotation = next; };
     }
 
     [ServerRpc]
-    private void UpdateTransformServerRpc(Vector3 position, Quaternion rotation) {
+    private void UpdateTransformServerRpc(Vector3 position, Quaternion rotation, Vector3 velocity)
+    {
         this.position.Value = position;
         this.rotation.Value = rotation;
+        this.velocity.Value = velocity;
     }
 
     public void Respawn()
@@ -105,27 +103,26 @@ public class ShipMultiplayer : NetworkBehaviour
 
     private void UpdateTransform()
     {
-        if (IsOwner)
+        if (IsOwner) 
         {
-            UpdateTransformServerRpc(transform.position, transform.rotation);
+            UpdateTransformServerRpc(transform.position, transform.rotation, ship.Rigidbody.velocity);
         }
         else
         {
-            transform.position = position.Value;
-            transform.rotation = rotation.Value;
+            transform.position += velocity.Value * Time.deltaTime;
         }
-    }
-    
-    [ServerRpc]
-    public void ActivatePowerUpServerRpc()
-    {
-        if (PowerUpCount <= 0) return;
-        ship.PowerUp.Config.SpawnPrefab(ship);
-        PowerUpCount--;
     }
 
     private void Update()
     {
         UpdateTransform();
+    }
+
+    [ServerRpc]
+    public void ActivatePowerUpServerRpc()
+    {
+        if (powerUpCount.Value <= 0) return;
+        ship.PowerUp.Config.SpawnPrefab(ship);
+        powerUpCount.Value--;
     }
 }

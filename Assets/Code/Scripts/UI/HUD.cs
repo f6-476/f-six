@@ -60,8 +60,8 @@ public class HUD : MonoBehaviour
     {
         if (ship == null) return;
 
-        SetRankText(ship.Race.Rank);
-        SetLapText(ship.Race.LapCount + 1);
+        SetRankText(ship.Race.Rank.Value);
+        SetLapText(ship.Race.LapCount.Value + 1);
         SetLapTimeText(ship.Race.GetLapDifference());
         SetSpeedText((int)ship.Rigidbody.velocity.magnitude);
 
@@ -71,7 +71,7 @@ public class HUD : MonoBehaviour
         if (config != null)
         {
             active = true;
-            fill = (float)ship.PowerUp.Count / (float)config.count;
+            fill = (float)ship.PowerUp.Count.Value / (float)config.count;
             SetPowerUpIcon(config.icon);
             SetColor(config.color);
         }

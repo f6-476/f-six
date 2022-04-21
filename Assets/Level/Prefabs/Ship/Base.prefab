@@ -127,6 +127,7 @@ MonoBehaviour:
   thrustMultiplier: 1
   reverseMultiplier: 1
   rotationMultiplier: 1
+  boostMultiplayer: 1.5
 --- !u!114 &570842895667619108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,9 +212,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 7783347032511866589}
-  configs:
-  - {fileID: 11400000, guid: 5ffe5121f1c127d18aefbcc79f51870f, type: 2}
-  - {fileID: 11400000, guid: a42a35513dd169cfbb05deb60cba1036, type: 2}
 --- !u!114 &8924762498932630344
 MonoBehaviour:
   m_ObjectHideFlags: 0

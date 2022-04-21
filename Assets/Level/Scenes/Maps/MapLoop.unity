@@ -2160,6 +2160,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8196653405157197382, guid: b906400d36c88d22cb73f48a4e264045, type: 3}
   m_PrefabInstance: {fileID: 133499300}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &134231220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 134231221}
+  m_Layer: 0
+  m_Name: From
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &134231221
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134231220}
+  m_LocalRotation: {x: 0.3066124, y: -0.1681204, z: 0.055176005, w: 0.93524325}
+  m_LocalPosition: {x: 53.20898, y: 107.74792, z: 2.1228888}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1314362397}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &135233113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6469,6 +6499,7 @@ Transform:
   m_Children:
   - {fileID: 436894597}
   - {fileID: 1730123160}
+  - {fileID: 1314362397}
   m_Father: {fileID: 1418410855}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9181,6 +9212,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8196653405157197382, guid: b906400d36c88d22cb73f48a4e264045, type: 3}
   m_PrefabInstance: {fileID: 683622804}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &692558955
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 692558956}
+  m_Layer: 0
+  m_Name: To
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &692558956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692558955}
+  m_LocalRotation: {x: 0.11745067, y: 0.79596704, z: -0.16363528, w: 0.57084614}
+  m_LocalPosition: {x: -89.6765, y: 65.21713, z: 147.90106}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1314362397}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &703695516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15884,6 +15945,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8196653405157197382, guid: b906400d36c88d22cb73f48a4e264045, type: 3}
   m_PrefabInstance: {fileID: 1313702149}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1314362396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1314362397}
+  - component: {fileID: 1314362398}
+  m_Layer: 0
+  m_Name: Segment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1314362397
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314362396}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 134231221}
+  - {fileID: 692558956}
+  m_Father: {fileID: 509055745}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1314362398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314362396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6072d9f59eb4765c78f4dc3c6eaf2b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  from: {fileID: 134231221}
+  to: {fileID: 692558956}
+  duration: 3
 --- !u!1001 &1326547390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16992,6 +17101,7 @@ MonoBehaviour:
   segments:
   - {fileID: 436894598}
   - {fileID: 1730123161}
+  - {fileID: 1314362398}
   fade: {fileID: 1869482620}
 --- !u!1001 &1425294077
 PrefabInstance:
