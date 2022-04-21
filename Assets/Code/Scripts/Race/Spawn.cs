@@ -5,5 +5,12 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
-    public int index;
+    public int Index => transform.GetSiblingIndex();
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(transform.position, 1.0f);
+        Gizmos.DrawRay(transform.position, transform.forward * 3.0f);
+    }
 }

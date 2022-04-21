@@ -111,6 +111,7 @@ MonoBehaviour:
   aiPrefab: {fileID: 4049409439090784400, guid: 248938dd72bd4186dbfceedfa767552e, type: 3}
   mapConfigs:
   - {fileID: 11400000, guid: d090cd7de0abc3e329cc1d61e1077cda, type: 2}
+  - {fileID: 11400000, guid: 6dab8b556ce8b43e3a70f510ac986028, type: 2}
   LocalPlayer: {fileID: 0}
 --- !u!114 &2758036542650745836
 MonoBehaviour:

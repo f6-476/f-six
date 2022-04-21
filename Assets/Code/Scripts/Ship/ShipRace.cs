@@ -66,7 +66,7 @@ public class ShipRace : MonoBehaviour
 
         if (other.TryGetComponent(out Checkpoint checkpoint))
         {
-            if (checkpoint.index == 0 && checkpointIndex == RaceManager.Singleton.LastCheckpointIndex)
+            if (checkpoint.Index == 0 && checkpointIndex == RaceManager.Singleton.LastCheckpointIndex)
             {
                 LapCount++;
                 checkpointIndex = 0;
@@ -74,9 +74,9 @@ public class ShipRace : MonoBehaviour
                 if (ship.IsMultiplayer) ship.Multiplayer.LapTimeList.Add(RaceManager.Singleton.GameTime);
                 else lapTimeList.Add(RaceManager.Singleton.GameTime);
             } 
-            else if (checkpointIndex + 1 == checkpoint.index)
+            else if (checkpointIndex + 1 == checkpoint.Index)
             {
-                checkpointIndex = checkpoint.index;
+                checkpointIndex = checkpoint.Index;
             }
 
             if(OnCheckpoint != null) OnCheckpoint(ship);

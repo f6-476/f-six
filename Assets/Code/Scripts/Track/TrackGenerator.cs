@@ -32,16 +32,15 @@ public class TrackGenerator : MonoBehaviour
     private void OnValidate()
     {
         vertices = GenerateVertices();
-        
-        if(drawInEditor) 
-        {
-            mesh = new Mesh();
-            mesh.name = "Segment";
-            GenerateMesh();
-            GetComponent<MeshFilter>().sharedMesh = mesh;
-            GetComponent<MeshCollider>().sharedMesh = mesh;
-        }
-        
+
+        // if(drawInEditor) 
+        // {
+        //     mesh = new Mesh();
+        //     mesh.name = "Segment";
+        //     GenerateMesh();
+        //     GetComponent<MeshFilter>().sharedMesh = mesh;
+        //     GetComponent<MeshCollider>().sharedMesh = mesh;
+        // }
     }
     
     public void GenerateMesh()

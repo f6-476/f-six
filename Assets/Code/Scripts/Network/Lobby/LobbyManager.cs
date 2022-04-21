@@ -14,18 +14,14 @@ public class LobbyManager : AbstractManager<LobbyManager>
     [SerializeField] private GameObject aiPrefab;
     [SerializeField] private MapConfig[] mapConfigs;
     private int maxPlayers = 8;
-    private int mapIndex = 0;
-    private int aiCount = 0;
-    public MapConfig MapConfig => mapConfigs[mapIndex];
-
-    public LobbyPlayer LocalPlayer;
-
+    public int MapIndex { get; set; }
+    public MapConfig MapConfig => mapConfigs[MapIndex];
+    [HideInInspector] public LobbyPlayer LocalPlayer;
     public HashSet<LobbyPlayer> Players { get; set; }
     private Dictionary<ulong, ClientMode> clientIdModeDictionary;
 
     private void Reset()
     {
-        aiCount = 0;
         Players = new HashSet<LobbyPlayer>();
         clientIdModeDictionary = new Dictionary<ulong, ClientMode>();
     }
@@ -79,7 +75,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
         foreach (GameObject spawnObject in spawnObjects)
         {
             Spawn spawn = spawnObject.GetComponent<Spawn>();
-            spawns[spawn.index] = spawn;
+            spawns[spawn.Index] = spawn;
         }
 
         return spawns;
@@ -255,5 +251,20 @@ public class LobbyManager : AbstractManager<LobbyManager>
     public void OnPlayerUpdate(LobbyPlayer updatedPlayer)
     {
         LoadMapIfReady();
+    }
+
+    public int NextMap()
+    {
+        MapIndex = (MapIndex + 1) % mapConfigs.Length;
+
+        return MapIndex;
+    }
+
+    public int PreviousMap()
+    {
+        if (MapIndex == 0) MapIndex = mapConfigs.Length - 1;
+        else MapIndex -= 1;
+
+        return MapIndex;
     }
 }
