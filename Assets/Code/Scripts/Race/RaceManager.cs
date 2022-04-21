@@ -59,7 +59,7 @@ public class RaceManager : AbstractManager<RaceManager>
     {
         if (scene.name.StartsWith("Lobby"))
         {
-            started = false;
+            Reset();
         }
         else if (scene.name.StartsWith("Map"))
         {

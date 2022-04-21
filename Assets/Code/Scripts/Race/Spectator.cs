@@ -57,8 +57,11 @@ public class Spectator : NetworkBehaviour
         else
         {
             Ship ship = RaceManager.Singleton.Ships[selectedIndex - 1];
-            target = ship.transform;
-            if (OnSelect != null) OnSelect(ship);
+            if (ship != null)
+            {
+                target = ship.transform;
+                if (OnSelect != null) OnSelect(ship);
+            }
         }
     }
 
