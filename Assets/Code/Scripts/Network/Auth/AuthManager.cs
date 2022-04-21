@@ -24,6 +24,13 @@ public class AuthManager : AbstractManager<AuthManager>
         set => twitchChannel = value;
     }
 
+    private string discordChannel = "";
+    public string DiscordChannel
+    {
+        get => discordChannel;
+        set => discordChannel = value;
+    }
+
     private static readonly string[] ADJECTIVES = new string[]{
         "crazy",
         "speedy",

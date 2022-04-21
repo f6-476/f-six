@@ -4,12 +4,7 @@ using System;
 
 public class IntegrationManager : AbstractManager<IntegrationManager>
 {
-    private bool isConnected = false;
-    private static readonly Integration[] INTEGRATIONS = new Integration[]
-    {
-        new TwitchIntegration(),
-        new TestIntegration()
-    };
+    [SerializeField] private Integration[] integrations;
 
     public struct CommandHandler
     {
@@ -45,25 +40,13 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
         RaceManager.OnRaceOver += OnRaceOver;
     }
 
-    private void Update()
-    {
-        if (!isConnected) return;
-
-        foreach (Integration integration in INTEGRATIONS)
-        {
-            integration.Update();
-        }
-    }
-
     public void Connect()
     {
-        isConnected = true;
-
         Integration.OnConnected += OnConnected;
         Integration.OnDisconnected += OnDisconnected;
         Integration.OnCommand += OnCommand;
 
-        foreach (Integration integration in INTEGRATIONS)
+        foreach (Integration integration in integrations)
         {
             integration.Connect();
         }
@@ -71,15 +54,13 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     public void Disconnect()
     {
-        isConnected = false;
-
         Integration.OnConnected -= OnConnected;
         Integration.OnDisconnected -= OnDisconnected;
         Integration.OnCommand -= OnCommand;
 
         SendMessageAll("Game is over. Goodbye!");
 
-        foreach (Integration integration in INTEGRATIONS)
+        foreach (Integration integration in integrations)
         {
             integration.Disconnect();
         }
@@ -107,7 +88,7 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     public void SendMessageAll(string message)
     {
-        foreach (Integration integration in INTEGRATIONS)
+        foreach (Integration integration in integrations)
         {
             integration.SendMessage(message);
         }
@@ -309,7 +290,6 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
             foreach(MapConfig map in maps)
             {
                 mapHandles.Add(map.displayName.ToLower().Replace(" ", "-"));
-                Debug.Log(map.displayName.ToLower().Replace(" ", "-"));
             }
 
             return $"Available maps: {String.Join(", ", mapHandles)}."; 
@@ -503,8 +483,6 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     private void OnRaceOver()
     {
-        Debug.Log("Race Over!");
-
         bank.DepositAll(100);
 
         (Dictionary<string, int> results, string nextMapHandle) = voting.GetResults();
@@ -534,8 +512,6 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     public void OnRaceBegin()
     {
-        Debug.Log("Race Begins!");
-
         house.Lock = false;
 
         SendMessageAll("Race Begins! Bets are unlocked!");
@@ -543,8 +519,6 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     public void OnNewLap(int lap)
     {
-        Debug.Log("New Lap!");
-
         if (lap >= 2 && !house.Lock)
         {
             house.Lock = true;
@@ -555,8 +529,6 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
     public void OnRaceWon(string username)
     {
-        Debug.Log($"Race Won by {username}!");
-
         house.ResolveBets(username, bank);
 
         SendMessageAll($"Race Won by {username}!");

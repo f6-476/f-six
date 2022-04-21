@@ -13,6 +13,9 @@ public class HostPopup : UIPopup
 
     [SerializeField]
     private UIField twitchField;
+    
+    [SerializeField]
+    private UIField discordField;
 
     [SerializeField]
     private Button hostButton;
@@ -25,7 +28,10 @@ public class HostPopup : UIPopup
         if (AuthManager.Singleton != null)
         {
             twitchField.text = AuthManager.Singleton.TwitchChannel;
-            twitchField.GetComponentInChildren<InputField>().onValueChanged.AddListener(UpdateTwitchSetting); 
+            twitchField.GetComponentInChildren<InputField>().onValueChanged.AddListener(UpdateTwitchSetting);
+
+            discordField.text = AuthManager.Singleton.DiscordChannel;
+            discordField.GetComponentInChildren<InputField>().onValueChanged.AddListener(UpdateDiscordSetting);
         }
 
         SetButtons(true);
@@ -37,21 +43,21 @@ public class HostPopup : UIPopup
         spectateButton.gameObject.SetActive(!isHost);
     }
 
-    void UpdateTwitchSetting(string channel)
+    private void UpdateCommon()
+    {
+        SetButtons(AuthManager.Singleton.TwitchChannel.Length == 0 && AuthManager.Singleton.DiscordChannel.Length == 0);
+    }
+
+    private void UpdateTwitchSetting(string channel)
     {
         AuthManager.Singleton.TwitchChannel = channel;
-        SetButtons(channel.Length == 0);
+        UpdateCommon();
+    }
 
-        if (channel.Length > 0)
-        {
-            hostButton.interactable = false;
-            spectateButton.interactable = true;
-        }
-        else
-        {
-            hostButton.interactable = true;
-            spectateButton.interactable = false;
-        }
+    private void UpdateDiscordSetting(string channel)
+    {
+        AuthManager.Singleton.DiscordChannel = channel;
+        UpdateCommon();
     }
 
     public override void Show()

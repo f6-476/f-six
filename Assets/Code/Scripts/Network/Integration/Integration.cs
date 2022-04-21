@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public abstract class Integration
+public abstract class Integration : MonoBehaviour
 {
     public struct OnConnectedArgs
     {
@@ -26,8 +26,7 @@ public abstract class Integration
 
     public abstract void Connect();
     public abstract void Disconnect();
-    public virtual void Update() {}
-    public abstract void SendMessage(string message);
+    public abstract new void SendMessage(string message);
     public abstract void SendReply(string messageId, string message);
 
     public static Action<OnConnectedArgs> OnConnected;

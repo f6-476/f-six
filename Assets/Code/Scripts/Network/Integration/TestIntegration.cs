@@ -28,7 +28,7 @@ public class TestIntegration : Integration
         });
     }
 
-    public override void Update()
+    private void IntervalHelpCommand()
     {
         if (Time.time - lastCommandTime > 10.0f)
         {

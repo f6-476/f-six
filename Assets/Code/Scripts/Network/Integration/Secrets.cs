@@ -9,4 +9,9 @@ public static class Secrets
         public const string BOT_REFRESH_TOKEN = "qh8ntqnjaqtfehk67voe1gi1pfapze88zqhend8ct2qzluhgm2";
         public const string BOT_CLIENT_ID = "gp762nuuoqcoxypju8c569th9wz7q5";
     }
+
+    public static class Discord
+    {
+        public const string BOT_TOKEN = "OTY2NjQ5NTMxNjgyOTQ3MDg1.YmE0hw.voG55LvX7nEOagF8ZOsttc0DdK4";
+    }
 }
