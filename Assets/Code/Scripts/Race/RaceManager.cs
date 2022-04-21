@@ -9,6 +9,8 @@ public class RaceManager : AbstractManager<RaceManager>
 {
     [SerializeField] private PowerUpConfig[] powerUpConfigs;
     public PowerUpConfig[] PowerUpConfigs => powerUpConfigs;
+    [SerializeField] private ShipConfig[] shipConfigs;
+    public ShipConfig[] ShipConfigs => shipConfigs;
 
     private List<Ship> ships = new List<Ship>();
     public List<Ship> Ships => ships;

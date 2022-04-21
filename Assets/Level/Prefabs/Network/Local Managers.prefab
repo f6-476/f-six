@@ -113,7 +113,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d090cd7de0abc3e329cc1d61e1077cda, type: 2}
   - {fileID: 11400000, guid: 6dab8b556ce8b43e3a70f510ac986028, type: 2}
   - {fileID: 11400000, guid: 1d89d5c8609f628ccb8b463b7d179d3d, type: 2}
-  LocalPlayer: {fileID: 0}
 --- !u!114 &2758036542650745836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +142,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5ffe5121f1c127d18aefbcc79f51870f, type: 2}
   - {fileID: 11400000, guid: a42a35513dd169cfbb05deb60cba1036, type: 2}
   - {fileID: 11400000, guid: c8ec8b6f47488b421bd52ff2498664f4, type: 2}
+  shipConfigs:
+  - {fileID: 11400000, guid: ea071295920e7c28e9d014f9898d481e, type: 2}
+  - {fileID: 11400000, guid: 7a08596c13f8c80b88a2db1e7211d61e, type: 2}
+  - {fileID: 11400000, guid: 144912888c19912c8b36f90468c030b6, type: 2}
 --- !u!114 &3727840628864145062
 MonoBehaviour:
   m_ObjectHideFlags: 0

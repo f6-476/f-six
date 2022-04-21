@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : AbstractManager<LobbyManager>
 {
-    [SerializeField] private GameObject lobbyPlayerPrefab;
+    public System.Action<LobbyPlayer> OnLocal;
 
+    [SerializeField] private GameObject lobbyPlayerPrefab;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject spectatorPrefab;
     [SerializeField] private GameObject aiPrefab;
@@ -17,7 +18,16 @@ public class LobbyManager : AbstractManager<LobbyManager>
     public int MaxPlayers => maxPlayers;
     public int MapIndex { get; set; }
     public MapConfig MapConfig => mapConfigs[MapIndex];
-    [HideInInspector] public LobbyPlayer LocalPlayer;
+    private LobbyPlayer localPlayer;
+    public LobbyPlayer LocalPlayer 
+    { 
+        get => localPlayer;
+        set 
+        {
+            localPlayer = value;
+            if (OnLocal != null) OnLocal(localPlayer);
+        }
+    }
     public HashSet<LobbyPlayer> Players { get; set; }
     private Dictionary<ulong, ClientMode> clientIdModeDictionary;
 

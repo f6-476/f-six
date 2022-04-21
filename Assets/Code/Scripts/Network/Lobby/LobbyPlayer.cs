@@ -36,6 +36,13 @@ public class LobbyPlayer : NetworkBehaviour
         set => clientMode.Value = value;
     }
 
+    public NetworkVariable<int> modelIndex = new NetworkVariable<int>(0);
+    public int ModelIndex
+    {
+        get => modelIndex.Value;
+        set => modelIndex.Value = value;
+    }
+
     private void Start()
     {
         if (!LobbyManager.Singleton.Players.Contains(this))

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Countdown : MonoBehaviour
 {
     [SerializeField] public Text number;
+    [SerializeField] public AudioSource audioSource;
     public float duration = 3.0f;
     public int startNumber = 3;
 
@@ -15,6 +16,7 @@ public class Countdown : MonoBehaviour
 
     public void StartCountdown()
     {
+        audioSource.Play();
         StartCoroutine(StartCountdownAsync());
     }
 

@@ -25,7 +25,7 @@ public class LobbyMenu : MonoBehaviour
             return;
         }
 
-        string[] playerRanking = new string[LobbyManager.Singleton.Players.Count];
+        string[] playerRanking = new string[LobbyManager.Singleton.MaxPlayers];
         foreach (LobbyPlayer player in LobbyManager.Singleton.Players)
         {
             switch (player.ClientMode)
@@ -49,6 +49,19 @@ public class LobbyMenu : MonoBehaviour
     public void Back()
     {
         LobbyManager.Singleton.Disconnect();
+    }
+
+    public void NextShip()
+    {
+        if (LobbyManager.Singleton.LocalPlayer == null) return;
+        LobbyManager.Singleton.LocalPlayer.ModelIndex = (LobbyManager.Singleton.LocalPlayer.ModelIndex + 1) % RaceManager.Singleton.ShipConfigs.Length; 
+    }
+
+    public void PreviousShip()
+    {
+        if (LobbyManager.Singleton.LocalPlayer == null) return;
+        if (LobbyManager.Singleton.LocalPlayer.ModelIndex == 0) LobbyManager.Singleton.LocalPlayer.ModelIndex = RaceManager.Singleton.ShipConfigs.Length - 1;
+        else LobbyManager.Singleton.LocalPlayer.ModelIndex -= 1;
     }
 
     private void Update()
