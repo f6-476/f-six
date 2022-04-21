@@ -56,8 +56,6 @@ public class HUD : MonoBehaviour
 
     private void UpdateUsername(FixedString64Bytes previous, FixedString64Bytes next)
     {
-        if (previous.Equals(next)) return;
-
         switch (LobbyManager.Singleton.LocalPlayer.ClientMode)
         {
             case ClientMode.PLAYER:
