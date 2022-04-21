@@ -34,6 +34,8 @@ public class ShipRace : MonoBehaviour
         }
     }
 
+    public static Action<int> OnLapFinish;
+
     /// Gets the time difference between the previous lap and the best lap.
     public float GetLapDifference()
     {
@@ -69,6 +71,9 @@ public class ShipRace : MonoBehaviour
             if (checkpoint.Index == 0 && checkpointIndex == RaceManager.Singleton.LastCheckpointIndex)
             {
                 LapCount++;
+                
+                OnLapFinish(LapCount);
+
                 checkpointIndex = 0;
 
                 if (ship.IsMultiplayer) ship.Multiplayer.LapTimeList.Add(RaceManager.Singleton.GameTime);

@@ -107,7 +107,11 @@ public class TwitchIntegration : Integration
 
             if (bank.Withdraw(command.ChatMessage.Username, stake))
             {
-                house.RegisterBet(command.ChatMessage.Username, outcome, stake);
+                if (!house.RegisterBet(command.ChatMessage.Username, outcome, stake))
+                {
+                    bank.Deposit(command.ChatMessage.Username, stake);
+                    return $"Bets are currently locked. Wait for a new race to start, or for this one to finish.";
+                }
 
                 return $"Bet registered successfully.";
             }
@@ -172,7 +176,17 @@ public class TwitchIntegration : Integration
         key = "maps",
         instructions = "!maps - lists available maps.",
         respond = (ChatCommand command) => {
-            return "Available maps: rusty-giant, space-donut. TODO: Hook this up with actual maps."; 
+            MapConfig[] maps = LobbyManager.Singleton.GetMaps();
+
+            List<String> mapHandles = new List<string>();
+
+            foreach(MapConfig map in maps)
+            {
+                mapHandles.Add(map.displayName.ToLower().Replace(" ", "-"));
+                Debug.Log(map.displayName.ToLower().Replace(" ", "-"));
+            }
+
+            return $"Available maps: {String.Join(", ", mapHandles)}."; 
         }
     };
 
@@ -185,11 +199,33 @@ public class TwitchIntegration : Integration
                 return $"Argument missing. Use !help <command> in doubt.";
             }
 
-            string map = command.ArgumentsAsList[0];
+            string mapArgument = command.ArgumentsAsList[0];
 
-            if (!voting.RegisterVote(command.ChatMessage.Username, map)) {
-                return $"Invalid map name. Use !maps to list available maps.";
+            List<String> mapHandles = new List<string>();
+
+            MapConfig[] maps = LobbyManager.Singleton.GetMaps();
+            
+            bool mapExists = false;
+
+            string handle = "";
+
+            foreach(MapConfig map in maps)
+            {
+                handle = map.displayName.ToLower().Replace(" ", "-");
+
+                if (handle == mapArgument)
+                {
+                    mapExists = true;
+                    break;
+                }
             }
+
+            if (!mapExists)
+            {
+                return $"Invalid map name {mapArgument}. Use !maps to list available maps.";
+            }
+
+            voting.RegisterVote(command.ChatMessage.Username, handle);
 
             return $"Vote registered successfully.";
         }
@@ -224,6 +260,16 @@ public class TwitchIntegration : Integration
             _bank[username] += amount;
         }
 
+        public void DepositAll(uint amount)
+        {
+            var keys = new List<string>(_bank.Keys);
+
+            foreach(var key in keys)
+            {
+                _bank[key] += amount;
+            }
+        }
+
         public bool Withdraw(string username, uint amount)
         {
             uint balance = GetBalance(username);
@@ -247,15 +293,24 @@ public class TwitchIntegration : Integration
             private set => _minimum = value;
         }
 
+        public bool Lock {get; set;}
+
         public BettingHouse(uint minimum)
         {
             _bets = new List<(string, string, uint)>();
             Minimum = minimum;
         }
 
-        public void RegisterBet(string username, string outcome, uint stake)
+        public bool RegisterBet(string username, string outcome, uint stake)
         {
+            if (Lock)
+            {
+                return false;
+            }
+
             _bets.Add((username, outcome, stake));
+
+            return true;
         }
 
         public void ResolveBets(string victor, Bank bank)
@@ -281,20 +336,12 @@ public class TwitchIntegration : Integration
             _votes = new Dictionary<string, string>();
         }
 
-        public bool RegisterVote(string username, string map)
+        public void RegisterVote(string username, string map)
         {
-            // Validate map-name
-            if (!(map == "rusty-giant" || map == "space-donut"))
-            {
-                return false;
-            }
-
             _votes[username] = map;
-
-            return true;
         }
 
-        public (Dictionary<string, int>, string) GetResult()
+        public (Dictionary<string, int>, string) GetResults()
         {
             Dictionary<string, int> results = new Dictionary<string, int>();
 
@@ -331,6 +378,8 @@ public class TwitchIntegration : Integration
     {
         bank = new Bank();
         house = new BettingHouse(50);
+        house.Lock = true;
+
         voting = new MapVoting();
 
         commands = new Dictionary<string, CommandHandler>();
@@ -356,6 +405,11 @@ public class TwitchIntegration : Integration
         client.OnMessageReceived += OnMessageReceived;
         client.OnChatCommandReceived += OnChatCommandReceived;
         client.OnConnected += OnConnected;
+
+        RaceManager.OnRaceBegin += OnRaceBegin;
+        RaceManager.OnNewLap += OnNewLap;
+        RaceManager.OnRaceWon += OnRaceWon;
+        RaceManager.OnRaceOver += OnRaceOver;
 
         client.Connect();
     }
@@ -403,7 +457,65 @@ public class TwitchIntegration : Integration
     private void OnConnected(object sender, TwitchLib.Client.Events.OnConnectedArgs e)
     {
         Debug.Log($"OnConnected: {e}");
+    }
 
-        // client.JoinChannel("antoinepaulinb7");
+    public void OnRaceBegin()
+    {
+        Debug.Log("Race Begins!");
+
+        house.Lock = false;
+
+        client.SendMessage(channel, "Race Begins! Bets are unlocked!");
+    }
+
+    public void OnNewLap(int lap)
+    {
+        Debug.Log("New Lap!");
+
+        if (lap >= 2 && !house.Lock)
+        {
+            house.Lock = true;
+            client.SendMessage(channel, "Bets are now locked.");
+        }
+    }
+
+    public void OnRaceWon(string username)
+    {
+        Debug.Log($"Race Won by {username}!");
+
+        house.ResolveBets(username, bank);
+
+        client.SendMessage(channel, $"Race Won by {username}!");
+    }
+
+    public void OnRaceOver()
+    {
+        Debug.Log("Race Over!");
+
+        bank.DepositAll(100);
+
+        (Dictionary<string, int> results, string nextMapHandle) = voting.GetResults();
+
+        if (results.Count > 0)
+        {
+            client.SendMessage(channel, $"Race Over! The next map is {nextMapHandle}, with {results[nextMapHandle]} vote(s).");
+
+            MapConfig[] maps = LobbyManager.Singleton.GetMaps();
+            int i = 0;
+
+            foreach(MapConfig map in maps)
+            {
+                if (nextMapHandle == map.displayName.ToLower().Replace(" ", "-"))
+                {
+                    LobbyManager.Singleton.MapIndex = i;
+                }
+                
+                i++;
+            }
+        }
+        else
+        {
+            client.SendMessage(channel, $"Race Over!");
+        }
     }
 }
