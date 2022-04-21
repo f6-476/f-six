@@ -129,7 +129,7 @@ public class ServerManager : AbstractManager<ServerManager>
         HostLobby(new Config
         {
             name = "Unlisted",
-            host = "127.0.0.1",
+            host = "0.0.0.0",
             port = 7777,
             password = password
         }, clientMode);
