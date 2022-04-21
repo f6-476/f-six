@@ -4,16 +4,8 @@ using UnityEngine;
 
 public class RankingPopup : UIPopup
 {
-    GameObject namesContainer;
-
-
-    [SerializeField]
-    private GameObject entryPrefab;
-    
-    void Awake()
-    {
-        namesContainer = gameObject.transform.Find("Names Container").gameObject;
-    }
+    [SerializeField] GameObject namesContainer;
+    [SerializeField] private GameObject entryPrefab;
 
     public void SetPlayers(List<string> players)
     {

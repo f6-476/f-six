@@ -14,6 +14,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
     [SerializeField] private GameObject aiPrefab;
     [SerializeField] private MapConfig[] mapConfigs;
     private int maxPlayers = 8;
+    public int MaxPlayers => maxPlayers;
     public int MapIndex { get; set; }
     public MapConfig MapConfig => mapConfigs[MapIndex];
     [HideInInspector] public LobbyPlayer LocalPlayer;
