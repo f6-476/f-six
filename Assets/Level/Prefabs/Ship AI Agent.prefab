@@ -412,7 +412,6 @@ GameObject:
   - component: {fileID: 3317581294562083416}
   - component: {fileID: 940504599400041749}
   - component: {fileID: 8905406261744842930}
-  - component: {fileID: 3317581294562083422}
   - component: {fileID: 2016791849586159485}
   - component: {fileID: 3317581294562083417}
   - component: {fileID: 3317581294562083419}
@@ -420,6 +419,8 @@ GameObject:
   - component: {fileID: 3317581294562083415}
   - component: {fileID: 690489079}
   - component: {fileID: 690489096}
+  - component: {fileID: 499705854700065451}
+  - component: {fileID: 4946468072498123267}
   m_Layer: 0
   m_Name: Ship AI Agent
   m_TagString: Player
@@ -461,7 +462,7 @@ MonoBehaviour:
   _controller: {fileID: -4102622506259103510}
   _movement: {fileID: 1848271417}
   _hover: {fileID: 3317581294562083416}
-  _audio: {fileID: 3317581294562083422}
+  _audio: {fileID: 4946468072498123267}
   _rigidbody: {fileID: 3317581294562083415}
   _race: {fileID: 940504599400041749}
   _powerup: {fileID: 2016791849586159485}
@@ -579,6 +580,7 @@ MonoBehaviour:
   d: 3
   alignSpeed: 100
   turnSpeed: 50
+  raySpread: {x: 1.2, y: 1.2}
 --- !u!114 &940504599400041749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,52 +611,6 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &3317581294562083422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3317581294562083414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 399e61a19910be54389b642257a5dd3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pitchCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.9
-      value: 0.6
-      inSlope: 1.5893644
-      outSlope: 1.5893644
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.040768705
-      outWeight: 0.24315888
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _audioSource: {fileID: 3317581294562083423}
 --- !u!114 &2016791849586159485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -942,6 +898,41 @@ MonoBehaviour:
   NumStepsToRecord: 0
   DemonstrationName: ShipAgentDemo
   DemonstrationDirectory: Demos
+--- !u!114 &499705854700065451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317581294562083414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+--- !u!114 &4946468072498123267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317581294562083414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 399e61a19910be54389b642257a5dd3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _audioSource: {fileID: 3317581294562083423}
 --- !u!1 &3317581295477237567
 GameObject:
   m_ObjectHideFlags: 0

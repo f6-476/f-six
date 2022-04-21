@@ -20,6 +20,7 @@ public class Hover : MonoBehaviour
     private float maxCorrectionForce;
     public float alignSpeed = 100f;
     public float turnSpeed = 50f;
+    public Vector2 raySpread = Vector2.one;
 
     protected virtual void Awake()
     {
@@ -99,7 +100,7 @@ public class Hover : MonoBehaviour
         (int, int)[] deltas = new (int, int)[]{(1, 1), (1, -1), (-1, 1), (-1, -1)};
         foreach (var (dx, dy) in deltas)
         {
-            Vector3 direction = -transform.up + transform.forward * dx + transform.right * dy;
+            Vector3 direction = -transform.up + transform.forward * (dx * raySpread.x) + transform.right * (dy * raySpread.y);
             if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 10, trackLayer))
             {
                 hits.Add(hit);

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Ship))]
-public class ShipAIController : Controller
+public class ShipAIAgentController : Controller
 {
     private void Update()
     {

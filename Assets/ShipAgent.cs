@@ -7,10 +7,10 @@ using Unity.MLAgents.Sensors;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(ShipAIController))]
+[RequireComponent(typeof(ShipAIAgentController))]
 public class ShipAgent : Agent
 {
-   private ShipAIController controller;
+   private ShipAIAgentController agentAgentController;
    private Ship _ship;
    private Vector3 startPosition;
    private Quaternion startRotation;
@@ -21,7 +21,7 @@ public class ShipAgent : Agent
 
    public void Awake()
    {
-      controller = GetComponent<ShipAIController>();
+      agentAgentController = GetComponent<ShipAIAgentController>();
       _ship = GetComponent<Ship>();
       startPosition = transform.position;
       startRotation = transform.rotation;
@@ -42,15 +42,10 @@ public class ShipAgent : Agent
 
    public override void OnActionReceived(ActionBuffers actions)
    {
-<<<<<<< Updated upstream
-      controller.SetThrust(actions.DiscreteActions[0]);
-      controller.SetReverse(actions.DiscreteActions[1]);
-      
-      controller.SetRudder(actions.ContinuousActions[0]);
-=======
-      agentController.SetThrust(actions.DiscreteActions[0]);
-      agentController.SetReverse(actions.DiscreteActions[1]);
-      agentController.SetRudder(actions.ContinuousActions[0]);
+
+      agentAgentController.SetThrust(actions.DiscreteActions[0]);
+      agentAgentController.SetReverse(actions.DiscreteActions[1]);
+      agentAgentController.SetRudder(actions.ContinuousActions[0]);
       
       AddReward(-0.02f);
       // not moving bad
@@ -59,13 +54,12 @@ public class ShipAgent : Agent
       {
          var checkpoint = _ship.Race.GetNextCheckpoint();
          //facing right direction good
-         if (Vector3.Dot(_ship.Rigidbody.velocity.normalized, checkpoint.transform.forward ) > 0.7f)
+         if (Vector3.Dot(_ship.Rigidbody.velocity.normalized, checkpoint.transform.forward ) > 0.9f)
          {
             if (_ship.Movement.VelocityPercent < 0.7f) AddReward(0.02f); // moving good
             else AddReward(0.01f);
          }
       }
->>>>>>> Stashed changes
    }
 
    public override void CollectObservations(VectorSensor sensor)
