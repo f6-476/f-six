@@ -419,7 +419,6 @@ GameObject:
   - component: {fileID: 3317581294562083415}
   - component: {fileID: 690489079}
   - component: {fileID: 690489096}
-  - component: {fileID: 499705854700065451}
   - component: {fileID: 4946468072498123267}
   m_Layer: 0
   m_Name: Ship AI Agent
@@ -517,9 +516,9 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: bf36561505d95d6449574a675d66adf5, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 0c2d8be65ca3f1c4aa655bf2c48140f4, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 2
   m_BehaviorName: TraverseTrack
   TeamId: 0
   m_UseChildSensors: 1
@@ -552,7 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410483aec7849234383c2851968dbdad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 40
+  speed: 60
   thrustMultiplier: 1
   reverseMultiplier: 0.5
   rotationMultiplier: 1
@@ -578,7 +577,7 @@ MonoBehaviour:
   p: 65
   i: 0.5
   d: 3
-  alignSpeed: 100
+  alignSpeed: 110
   turnSpeed: 50
   raySpread: {x: 1.2, y: 1.2}
 --- !u!114 &940504599400041749
@@ -898,22 +897,6 @@ MonoBehaviour:
   NumStepsToRecord: 0
   DemonstrationName: ShipAgentDemo
   DemonstrationDirectory: Demos
---- !u!114 &499705854700065451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3317581294562083414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
 --- !u!114 &4946468072498123267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5878,8 +5861,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebaa86a11bb5e7a4f883cb4b23b30f13, type: 3}
+--- !u!1 &2507101251079268092 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ebaa86a11bb5e7a4f883cb4b23b30f13, type: 3}
+  m_PrefabInstance: {fileID: 3317581294204443565}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2990623117576256582 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ebaa86a11bb5e7a4f883cb4b23b30f13, type: 3}
   m_PrefabInstance: {fileID: 3317581294204443565}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1081452074638058278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2507101251079268092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c541d5d3d1a047b4bb729f576625b656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rudderScale: 0.2

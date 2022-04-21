@@ -3,21 +3,21 @@ using UnityEngine.InputSystem;
 
 public class Bank : MonoBehaviour
 {
-    private float rudderValue = 0;
-    public float rudderScale = 0.7f;
+    private Controller controller;
+    public float rudderScale = 0.2f;
     private void Start()
     {
-
+        controller = GetComponentInParent<Controller>();
     }
 
     private void FixedUpdate()
     {
-        if (rudderValue < -0.01)
+        if (controller.GetRudderValue() < -0.01)
         {
             var targetEulerRotation = Quaternion.Euler(new Vector3(0, -180f, -45));
             transform.localRotation = Quaternion.Slerp(transform.localRotation, targetEulerRotation, rudderScale); // * (rudderValue + 1f) / 2f);
         }
-        else if (rudderValue > 0.01)
+        else if (controller.GetRudderValue() > 0.01)
         {
             var targetEulerRotation = Quaternion.Euler(new Vector3(0, -180f, 45));
             transform.localRotation = Quaternion.Slerp(transform.localRotation, targetEulerRotation, rudderScale); // * (rudderValue + 1f) / 2f);
@@ -29,8 +29,8 @@ public class Bank : MonoBehaviour
         }
     }
 
-    public void GetRudder(InputAction.CallbackContext ctx)
+    /*public void GetRudder(InputAction.CallbackContext ctx)
     {
         rudderValue = ctx.ReadValue<float>();
-    }
+    }*/
 }

@@ -47,19 +47,15 @@ public class ShipAgent : Agent
       agentAgentController.SetReverse(actions.DiscreteActions[1]);
       agentAgentController.SetRudder(actions.ContinuousActions[0]);
       
-      AddReward(-0.02f);
-      // not moving bad
-      if (_ship.Movement.VelocityPercent < 0.5f) AddReward(-0.1f);
-      else
-      {
-         var checkpoint = _ship.Race.GetNextCheckpoint();
+      AddReward(-0.005f);
+
+         //var checkpoint = _ship.Race.GetNextCheckpoint();
          //facing right direction good
-         if (Vector3.Dot(_ship.Rigidbody.velocity.normalized, checkpoint.transform.forward ) > 0.9f)
+         /*if (Vector3.Dot(_ship.Rigidbody.velocity.normalized, checkpoint.transform.forward ) > 0.9f)
          {
             if (_ship.Movement.VelocityPercent < 0.7f) AddReward(0.02f); // moving good
             else AddReward(0.01f);
-         }
-      }
+         }*/
    }
 
    public override void CollectObservations(VectorSensor sensor)
@@ -84,7 +80,7 @@ public class ShipAgent : Agent
    private float elapsedCollisionTime = 0f;
    private void OnCollisionEnter(Collision other)
    {
-      if(other.gameObject.CompareTag("Obstacle"))
+      if(other.gameObject.CompareTag("Obstacle") || other.gameObject.CompareTag("Player"))
       {
          AddReward(-1f);
          elapsedCollisionTime = 0f;
@@ -93,13 +89,12 @@ public class ShipAgent : Agent
 
    private void OnCollisionStay(Collision other)
    {
-      if(other.gameObject.CompareTag("Obstacle"))
+      if(other.gameObject.CompareTag("Obstacle") || other.gameObject.CompareTag("Player"))
       {
-         AddReward(-0.2f);
+         AddReward(-0.005f);
          elapsedCollisionTime += Time.fixedDeltaTime;
-         if (elapsedCollisionTime > 5f)
+         if (elapsedCollisionTime > 3f)
          {
-            AddReward(-1f);
             EndEpisode();
          }
       }

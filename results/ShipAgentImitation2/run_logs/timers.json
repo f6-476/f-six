@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1650528188",
+        "python_version": "3.8.13 (default, Mar 28 2022, 06:59:08) [MSC v.1916 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\Elijah\\anaconda3\\envs\\ml476\\Scripts\\mlagents-learn config/TraverseTrack.yaml --run-id=ShipAgentImitation2",
+        "mlagents_version": "0.28.0",
+        "mlagents_envs_version": "0.28.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1650528256"
+    },
+    "total": 67.7997261,
+    "count": 1,
+    "self": 0.023132800000013276,
+    "children": {
+        "run_training.setup": {
+            "total": 0.06974649999999993,
+            "count": 1,
+            "self": 0.06974649999999993
+        },
+        "TrainerController.start_learning": {
+            "total": 67.7068468,
+            "count": 1,
+            "self": 0.00033449999997969826,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 67.7064994,
+                    "count": 1,
+                    "self": 67.7064994
+                },
+                "trainer_threads": {
+                    "total": 1.1000000057492798e-06,
+                    "count": 1,
+                    "self": 1.1000000057492798e-06
+                },
+                "TrainerController._save_models": {
+                    "total": 1.1800000009998257e-05,
+                    "count": 1,
+                    "self": 1.1800000009998257e-05
+                }
+            }
+        }
+    }
+}

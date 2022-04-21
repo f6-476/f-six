@@ -45,12 +45,15 @@ public class ShipRace : NetworkBehaviour
 
         return lapTimeList[lapTimeList.Count - 1] - minTime;
     }
-
+    
+    private int wrongCheck = 0;
     public void ResetCheckpointIndex()
     {
         checkpointIndex = 0;
+        wrongCheck = 0;
     }
 
+    
     private void OnTriggerEnter(Collider other)
     {
         // TODO: Check for online/offline.
@@ -68,6 +71,7 @@ public class ShipRace : NetworkBehaviour
                 if(TryGetComponent<ShipAgent>(out ShipAgent shipAgent))
                 {
                     shipAgent.AddReward(5);
+                    shipAgent.EndEpisode();
                 }
             } 
             else if (checkpointIndex + 1 == checkpoint.index)
@@ -79,8 +83,13 @@ public class ShipRace : NetworkBehaviour
             }
             else
             {
+                wrongCheck++;
                 if(TryGetComponent<ShipAgent>(out ShipAgent shipAgent))
+                {
                     shipAgent.AddReward(-1f);
+                    if(wrongCheck >=4) shipAgent.EndEpisode();
+                    
+                }
             }
 
             if(OnCheckpoint != null) OnCheckpoint(ship);
