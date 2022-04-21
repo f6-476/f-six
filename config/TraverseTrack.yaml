@@ -19,7 +19,13 @@ behaviors:
     reward_signals:
       extrinsic:
         gamma: 0.99
-        strength: 0.1
+        strength: 1.0
+      gail:
+        strength: 0.4
+        demo_path: Demos/
+    behavioral_cloning:
+      strength: 0.2
+      demo_path: Demos/
     max_steps: 15000000
     time_horizon: 64
     summary_freq: 10000

@@ -84,7 +84,7 @@ public class RaceManager : AbstractManager<RaceManager>
             float angle = Mathf.PI * -1.5f;
             Vector3 projectedPoint = orientedPoint.LocalToWorldPosition(new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * track.thickness) - Vector3.up * (track.thickness / 2);
             gameObject.transform.position = projectedPoint;
-            gameObject.transform.rotation = Quaternion.Euler(0, orientedPoint.rotation.eulerAngles.y, orientedPoint.rotation.eulerAngles.z);
+            gameObject.transform.rotation = orientedPoint.rotation;
 
             checkpoints[i] = checkpoint;
         }

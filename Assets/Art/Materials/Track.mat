@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Track
-  m_Shader: {fileID: -6465566751694194690, guid: 06c9fb92c6d0528469aac50c67da2b1d, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 49ea84640651a6d46ba7c475bc3c9f45, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -21,6 +21,10 @@ Material:
     m_TexEnvs:
     - Texture2D_909c2cc6f31b46bcabc1278ed7dc2584:
         m_Texture: {fileID: 2800000, guid: 33bb4058bb27cfe4e89d7c517f5ab86d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_ac72387774dd49b9a4701430a84130d1:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_aae02e3adbd743e3a6874be5eec5c876_Texture_1:
@@ -45,12 +49,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Boolean_1c48820ae4fc46579f1dda54d043202c: 0
-    - Vector1_31bc2d57f5224ba8b13f549af7f6987f: 0
-    - Vector1_418bac99ca6c4f79b224de6c7811e6ad: 500
-    - Vector1_d6e2ffcebe004698a57540cec01dca2c: 2
+    - Vector1_31bc2d57f5224ba8b13f549af7f6987f: 1
+    - Vector1_418bac99ca6c4f79b224de6c7811e6ad: 300
+    - Vector1_d6e2ffcebe004698a57540cec01dca2c: 200
     m_Colors:
     - Color_3dc428afb9644c7a8b8e83f9167b7b9b: {r: 0, g: 0.645, b: 1, a: 0}
     - Color_7c1555d1eb78473f8f40efcc1e2a0030: {r: 0.2830189, g: 0.26092687, b: 0.20692419, a: 0}
+    - _LightColor: {r: 0.015218933, g: 0.18386023, b: 0.3584906, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4620254714909050821
 MonoBehaviour:

@@ -66,19 +66,21 @@ public class ShipRace : NetworkBehaviour
                 lapTimeList.Add(Time.time - lapTime);
                 lapTime = Time.time;
                 if(TryGetComponent<ShipAgent>(out ShipAgent shipAgent))
+                {
                     shipAgent.AddReward(5);
+                }
             } 
             else if (checkpointIndex + 1 == checkpoint.index)
             {
                 if(TryGetComponent<ShipAgent>(out ShipAgent shipAgent))
-                    shipAgent.AddReward(.5f);
+                    shipAgent.AddReward(1f);
                 checkpointIndex = checkpoint.index;
                 
             }
             else
             {
                 if(TryGetComponent<ShipAgent>(out ShipAgent shipAgent))
-                    shipAgent.SetReward(-1);
+                    shipAgent.AddReward(-1f);
             }
 
             if(OnCheckpoint != null) OnCheckpoint(ship);
@@ -98,7 +100,7 @@ public class ShipRace : NetworkBehaviour
         if(nextCheckpoint != null)
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawLine(transform.position, nextCheckpoint.transform.position);
+            Gizmos.DrawLine(transform.position, GetNextCheckpoint().transform.position);
         }
     }
 }

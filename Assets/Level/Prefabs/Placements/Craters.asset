@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Craters
   m_EditorClassIdentifier: 
   prefab: {fileID: 9098119286932789397, guid: 4039c78b20646b34092d1aa16a36d7b4, type: 3}
-  count: 70
-  minDistance: 200
+  count: 10
+  minDistance: 350
