@@ -64,6 +64,7 @@ public class ServerManager : AbstractManager<ServerManager>
             Unity.Netcode.Transports.UTP.UnityTransport utp = (Unity.Netcode.Transports.UTP.UnityTransport)transport;
             utp.ConnectionData.Address = config.host;
             utp.ConnectionData.Port = (ushort)config.port;
+            utp.ConnectionData.ServerListenAddress = config.host;
         }
         else
         {
