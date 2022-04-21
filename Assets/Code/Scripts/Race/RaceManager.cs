@@ -79,7 +79,7 @@ public class RaceManager : AbstractManager<RaceManager>
     {
         started = true;
         startTime = Time.time;
-        OnRaceBegin();
+        if (OnRaceBegin != null) OnRaceBegin();
     }
 
     public void OnLapFinish(int lap)
@@ -88,15 +88,14 @@ public class RaceManager : AbstractManager<RaceManager>
         {
             currentLap = lap;
 
-            OnNewLap(currentLap);
+            if (OnNewLap != null) OnNewLap(currentLap);
 
             if (currentLap >= Laps)
             {
                 ships = ships.OrderBy(ship => -(ship.Race.LapCount.Value * checkpoints.Length + ship.Race.CheckpointIndex)).ToList();
-                OnRaceWon(ships[0].Multiplayer.Lobby.Username);
+                if (OnRaceWon != null) OnRaceWon(ships[0].Multiplayer.Lobby.Username);
             }
         }
-        
     }
 
     public void AddShip(Ship ship)
@@ -134,8 +133,7 @@ public class RaceManager : AbstractManager<RaceManager>
             OnRaceOver();
             
             NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
-            
-            
+
             this.Reset();
         }
     }

@@ -98,13 +98,8 @@ public class ServerManager : AbstractManager<ServerManager>
         if (!SetConfig(config, clientMode)) return false;
 
         if (NetworkManager.Singleton.StartHost()) {
-            Debug.Log("Host Lobby successful");
+            IntegrationManager.Singleton.Connect();
 
-            if (AuthManager.Singleton.TwitchChannel != "")
-            {
-                IntegrationManager.Singleton.Connect();
-            }
-            
             return true;
         }
  

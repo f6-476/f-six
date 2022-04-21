@@ -41,7 +41,6 @@ public class HostPopup : UIPopup
     {
         AuthManager.Singleton.TwitchChannel = channel;
         SetButtons(channel.Length == 0);
-        Debug.Log(channel);
 
         if (channel.Length > 0)
         {
