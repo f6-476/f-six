@@ -181,7 +181,7 @@ public class ServerManager : AbstractManager<ServerManager>
                     {
                         id = response.id,
                         name = response.name,
-                        host = response.host,
+                        host = "0.0.0.0",
                         port = response.port,
                         password = password
                     }, clientMode);

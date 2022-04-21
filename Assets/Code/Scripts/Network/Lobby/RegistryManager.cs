@@ -6,7 +6,8 @@ using UnityEngine.Networking;
 public class RegistryManager : AbstractManager<RegistryManager>
 {
     private static readonly string[] REGISTRIES = {
-        "http://localhost:13337"
+        "http://localhost:13337",
+        "http://44.199.201.235/"
     };
 
     private string selectedRegistry = null;
