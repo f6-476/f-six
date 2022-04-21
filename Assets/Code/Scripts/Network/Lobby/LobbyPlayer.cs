@@ -64,6 +64,7 @@ public class LobbyPlayer : NetworkBehaviour
                 if (IsServer)
                 {
                     username.Value = AuthManager.GenerateUsername();
+                    modelIndex.Value = Random.Range(0, RaceManager.Singleton.ShipConfigs.Length);
                 }
                 break;
         }
@@ -93,5 +94,11 @@ public class LobbyPlayer : NetworkBehaviour
     private void UpdateUsernameServerRpc(FixedString64Bytes username)
     {
         this.username.Value = username;
+    }
+
+    [ServerRpc]
+    public void UpdateModelIndexServerRpc(int index)
+    {
+        this.modelIndex.Value = index;
     }
 }

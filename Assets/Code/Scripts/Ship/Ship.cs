@@ -22,6 +22,7 @@ public class Ship : MonoBehaviour
     [SerializeField] private ShipRace _race;
     [SerializeField] private ShipPowerUp _powerup;
     [SerializeField] private ShipMultiplayer _multiplayer;
+    [SerializeField] private ShipModel _model;
 
     public ShipMovement Movement => _movement;
     public ShipHover Hover => _hover;
@@ -29,6 +30,7 @@ public class Ship : MonoBehaviour
     public ShipRace Race => _race;
     public ShipPowerUp PowerUp => _powerup;
     public ShipMultiplayer Multiplayer => _multiplayer;
+    public ShipModel Model => _model;
 
     //TODO: Ship stats --> scriptable object to set values (speed, maneuverability, etc...)
     //TODO: State machine for animation?

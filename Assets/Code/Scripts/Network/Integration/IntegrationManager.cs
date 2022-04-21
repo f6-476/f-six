@@ -235,7 +235,7 @@ public class IntegrationManager : AbstractManager<IntegrationManager>
 
             foreach (Ship someShip in RaceManager.Singleton.Ships)
             {
-                if (beneficiary == someShip.Multiplayer.Lobby.Username)
+                if (beneficiary == someShip.Multiplayer.Lobby.Value.Username)
                 {
                     ship = someShip;
                     break;

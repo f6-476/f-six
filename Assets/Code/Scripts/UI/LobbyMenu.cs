@@ -54,14 +54,21 @@ public class LobbyMenu : MonoBehaviour
     public void NextShip()
     {
         if (LobbyManager.Singleton.LocalPlayer == null) return;
-        LobbyManager.Singleton.LocalPlayer.ModelIndex = (LobbyManager.Singleton.LocalPlayer.ModelIndex + 1) % RaceManager.Singleton.ShipConfigs.Length; 
+
+        int nextIndex = (LobbyManager.Singleton.LocalPlayer.ModelIndex + 1) % RaceManager.Singleton.ShipConfigs.Length;
+        
+        LobbyManager.Singleton.LocalPlayer.UpdateModelIndexServerRpc(nextIndex);
     }
 
     public void PreviousShip()
     {
         if (LobbyManager.Singleton.LocalPlayer == null) return;
-        if (LobbyManager.Singleton.LocalPlayer.ModelIndex == 0) LobbyManager.Singleton.LocalPlayer.ModelIndex = RaceManager.Singleton.ShipConfigs.Length - 1;
-        else LobbyManager.Singleton.LocalPlayer.ModelIndex -= 1;
+
+        int nextIndex;
+        if (LobbyManager.Singleton.LocalPlayer.ModelIndex == 0)  nextIndex = RaceManager.Singleton.ShipConfigs.Length - 1;
+        else nextIndex = LobbyManager.Singleton.LocalPlayer.ModelIndex - 1;
+
+        LobbyManager.Singleton.LocalPlayer.UpdateModelIndexServerRpc(nextIndex);
     }
 
     private void Update()

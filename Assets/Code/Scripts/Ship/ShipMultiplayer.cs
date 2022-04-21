@@ -10,7 +10,7 @@ public class ShipMultiplayer : NetworkBehaviour
 
     [SerializeField] private Ship ship;
     public new bool IsServer => base.IsServer;
-    public LobbyPlayer Lobby { get; set; }
+    public SyncVariable<LobbyPlayer> Lobby = new SyncVariable<LobbyPlayer>(null);
     private NetworkVariable<Vector3> position = new NetworkVariable<Vector3>(Vector3.zero);
     private NetworkVariable<Vector3> velocity = new NetworkVariable<Vector3>(Vector3.zero);
     private NetworkVariable<Quaternion> rotation = new NetworkVariable<Quaternion>(Quaternion.identity);
@@ -20,6 +20,9 @@ public class ShipMultiplayer : NetworkBehaviour
     private NetworkVariable<bool> shipDisabled = new NetworkVariable<bool>(false);
     private NetworkVariable<bool> shipBoost = new NetworkVariable<bool>(false);
     private NetworkVariable<int> lapCount = new NetworkVariable<int>(0);
+    private NetworkVariable<int> modelIndex = new NetworkVariable<int>(0);
+    public NetworkVariable<FixedString64Bytes> username = new NetworkVariable<FixedString64Bytes>("");
+    public string Username => username.Value.ToString();
     public NetworkList<float> LapTimeList;
 
     private void Awake()
@@ -32,8 +35,10 @@ public class ShipMultiplayer : NetworkBehaviour
         if (NetworkManager.Singleton == null)
         {
             this.enabled = false;
+            return;
         }
-        else if (IsOwner)
+        
+        if (IsOwner)
         {
             if (Ship.OnLocal != null && !ship.IsAI) Ship.OnLocal(ship);
         }
@@ -48,6 +53,7 @@ public class ShipMultiplayer : NetworkBehaviour
 
     private void AttachVariable<T>(SyncVariable<T> syncVariable, NetworkVariable<T> networkVariable) where T : unmanaged
     {
+        syncVariable.Value = networkVariable.Value;
         syncVariable.OnValueChanged += (T previous, T next) => { if (IsServer) networkVariable.Value = next; };
         networkVariable.OnValueChanged += (T previous, T next) => syncVariable.Sync(next);
     }
@@ -59,11 +65,23 @@ public class ShipMultiplayer : NetworkBehaviour
         AttachVariable(ship.PowerUp.Disabled, shipDisabled);
         AttachVariable(ship.PowerUp.Boost, shipBoost);
         AttachVariable(ship.Race.Rank, rank);
-        ship.Race.Rank.OnValueChanged += (int previous, int next) => { if (IsServer && Lobby != null) Lobby.Rank = next; };
         AttachVariable(ship.Race.LapCount, lapCount);
+        AttachVariable(ship.Model.ModelIndex, modelIndex);
 
+        ship.Race.Rank.OnValueChanged += (int previous, int next) => { if (IsServer && Lobby != null) Lobby.Value.Rank = next; };
         position.OnValueChanged += (Vector3 previous, Vector3 next) => { if (!IsOwner) transform.position = next; };
         rotation.OnValueChanged += (Quaternion previous, Quaternion next) => { if (!IsOwner) transform.rotation = next; };
+
+        if (Lobby.Value != null) OnLobbyPlayer(null, Lobby.Value);
+        Lobby.OnValueChanged += OnLobbyPlayer;
+    }
+
+    private void OnLobbyPlayer(LobbyPlayer previous, LobbyPlayer next)
+    {
+        if (!IsServer) return;
+
+        modelIndex.Value = next.ModelIndex;
+        username.Value = next.Username;
     }
 
     [ServerRpc]

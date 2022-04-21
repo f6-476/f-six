@@ -115,7 +115,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
                     Spawn playerSpawn = spawns[spawnIndex++];
                     GameObject playerObject = Instantiate(playerPrefab, playerSpawn.transform.position, playerSpawn.transform.rotation);
                     Ship playerShip = playerObject.GetComponent<Ship>();
-                    playerShip.Multiplayer.Lobby = player;
+                    playerShip.Multiplayer.Lobby.Value = player;
                     playerObject.GetComponent<NetworkObject>().SpawnWithOwnership(player.OwnerClientId, true);
                     break;
                 case ClientMode.SPECTATOR:
@@ -128,7 +128,7 @@ public class LobbyManager : AbstractManager<LobbyManager>
                     Spawn aiSpawn = spawns[spawnIndex++];
                     GameObject aiObject = Instantiate(aiPrefab, aiSpawn.transform.position, aiSpawn.transform.rotation);
                     Ship aiShip = aiObject.GetComponent<Ship>();
-                    aiShip.Multiplayer.Lobby = player;
+                    aiShip.Multiplayer.Lobby.Value = player;
                     aiObject.GetComponent<NetworkObject>().Spawn(true);
                     break;
             }

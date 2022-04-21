@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Unity.Netcode;
+using Unity.Collections;
 
 public class HUD : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class HUD : MonoBehaviour
     [SerializeField] private Text speedText;
     [SerializeField] private Image powerUpBar;
     [SerializeField] private Image powerUpImage;
-    [SerializeField] private Ship ship;
+    [SerializeField] private Text usernameText;
+    private Ship ship;
     private static readonly float POWER_UP_BAR_SPEED = 8.0f;
     private static readonly float POWER_UP_BAR_MIN_DELTA = 0.005f;
 
@@ -42,7 +44,28 @@ public class HUD : MonoBehaviour
 
     private void AttachLocalShip(Ship ship)
     {
+        if (this.ship != null)
+        {
+            this.ship.Multiplayer.username.OnValueChanged -= UpdateUsername;
+        }
+
         this.ship = ship;
+        this.ship.Multiplayer.username.OnValueChanged += UpdateUsername;
+        UpdateUsername("", this.ship.Multiplayer.username.Value);
+    }
+
+    private void UpdateUsername(FixedString64Bytes previous, FixedString64Bytes next)
+    {
+        if (previous.Equals(next)) return;
+
+        switch (LobbyManager.Singleton.LocalPlayer.ClientMode)
+        {
+            case ClientMode.PLAYER:
+            case ClientMode.AI:
+            case ClientMode.SPECTATOR:
+                usernameText.text = ship.Multiplayer.Username;
+                break;
+        }
     }
 
     private void AttachLocalSpectator(Spectator spectator)
@@ -155,7 +178,15 @@ public class HUD : MonoBehaviour
 
             foreach(var player in LobbyManager.Singleton.Players)
             {
-                playerRankingLines[player.Rank - 1] = $"{player.Rank}. {player.Username}";
+                switch (player.ClientMode)
+                {
+                    case ClientMode.AI:
+                    case ClientMode.PLAYER:
+                        playerRankingLines[player.Rank - 1] = $"{player.Rank}. {player.Username}";
+                        break;
+                    case ClientMode.SPECTATOR:
+                        break;
+                }
             }
 
             playerRankingText = string.Join("\n", playerRankingLines);

@@ -33,31 +33,16 @@ public class HostPopup : UIPopup
             discordField.text = AuthManager.Singleton.DiscordChannel;
             discordField.GetComponentInChildren<InputField>().onValueChanged.AddListener(UpdateDiscordSetting);
         }
-
-        SetButtons(true);
-    }
-
-    private void SetButtons(bool isHost)
-    {
-        hostButton.gameObject.SetActive(isHost);
-        spectateButton.gameObject.SetActive(!isHost);
-    }
-
-    private void UpdateCommon()
-    {
-        SetButtons(AuthManager.Singleton.TwitchChannel.Length == 0 && AuthManager.Singleton.DiscordChannel.Length == 0);
     }
 
     private void UpdateTwitchSetting(string channel)
     {
         AuthManager.Singleton.TwitchChannel = channel;
-        UpdateCommon();
     }
 
     private void UpdateDiscordSetting(string channel)
     {
         AuthManager.Singleton.DiscordChannel = channel;
-        UpdateCommon();
     }
 
     public override void Show()

@@ -36,6 +36,7 @@ public class RaceManager : AbstractManager<RaceManager>
 
     private void Reset()
     {
+        started = false;
         ships = new List<Ship>();
     }
 
@@ -56,7 +57,11 @@ public class RaceManager : AbstractManager<RaceManager>
 
     private void OnLocalSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name.StartsWith("Map"))
+        if (scene.name.StartsWith("Lobby"))
+        {
+            started = false;
+        }
+        else if (scene.name.StartsWith("Map"))
         {
             this.Laps = LobbyManager.Singleton.MapConfig.lapCount;
             LoadCheckpoints();
@@ -93,7 +98,7 @@ public class RaceManager : AbstractManager<RaceManager>
             if (currentLap >= Laps)
             {
                 ships = ships.OrderBy(ship => -(ship.Race.LapCount.Value * checkpoints.Length + ship.Race.CheckpointIndex)).ToList();
-                if (OnRaceWon != null) OnRaceWon(ships[0].Multiplayer.Lobby.Username);
+                if (OnRaceWon != null) OnRaceWon(ships[0].Multiplayer.Lobby.Value.Username);
             }
         }
     }

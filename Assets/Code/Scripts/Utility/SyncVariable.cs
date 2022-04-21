@@ -4,6 +4,7 @@ public class SyncVariable<T>
 {
     public delegate void ValueChangedCallback(T previous, T next);
     public ValueChangedCallback OnValueChanged;
+    public System.Action<T> OnSync;
 
     public SyncVariable(T value)
     {
@@ -23,6 +24,7 @@ public class SyncVariable<T>
 
     public void Sync(T value)
     {
+        if (OnSync != null) OnSync(value);
         this.inner = value;
     }
 }
