@@ -15,10 +15,10 @@ public class HostPopup : UIPopup
     private UIField twitchField;
 
     [SerializeField]
-    private GameObject hostButton;
+    private Button hostButton;
 
     [SerializeField]
-    private GameObject spectateButton;
+    private Button spectateButton;
 
     void Start()
     {
@@ -33,14 +33,26 @@ public class HostPopup : UIPopup
 
     private void SetButtons(bool isHost)
     {
-        hostButton.SetActive(isHost);
-        spectateButton.SetActive(!isHost);
+        hostButton.gameObject.SetActive(isHost);
+        spectateButton.gameObject.SetActive(!isHost);
     }
 
     void UpdateTwitchSetting(string channel)
     {
         AuthManager.Singleton.TwitchChannel = channel;
         SetButtons(channel.Length == 0);
+        Debug.Log(channel);
+
+        if (channel.Length > 0)
+        {
+            hostButton.interactable = false;
+            spectateButton.interactable = true;
+        }
+        else
+        {
+            hostButton.interactable = true;
+            spectateButton.interactable = false;
+        }
     }
 
     public override void Show()
