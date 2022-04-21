@@ -26,8 +26,10 @@ public class Cutscene : NetworkBehaviour
 
     private void SetCameras(bool isGame)
     {
-        cutsceneCamera.gameObject.SetActive(!isGame);
-        gameCamera.gameObject.SetActive(isGame);
+        cutsceneCamera.enabled = !isGame;
+        cutsceneCamera.GetComponent<AudioListener>().enabled = !isGame;
+        gameCamera.enabled = isGame;
+        gameCamera.GetComponent<AudioListener>().enabled = isGame;
     }
 
     private void Update()

@@ -87,8 +87,8 @@ public class ShipMultiplayer : NetworkBehaviour
     {
         if (!RaceManager.Singleton.Started) return;
         Checkpoint checkpoint = RaceManager.Singleton.Checkpoints[ship.Race.CheckpointIndex];
-        Vector3 position = checkpoint.transform.position + Vector3.up * ship.Hover.Height;
-        RespawnClientRpc(position, checkpoint.transform.rotation);
+        Vector3 position = checkpoint.Position + Vector3.up * ship.Hover.Height;
+        RespawnClientRpc(position, checkpoint.Rotation);
     }
 
     [ClientRpc]

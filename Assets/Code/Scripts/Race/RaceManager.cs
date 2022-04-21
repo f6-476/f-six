@@ -10,14 +10,9 @@ public class RaceManager : AbstractManager<RaceManager>
     private List<Ship> ships = new List<Ship>();
     public List<Ship> Ships => ships;
     public int Laps { get; set; }
-    private int checkpointCount = 32;
     private Checkpoint[] checkpoints;
     public Checkpoint[] Checkpoints => checkpoints;
     public int LastCheckpointIndex => checkpoints.Length - 1;
-    [Range(3, 200)] public int automaticCheckpointCount = 50;
-    [Range(2, 10)] private int widthToThicknessRatio = 5; // This controls the x scale of the checkpoint relative to the thickness of the track.
-    [SerializeField] private GameObject checkpointPrefab;
-    [SerializeField] private TrackGenerator track;
     private float startTime;
     public float GameTime => Time.time - startTime;
     private bool started = false;
@@ -53,20 +48,13 @@ public class RaceManager : AbstractManager<RaceManager>
 
     private void LoadCheckpoints()
     {
-        if (track != null)
-        {
-            SetTrackCheckpoints(track);
-        }
-        else
-        {
-            GameObject[] checkpointObjects = GameObject.FindGameObjectsWithTag("Checkpoint");
-            checkpoints = new Checkpoint[checkpointObjects.Length];
+        GameObject[] checkpointObjects = GameObject.FindGameObjectsWithTag("Checkpoint");
+        checkpoints = new Checkpoint[checkpointObjects.Length];
 
-            foreach(GameObject checkpointObject in checkpointObjects)
-            {
-                Checkpoint checkpoint = checkpointObject.GetComponent<Checkpoint>();
-                checkpoints[checkpoint.index] = checkpoint;
-            }
+        foreach(GameObject checkpointObject in checkpointObjects)
+        {
+            Checkpoint checkpoint = checkpointObject.GetComponent<Checkpoint>();
+            checkpoints[checkpoint.Index] = checkpoint;
         }
     }
 
@@ -119,30 +107,6 @@ public class RaceManager : AbstractManager<RaceManager>
         for(int i = 0; i < ships.Count; i++)
         {
             ships[i].Race.Rank = i + 1;
-        }
-    }
-
-    private void SetTrackCheckpoints(TrackGenerator track)
-    {
-        checkpoints = new Checkpoint[automaticCheckpointCount];
-        for (int i = 0; i < automaticCheckpointCount; i++)
-        {
-            GameObject gameObject = Instantiate(checkpointPrefab, Vector3.zero, Quaternion.identity);
-            gameObject.transform.localScale = new Vector3(track.thickness * widthToThicknessRatio, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
-            gameObject.transform.SetParent(track.transform);
-
-            Checkpoint checkpoint = gameObject.GetComponent<Checkpoint>();
-            checkpoint.index = i;
-
-            float trackOffset = i / (float) automaticCheckpointCount;
-            OrientedPoint orientedPoint = track.segment.GetOrientedPoint(trackOffset);
- 
-            float angle = Mathf.PI * -1.5f;
-            Vector3 projectedPoint = orientedPoint.LocalToWorldPosition(new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * track.thickness) - Vector3.up * (track.thickness / 2);
-            gameObject.transform.position = projectedPoint;
-            gameObject.transform.rotation = Quaternion.Euler(0, orientedPoint.rotation.eulerAngles.y, orientedPoint.rotation.eulerAngles.z);
-
-            checkpoints[i] = checkpoint;
         }
     }
 }
