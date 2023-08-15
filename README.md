@@ -40,7 +40,12 @@ The team implemented better collision avoidance between ships, following more th
 
 ## 👥 Team
 
-Ian Lopez (27296126), Alexandre Lavoie (40129457), Zahra Nikbakht (40138253), George Mavroeidis (40065356), Elijah Mon (40078229), Antoine Paulin-Bessette (40098918).
+- Ian Lopez (27296126),
+- Alexandre Lavoie (40129457),
+- Zahra Nikbakht (40138253),
+- George Mavroeidis (40065356),
+- Elijah Mon (40078229),
+- Antoine Paulin-Bessette (40098918).
 
 ## 📜 License
 
